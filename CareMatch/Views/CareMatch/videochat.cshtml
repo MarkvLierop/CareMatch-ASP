@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "videochat";
+}
+<script>
+    var comm = new Icecomm('6XIDBK03y8NZePZiJnu1YIlP1BLgTIvI93WBslqy2C5YCOlEci');
+
+    comm.connect('custom room', { audio: false });
+
+    comm.on('connected', function (peer) {
+        document.body.appendChild(peer.getVideo());
+    });
+
+    comm.on('local', function (peer) {
+        localVideo.src = peer.stream;
+    });
+
+    comm.on('disconnect', function (peer) {
+        document.getElementById(peer.ID).remove();
+    });
+</script>
+
+<h2>Videochat met </h2>
+<video id="localVideo" autoplay></video>
