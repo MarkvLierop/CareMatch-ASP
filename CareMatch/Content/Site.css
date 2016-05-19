@@ -16,10 +16,10 @@ textarea {
     max-width: 280px;
 }
 #localVideo {
-  position: relative;
-  top: 200px;
+  position: absolute;
+  right: 20px;
   bottom: 20px;
-  width: 300px;
+  width: 200px;
 }
 
 video:nth-of-type(2) {
