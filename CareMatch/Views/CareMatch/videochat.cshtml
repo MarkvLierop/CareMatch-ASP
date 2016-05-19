@@ -1,11 +1,26 @@
 ﻿
 @{
+    var constr = "";
     ViewBag.Title = "videochat";
+    CareMatch.Models.Vrijwilligers v;
+    CareMatch.Models.Hulpbehoevenden h;
+
+    if ((string)ViewData["functie"] == "hulpbehoevende")
+    {
+        h = (CareMatch.Models.Hulpbehoevenden)ViewData["gebruiker"];
+        v = (CareMatch.Models.Vrijwilligers)ViewData["partner"];
+    }
+    else
+    {
+        h = (CareMatch.Models.Hulpbehoevenden)ViewData["partner"];
+        v = (CareMatch.Models.Vrijwilligers)ViewData["gebruiker"];
+    }
+    constr = h.Naam + v.Naam;
 }
 <script>
     var comm = new Icecomm('6XIDBK03y8NZePZiJnu1YIlP1BLgTIvI93WBslqy2C5YCOlEci');
 
-    comm.connect('custom room', { audio: true });
+    comm.connect('@constr', { audio: false });
 
     comm.on('connected', function (peer) {
         document.body.appendChild(peer.getVideo());
@@ -20,5 +35,7 @@
     });
 </script>
 
-<h2>Videochat met </h2>
-<video id="localVideo" autoplay></video>
+<h2>Videochat met @ViewData["partner"] </h2>
+<div><video id="localVideo" autoplay></video></div>
+
+
