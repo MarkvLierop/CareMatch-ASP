@@ -39,5 +39,10 @@ namespace CareMatch.Controllers
             }
             return View();
         }
+
+        public ActionResult Registreren()
+        {
+            return View();
+        }
     }
 }
