@@ -9,7 +9,7 @@ namespace CareMatch.Controllers
     public class LoginController : Controller
     {
         // GET: Login
-        public ActionResult Index()
+        public ActionResult Index(string gebruikersnaam, string wachtwoord)
         {
             return View();
         }
