@@ -149,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BeheerderController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\HulpbehoevendeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\VrijwilligerController.cs" />
@@ -177,6 +178,7 @@
     <Content Include="Views\Beheerder\Index.cshtml" />
     <Content Include="Views\Beheerder\Hulpbehoevende\Index.cshtml" />
     <Content Include="Views\Vrijwilliger\Index.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
