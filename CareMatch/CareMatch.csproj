@@ -174,11 +174,10 @@
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Shared\_LoginRegister.cshtml" />
-    <Content Include="Views\Beheerder\Hulpbehoevende\Hulpvraag.cshtml" />
+    <Content Include="Views\Hulpbehoevende\Hulpvraag.cshtml" />
     <Content Include="Views\Beheerder\Index.cshtml" />
-    <Content Include="Views\Beheerder\Hulpbehoevende\Index.cshtml" />
+    <Content Include="Views\Hulpbehoevende\Index.cshtml" />
     <Content Include="Views\Vrijwilliger\Index.cshtml" />
-    <Content Include="Views\Login\Registreren.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
