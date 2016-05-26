@@ -9,7 +9,7 @@ namespace CareMatch.Controllers
     public class HulpbehoevendeController : Controller
     {
         // GET: Hulpbehoevende
-        public ActionResult Hulpvraag()
+        public ActionResult Index()
         {
             return View();
         }
