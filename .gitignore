@@ -24,6 +24,7 @@ _UpgradeReport_Files/
 ###############
 CareMatch/bin/
 CareMatch/obj/
+packages/
 TestResults/
 ###################
 # Web publish log #

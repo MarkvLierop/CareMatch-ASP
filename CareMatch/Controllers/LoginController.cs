@@ -13,7 +13,6 @@ namespace CareMatch.Controllers
         public ActionResult Index(string gebruikersnaam, string wachtwoord)
         {
             Database database = new Database();
-
             if (string.IsNullOrEmpty(gebruikersnaam) && string.IsNullOrEmpty(wachtwoord))
             {
                 ViewBag.foutmelding = "";
