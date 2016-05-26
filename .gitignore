@@ -22,8 +22,8 @@ _UpgradeReport_Files/
 ###############
 # Directories #
 ###############
-bin/
-obj/
+CareMatch/bin/
+CareMatch/obj/
 TestResults/
 ###################
 # Web publish log #
