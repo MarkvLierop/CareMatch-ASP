@@ -177,6 +177,7 @@
     <Content Include="Views\Beheerder\Index.cshtml" />
     <Content Include="Views\Beheerder\Hulpbehoevende\Index.cshtml" />
     <Content Include="Views\Vrijwilliger\Index.cshtml" />
+    <Content Include="Views\Hulpbehoevende\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
