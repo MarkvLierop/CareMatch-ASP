@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "hulpbehoevende";
+}
+
+<h2>Chatten met een vrijwilliger</h2>
+<p>Mijn naam is:</p>
+@Html.DropDownList("Naam", new SelectList(ViewBag.Data.hulpbehoevenden as List<CareMatch.Models.Hulpbehoevenden>), "Naam")
+
+
+
+<h3>Selecteer een van de beschikbare vrijwilligers uit onderstaande lijst.</h3>
+@foreach (var vrijwilliger in ViewBag.Data.vrijwilligers as List<CareMatch.Models.Vrijwilligers>)
+{
+    <li>@Html.ActionLink(@vrijwilliger.Naam, "videochat", new { id = @vrijwilliger.ID, functie = "hulpbehoevende", gebruiker = "Piet" })</li>
+}
