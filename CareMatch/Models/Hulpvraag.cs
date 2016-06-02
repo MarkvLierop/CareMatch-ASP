@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CareMatch.Hulpvragen
+namespace CareMatch.Models
 {
     public class Hulpvraag
     {

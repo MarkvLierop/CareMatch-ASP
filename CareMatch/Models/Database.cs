@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Data;
 using System.Globalization;
 
-namespace CareMatch
+namespace CareMatch.Models
 {
     public class Database
     {
@@ -33,7 +33,7 @@ namespace CareMatch
 
 
         #region Hulpvragen Queries
-        public void HulpvraagToevoegen(Hulpvragen.Hulpvraag hulpvraag, Gebruiker gebruiker)
+        public void HulpvraagToevoegen(Hulpvraag hulpvraag, Gebruiker gebruiker)
         {
             string AutoBenodigd;
             con.Open();
@@ -69,7 +69,7 @@ namespace CareMatch
             }
             con.Close();
         }
-        public void HulpvraagRapporteer(Hulpvragen.Hulpvraag hulpvraag)
+        public void HulpvraagRapporteer(Hulpvraag hulpvraag)
         {
             con.Open();
             command = new OracleCommand(@"UPDATE Hulpvraag SET Flagged ='Y' WHERE HulpvraagID = :hulpvraagid", con);
@@ -87,7 +87,7 @@ namespace CareMatch
             command.ExecuteNonQuery();
             con.Close();
         }
-        public void HulpvraagAanpassen(Gebruiker gebruiker, Hulpvragen.Hulpvraag hulpvraag)
+        public void HulpvraagAanpassen(Gebruiker gebruiker, Hulpvraag hulpvraag)
         {
             con.Open();
             if (hulpvraag.Urgent)
@@ -109,9 +109,9 @@ namespace CareMatch
             command.ExecuteNonQuery();
             con.Close();
         }
-        public List<Hulpvragen.Hulpvraag> HulpvragenOverzicht(Gebruiker gebruiker, string filter)
+        public List<Hulpvraag> HulpvragenOverzicht(Gebruiker gebruiker, string filter)
         {
-            List<Hulpvragen.Hulpvraag> hulpvraagList = new List<Hulpvragen.Hulpvraag>();
+            List<Hulpvraag> hulpvraagList = new List<Hulpvraag>();
 
             con.Open();
             if ((filter == "Alle hulpvragen" || filter == "") && gebruiker.Rol.ToLower() == "vrijwilliger")
@@ -163,7 +163,7 @@ namespace CareMatch
             reader = command.ExecuteReader();
             while (reader.Read())
             {
-                Hulpvragen.Hulpvraag hulpvraag = new Hulpvragen.Hulpvraag();
+                Hulpvraag hulpvraag = new Hulpvraag();
 
                 hulpvraag.HulpvraagID = Convert.ToInt32(reader["HulpvraagID"]);
                 hulpvraag.Titel = reader["Titel"].ToString();
@@ -193,7 +193,7 @@ namespace CareMatch
 
             return hulpvraagList;
         }
-        public string HulpvraagProfielFoto(Gebruiker gebruiker, Hulpvragen.Hulpvraag hulpvraag, string rol)
+        public string HulpvraagProfielFoto(Gebruiker gebruiker, Hulpvraag hulpvraag, string rol)
         {
             con.Open();
             if (rol == "hulpbehoevende")
@@ -227,7 +227,7 @@ namespace CareMatch
             con.Close();
             return tempString;
         }
-        public void HulpvraagBeoordelingToevoegen(Hulpvragen.Hulpvraag hulpvraag)
+        public void HulpvraagBeoordelingToevoegen(Hulpvraag hulpvraag)
         {
             con.Open();
             command = new OracleCommand(@"UPDATE Hulpvraag SET Beoordeling =:beoordeling, Cijfer =:cijfer WHERE HulpvraagID=:hulpvraagid", con);

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 
-namespace CAREMATCH
+namespace CareMatch.Models
 {
     public class Chatbericht
     {

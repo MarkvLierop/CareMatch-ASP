@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using CareMatch.Agenda;
 using System.IO;
 
-namespace CareMatch
+namespace CareMatch.Models
 {
    
     public class Gebruiker

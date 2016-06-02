@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace CareMatch
+namespace CareMatch.Models
 {
     public class CareMatch1
     {
