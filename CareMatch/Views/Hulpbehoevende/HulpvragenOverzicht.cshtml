@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "HulpvragenOverzicht";
-    Layout = "~/Views/Shared/_LoginRegister.cshtml";
-    List<CareMatch.Models.Hulpvraag> hulpvragen = new List<CareMatch.Models.Hulpvraag>();
+        ViewBag.Title = "HulpvragenOverzicht";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        List<CareMatch.Models.Hulpvraag> hulpvragen = ViewData["Hulpvragen"] as List<CareMatch.Models.Hulpvraag>;
 }
 
-<h2>HulpvragenOverzicht</h2>
+<h2>Hulpvragen Overzicht</h2>
 <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Hulpvragen Overzicht</h3>
