@@ -1,12 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "Registreren";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LoginRegister.cshtml";
 }
-<ul class="breadcrumb">
-    <li><a href="@Url.Action("index","Webshop")">Home</a></li>
-    <li class="active">Registreren</li>
-</ul>
 <h2>Registreren</h2>
 
 <div class="main-login main-center">
@@ -18,67 +14,80 @@
         </div>
     </form>
     <form method="post" name="Registreren" class="form-horizontal">
-            <fieldset>
-                <div class="form-group">
-                    <label for="Voornaam" class="col-lg-2 control-label">Voornaam</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="Voornaam" placeholder="Voornaam" name="Voornaam">
+        <fieldset>
+            <div class="form-group">
+                <label for="Gebruikersnaam" class="col-lg-2 control-label">Gebruikersnaam</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Gebruikersnaam" placeholder="Gebruikersnaam" name="Gebruikersnaam">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Wachtwoord" class="col-lg-2 control-label">Wachtwoord</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="Wachtwoord" placeholder="Wachtwoord" name="Wachtwoord">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Voornaam" class="col-lg-2 control-label">Voornaam</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Voornaam" placeholder="Voornaam" name="Voornaam">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Tussenvoegsel" class="col-lg-2 control-label">Tussenvoegsel</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Tussenvoegsel" placeholder="Tussenvoegsel" name="Tussenvoegsel">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Achternaam" class="col-lg-2 control-label">Achternaam</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Achternaam" placeholder="Achternaam" name="Achternaam">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Geslacht</label>
+                <div class="col-lg-10">
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios1" value="Vrouw" checked="" type="radio">
+                            Man
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios2" value="Vrouw" type="radio">
+                            Vrouw
+                        </label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="Tussenvoegsel" class="col-lg-2 control-label">Tussenvoegsel</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="Tussenvoegsel" placeholder="Tussenvoegsel" name="Tussenvoegsel">
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Geboortedatum</label>
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
-                <div class="form-group">
-                    <label for="Achternaam" class="col-lg-2 control-label">Achternaam</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="Achternaam" placeholder="Achternaam" name="Achternaam">
-                    </div>
+            </div>
+                <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker1').datetimepicker();
+                            });
+                </script>
+            <div class="form-group">
+                <label for="Postcode" class="col-lg-2 control-label">Pasfoto</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="Pasfoto">
                 </div>
-                <div class="form-group">
-                    <label for="Straatnaam" class="col-lg-2 control-label">Straatnaam</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="Straatnaam" placeholder="Straatnaam" name="Straatnaam">
-                    </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="reset" class="btn btn-default">Reset</button>
+                    <button type="submit" class="btn btn-primary">Aanmelden</button>
                 </div>
-                <div class="form-group">
-                    <label for="Huisnummer" class="col-lg-2 control-label">Huisnummer</label>
-                    <div class="col-lg-10">
-                        <input type="number" class="form-control" id="Huisnummer" placeholder="Huisnummer" name="Huisnummer">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Postcode" class="col-lg-2 control-label">Postcode</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="Postcode" placeholder="Postcode" name="Postcode">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Stad" class="col-lg-2 control-label">Stad</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="Stad" placeholder="Stad" name="Stad">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Email" class="col-lg-2 control-label">Email</label>
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" id="Email" placeholder="Email" name="Email">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Wachtwoord" class="col-lg-2 control-label">Wachtwoord</label>
-                    <div class="col-lg-10">
-                        <input type="password" class="form-control" id="Wachtwoord" placeholder="Wachtwoord" name="Wachtwoord">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-default">Reset</button>
-                        <button type="submit" class="btn btn-primary">Aanmelden</button>
-                    </div>
-                </div>
+            </div>
             </fieldset>
         </form>
 </div>
