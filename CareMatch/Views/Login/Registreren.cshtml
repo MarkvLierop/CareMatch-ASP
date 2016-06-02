@@ -16,6 +16,23 @@
     <form method="post" name="Registreren" class="form-horizontal">
         <fieldset>
             <div class="form-group">
+                <label class="col-lg-2 control-label">Rol</label>
+                <div class="col-lg-10">
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios1" value="vrijwilliger" checked="" type="radio">
+                            Vrijwilliger
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios2" value="hulpbehoevende" type="radio">
+                            Hulpbehoevende
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="Gebruikersnaam" class="col-lg-2 control-label">Gebruikersnaam</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="Gebruikersnaam" placeholder="Gebruikersnaam" name="Gebruikersnaam">
@@ -50,13 +67,13 @@
                 <div class="col-lg-10">
                     <div class="radio">
                         <label>
-                            <input name="optionsRadios" id="optionsRadios1" value="Vrouw" checked="" type="radio">
+                            <input name="Geslacht" id="optionsRadios1" value="Vrouw" checked="" type="radio">
                             Man
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input name="optionsRadios" id="optionsRadios2" value="Vrouw" type="radio">
+                            <input name="Geslacht" id="optionsRadios2" value="Vrouw" type="radio">
                             Vrouw
                         </label>
                     </div>
@@ -64,22 +81,18 @@
             </div>
             <div class="form-group">
                 <label class="col-lg-2 control-label">Geboortedatum</label>
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
+                <input type="text" class="form-control" id="Geboortedatum" placeholder="Geboortedatum" name="Geboortedatum">
             </div>
-                <script type="text/javascript">
-                            $(function () {
-                                $('#datetimepicker1').datetimepicker();
-                            });
-                </script>
             <div class="form-group">
-                <label for="Postcode" class="col-lg-2 control-label">Pasfoto</label>
+                <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="Pasfoto">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="VOG" class="col-lg-2 control-label">VOG</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="VOG" placeholder="VOG" name="VOG">
                 </div>
             </div>
             <div class="form-group">
