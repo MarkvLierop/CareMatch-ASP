@@ -756,7 +756,7 @@ namespace CAREMATCH
                     gebruiker.GebruikersID = Convert.ToInt32(reader["GebruikerID"]);
                     gebruiker.GebruikerInfo = reader["GebruikerInfo"].ToString();
                     gebruiker.VOG = reader["vog"].ToString();
-                    if (reader["Auto"].ToString() == "Y")
+                    if (reader["HeeftAuto"].ToString() == "Y")
                     {
                         gebruiker.Auto = true;
                     }
@@ -768,7 +768,7 @@ namespace CAREMATCH
                     {
                         gebruiker.Pasfoto = gebruiker.GetLocalDropBox() + reader["Foto"].ToString();
                     }
-                    gebruiker.Rol = reader["ROL"].ToString();
+                    gebruiker.Rol = reader["Rol"].ToString();
                 }
             }
             catch
@@ -958,8 +958,8 @@ namespace CAREMATCH
         public void addacc()
         {
             con.Open();
-            command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, ACHTERNAAM, FOTO, APPROVED, ROL)" +
-                                                      "VALUES('hulpbehoevende', '"+EncryptString("hulpbehoevende")+"', 'asdsa', 'asdsa', 'asdsa', 'asdsa', 'asdsa')", con);
+            command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, APPROVED, ROL)" +
+                                                      "VALUES('beheerder', '"+EncryptString("beheerder") + "', 'Y', 'beheerder')", con);
             reader = command.ExecuteReader();
             con.Close();
         }
