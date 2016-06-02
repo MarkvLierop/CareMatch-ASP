@@ -21,5 +21,9 @@ namespace CareMatch.Controllers
             ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
             return View();
         }
+        public ActionResult HulpvraagIndienen()
+        {
+            return View();
+        }
     }
 }
