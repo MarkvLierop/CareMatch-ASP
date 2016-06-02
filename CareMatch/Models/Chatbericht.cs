@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace CAREMATCH
 {
-    class Chatbericht
+    public class Chatbericht
     {
         //Properties
         public int ID { get; }

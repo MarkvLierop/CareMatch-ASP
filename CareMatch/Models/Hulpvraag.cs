@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAREMATCH.Hulpvragen
 {
-    class Hulpvraag
+    public class Hulpvraag
     {
         public DateTime DatumTijd { get; set; }
         public int HulpvraagID { get; set; }
