@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CAREMATCH.Agenda;
+using CareMatch.Agenda;
 using System.IO;
 
-namespace CAREMATCH
+namespace CareMatch
 {
    
     public class Gebruiker

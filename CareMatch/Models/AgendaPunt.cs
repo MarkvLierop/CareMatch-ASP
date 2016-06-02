@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CAREMATCH.Agenda
+namespace CareMatch.Agenda
 {
     public class AgendaPunt
     {

@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Data;
 using System.Globalization;
 
-namespace CAREMATCH
+namespace CareMatch
 {
     public class Database
     {

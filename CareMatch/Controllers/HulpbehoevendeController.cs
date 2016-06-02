@@ -17,6 +17,8 @@ namespace CareMatch.Controllers
         }
         public ActionResult HulpvragenOverzicht()
         {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
             return View();
         }
     }
