@@ -45,11 +45,12 @@ namespace CareMatch.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registreren(string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string radio, string geboortedatum, string pasfoto)
+        public ActionResult Registreren(string rol, string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string radio, string geboortedatum, string pasfoto, string vog)
         {
+            DateTime geboortedatum1 = Convert.ToDateTime(geboortedatum);
             if (!string.IsNullOrEmpty(Voornaam))
             {
-                bool success = database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, "", pasfoto, "", "", Voornaam, Tussenvoegsel, Achternaam, 0, radio, string geboortedatum);
+                bool success = database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, rol, pasfoto, "", Voornaam, Tussenvoegsel, Achternaam, radio, geboortedatum1);
                 if (success)
                 {
                     return RedirectToAction("Index");

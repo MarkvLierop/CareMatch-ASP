@@ -782,7 +782,7 @@ namespace CAREMATCH
 
             return gebruiker;
         }
-        public bool GebruikerAccountToevoegen(string Gebruikersnaam, string Wachtwoord, string Approved, string Rol, string filenameFoto, string filenameVOG, string voornaam, string achternaam, string geslacht, DateTime geboortedatum)
+        public bool GebruikerAccountToevoegen(string Gebruikersnaam, string Wachtwoord, string Rol, string filenameFoto, string filenameVOG, string voornaam, string tussenvoegsel, string achternaam, string geslacht, DateTime geboortedatum)
         {
 
             try
@@ -791,28 +791,30 @@ namespace CAREMATCH
                 //Hulpbehoevende hoeft geen VOG te inserten.
                 if (Rol.ToLower() == "hulpbehoevende")
                 {
-                    command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, ACHTERNAAM, FOTO, APPROVED, ROL)" +
-                                                      "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :achternaam, :filenamefoto, :Approved, :Rol)", con);
+                    command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, FOTO, APPROVED, ROL)" +
+                                                      "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :tussenvoegsel, :achternaam, :filenamefoto, :Approved, :Rol)", con);
                     command.Parameters.Add(new OracleParameter(":gebruikersnaam", OracleDbType.Varchar2)).Value = Gebruikersnaam;
                     command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString(Wachtwoord);
                     command.Parameters.Add(new OracleParameter(":voornaam", OracleDbType.Varchar2)).Value = voornaam;
+                    command.Parameters.Add(new OracleParameter(":tussenvoegsel", OracleDbType.Varchar2)).Value = tussenvoegsel;
                     command.Parameters.Add(new OracleParameter(":achternaam", OracleDbType.Varchar2)).Value = achternaam;
                     command.Parameters.Add(new OracleParameter(":filenameFoto", OracleDbType.Varchar2)).Value = filenameFoto;
-                    command.Parameters.Add(new OracleParameter(":Approved", OracleDbType.Varchar2)).Value = Approved;
+                    command.Parameters.Add(new OracleParameter(":Approved", OracleDbType.Varchar2)).Value = "Y";
                     command.Parameters.Add(new OracleParameter(":Rol", OracleDbType.Varchar2)).Value = Rol;
 
                 }
                 //Vrijwilliger wel.
                 else
                 {
-                    command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, ACHTERNAAM, FOTO, APPROVED, ROL, VOG)" +
-                                                        "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :achternaam, :filenamefoto, :Approved, :Rol, :filenameVOG)", con);
+                    command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, FOTO, APPROVED, ROL, VOG)" +
+                                                        "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :tussenvoegsel, :achternaam, :filenamefoto, :Approved, :Rol, :filenameVOG)", con);
                     command.Parameters.Add(new OracleParameter(":gebruikersnaam", OracleDbType.Varchar2)).Value = Gebruikersnaam;
                     command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString(Wachtwoord);
                     command.Parameters.Add(new OracleParameter(":voornaam", OracleDbType.Varchar2)).Value = voornaam;
+                    command.Parameters.Add(new OracleParameter(":tussenvoegsel", OracleDbType.Varchar2)).Value = tussenvoegsel;
                     command.Parameters.Add(new OracleParameter(":achternaam", OracleDbType.Varchar2)).Value = achternaam;
                     command.Parameters.Add(new OracleParameter(":filenameFoto", OracleDbType.Varchar2)).Value = filenameFoto;
-                    command.Parameters.Add(new OracleParameter(":Approved", OracleDbType.Varchar2)).Value = Approved;
+                    command.Parameters.Add(new OracleParameter(":Approved", OracleDbType.Varchar2)).Value = "N";
                     command.Parameters.Add(new OracleParameter(":Rol", OracleDbType.Varchar2)).Value = Rol;
                     command.Parameters.Add(new OracleParameter(":filenameVOG", OracleDbType.Varchar2)).Value = filenameVOG;
                 }

@@ -16,6 +16,23 @@
     <form method="post" name="Registreren" class="form-horizontal">
         <fieldset>
             <div class="form-group">
+                <label class="col-lg-2 control-label">Rol</label>
+                <div class="col-lg-10">
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios1" value="vrijwilliger" checked="" type="radio">
+                            Vrijwilliger
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios2" value="hulpbehoevende" type="radio">
+                            Hulpbehoevende
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="Gebruikersnaam" class="col-lg-2 control-label">Gebruikersnaam</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="Gebruikersnaam" placeholder="Gebruikersnaam" name="Gebruikersnaam">
@@ -67,9 +84,15 @@
                 <input type="text" class="form-control" id="Geboortedatum" placeholder="Geboortedatum" name="Geboortedatum">
             </div>
             <div class="form-group">
-                <label for="Postcode" class="col-lg-2 control-label">Pasfoto</label>
+                <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
                 <div class="col-lg-10">
                     <input type="text" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="Pasfoto">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="VOG" class="col-lg-2 control-label">VOG</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="VOG" placeholder="VOG" name="VOG">
                 </div>
             </div>
             <div class="form-group">
