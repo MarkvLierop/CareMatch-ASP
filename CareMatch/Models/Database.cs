@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace CAREMATCH
 {
-    class Database
+    public class Database
     {
         private OracleConnection con;
         private OracleCommand command;
@@ -957,14 +957,6 @@ namespace CAREMATCH
                 hash.Append(theByte.ToString("x2"));
             }
             return hash.ToString();
-        }
-        public void addacc()
-        {
-            con.Open();
-            command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, APPROVED, ROL)" +
-                                                      "VALUES('beheerder', '"+EncryptString("beheerder") + "', 'Y', 'beheerder')", con);
-            reader = command.ExecuteReader();
-            con.Close();
         }
     }
 }
