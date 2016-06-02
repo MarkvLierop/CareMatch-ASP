@@ -183,6 +183,12 @@
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Login\Registreren.cshtml" />
     <Content Include="Views\Hulpbehoevende\HulpvragenOverzicht.cshtml" />
+    <Content Include="Views\Vrijwilliger\HulpvragenOverzicht.cshtml" />
+    <Content Include="Views\Vrijwilliger\Hulpvraag.cshtml" />
+    <Content Include="Views\Beheerder\HulpvragenOverzicht.cshtml" />
+    <Content Include="Views\Beheerder\Hulpvraag.cshtml" />
+    <Content Include="Views\Beheerder\AccountOverzicht.cshtml" />
+    <Content Include="Views\Beheerder\Chart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
