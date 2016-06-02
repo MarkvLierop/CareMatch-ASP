@@ -45,12 +45,12 @@ namespace CareMatch.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registreren(string rol, string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string radio, string geboortedatum, string pasfoto, string vog)
+        public ActionResult Registreren(string optionsRadios, string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string Geslacht, string Geboortedatum, string pasfoto, string VOG)
         {
-            DateTime geboortedatum1 = Convert.ToDateTime(geboortedatum);
+            DateTime geboortedatum1 = Convert.ToDateTime(Geboortedatum);
             if (!string.IsNullOrEmpty(Voornaam))
             {
-                bool success = database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, rol, pasfoto, "", Voornaam, Tussenvoegsel, Achternaam, radio, geboortedatum1);
+                bool success = database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, optionsRadios, pasfoto, VOG, Voornaam, Tussenvoegsel, Achternaam, Geslacht, geboortedatum1);
                 if (success)
                 {
                     return RedirectToAction("Index");
@@ -64,6 +64,11 @@ namespace CareMatch.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult Uitloggen()
+        {
+            Session["Gebruiker"] = null;
+            return RedirectToAction("Index");
         }
     }
 }
