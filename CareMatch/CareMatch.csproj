@@ -180,6 +180,7 @@
     <Content Include="Views\Hulpbehoevende\Index.cshtml" />
     <Content Include="Views\Vrijwilliger\Index.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Login\Registreren.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
