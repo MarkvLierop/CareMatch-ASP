@@ -15,5 +15,26 @@ namespace CareMatch.Controllers
         {
             return View();
         }
+        public ActionResult HulpvragenOverzicht()
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            return View();
+        }
+        public ActionResult Hulpvraag(int id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            Hulpvraag selectedhulpvraag = null;
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            foreach(Hulpvraag hulpvraag in hulpvragen)
+            {
+                if(hulpvraag.HulpvraagID == id)
+                {
+                    selectedhulpvraag = hulpvraag;
+                }
+            }
+            ViewData["Hulpvraag"] = selectedhulpvraag;
+            return View();
+        }
     }
 }
