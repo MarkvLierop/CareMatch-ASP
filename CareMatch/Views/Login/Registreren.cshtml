@@ -3,67 +3,91 @@
     ViewBag.Title = "Registreren";
     Layout = "~/Views/Shared/_LoginRegister.cshtml";
 }
-
 <h2>Registreren</h2>
 
 <div class="main-login main-center">
-    <form class="form-horizontal" method="post" action="#">
-
-        <div class="form-group">
-            <label for="name" class="cols-sm-2 control-label">Your Name</label>
-            <div class="cols-sm-10">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter your Name" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="email" class="cols-sm-2 control-label">Your Email</label>
-            <div class="cols-sm-10">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="email" id="email" placeholder="Enter your Email" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="username" class="cols-sm-2 control-label">Username</label>
-            <div class="cols-sm-10">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Enter your Username" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="password" class="cols-sm-2 control-label">Password</label>
-            <div class="cols-sm-10">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter your Password" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-            <div class="cols-sm-10">
-                <div class="input-group">
-                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                    <input type="password" class="form-control" name="confirm" id="confirm" placeholder="Confirm your Password" />
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group ">
-            <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-        </div>
-        <div class="login-register">
-            <a href="index.php">Login</a>
+    <form action="~/Login">
+        <div class="btn-group" role="group">
+            <br />
+            Al een account? Log hier in!<br />
+            <input type="submit" class="btn btn-default" value="Login" />
         </div>
     </form>
+    <form method="post" name="Registreren" class="form-horizontal">
+        <fieldset>
+            <div class="form-group">
+                <label for="Gebruikersnaam" class="col-lg-2 control-label">Gebruikersnaam</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Gebruikersnaam" placeholder="Gebruikersnaam" name="Gebruikersnaam">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Wachtwoord" class="col-lg-2 control-label">Wachtwoord</label>
+                <div class="col-lg-10">
+                    <input type="password" class="form-control" id="Wachtwoord" placeholder="Wachtwoord" name="Wachtwoord">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Voornaam" class="col-lg-2 control-label">Voornaam</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Voornaam" placeholder="Voornaam" name="Voornaam">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Tussenvoegsel" class="col-lg-2 control-label">Tussenvoegsel</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Tussenvoegsel" placeholder="Tussenvoegsel" name="Tussenvoegsel">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Achternaam" class="col-lg-2 control-label">Achternaam</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Achternaam" placeholder="Achternaam" name="Achternaam">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Geslacht</label>
+                <div class="col-lg-10">
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios1" value="Vrouw" checked="" type="radio">
+                            Man
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input name="optionsRadios" id="optionsRadios2" value="Vrouw" type="radio">
+                            Vrouw
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">Geboortedatum</label>
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+                <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker1').datetimepicker();
+                            });
+                </script>
+            <div class="form-group">
+                <label for="Postcode" class="col-lg-2 control-label">Pasfoto</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="Pasfoto">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="reset" class="btn btn-default">Reset</button>
+                    <button type="submit" class="btn btn-primary">Aanmelden</button>
+                </div>
+            </div>
+            </fieldset>
+        </form>
 </div>
