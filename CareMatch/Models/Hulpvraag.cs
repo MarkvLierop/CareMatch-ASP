@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CAREMATCH.Hulpvragen
+namespace CareMatch.Models
 {
-    class Hulpvraag
+    public class Hulpvraag
     {
         public DateTime DatumTijd { get; set; }
         public int HulpvraagID { get; set; }

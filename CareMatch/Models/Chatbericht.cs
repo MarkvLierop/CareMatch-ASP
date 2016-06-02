@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
 
-namespace CAREMATCH
+namespace CareMatch.Models
 {
-    class Chatbericht
+    public class Chatbericht
     {
         //Properties
         public int ID { get; }
