@@ -13,5 +13,9 @@ namespace CareMatch.Controllers
         {
             return View();
         }
+        public ActionResult HulpvragenOverzicht()
+        {
+            return View();
+        }
     }
 }

@@ -955,13 +955,5 @@ namespace CAREMATCH
             }
             return hash.ToString();
         }
-        public void addacc()
-        {
-            con.Open();
-            command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, APPROVED, ROL)" +
-                                                      "VALUES('beheerder', '"+EncryptString("beheerder") + "', 'Y', 'beheerder')", con);
-            reader = command.ExecuteReader();
-            con.Close();
-        }
     }
 }
