@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "HulpvraagToevoegen";
+    Layout = "~/Views/Shared/_LoginRegister.cshtml";
+}
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Dien uw hulpvraag in</h3>
+    </div>
+    <div class="panel-body">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="Urgent"> Urgent
+            </label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>
+                <input type="checkbox" name="Auto"> Auto Benodigd
+            </label>
+        </div>
+        <div class="FormLinks">
+            <label>Datum:</label>
+            <input type="text" class="form-control" id="Datum" placeholder="Datum" name="Datum">
+            <label>Tijd:</label>
+            <input type="text" class="form-control" id="Tijd" placeholder="Tijd" name="Tijd">
+        </div>
+        <div class="FormRechts">
+            <label>Plaatsnaam:</label><br/>
+            <input type="text" class="form-control" id="Plaatsnaam" placeholder="Plaatsnaam" name="Plaatsnaam">
+            <label>Straatnaam & Huisnummer:</label><br/>
+            <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Straatnaam & HuisNr" name="StraatEnHuisnummer">
+        </div>
+        <br/>
+        <hr id="hr"/>
+        <div class="HulpvraagContent">
+            <label>Titel van de Hulpvraag:</label>
+            <input type="text" class="form-control" id="KOmschrijving" placeholder="Korte Omschrijving" name="KOmschrijving">
+            <label>Omschrijving:</label><br />
+            <textarea class="form-control" id="Omschrijving" name="Omschrijving"></textarea>
+        </div>
+        <br/>
+        <div class="HulpvraagMenu">
+            <a href='@Url.Action("Index", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning">
+                <i class="fa fa-user fa-5x"></i>
+                <b>Sluiten</b><br>
+            </a>
+            <a href='@Url.Action("HulpvraagOpslaan", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning">
+                <i class="fa fa-user fa-5x"></i>
+                <b>Opslaan</b><br>
+            </a>
+        </div>
+    </div>
+</div>
+
+@*<a href='@Url.Action("Rapporteer", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning" id="rapporteer">
+    <i class="fa fa-user fa-5x"></i>
+    <b>Rapporteer hulpvraag</b><br>
+</a>*@
