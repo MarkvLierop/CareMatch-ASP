@@ -10,9 +10,9 @@ namespace CareMatch.Controllers
     public class LoginController : Controller
     {
         // GET: Login
+        Database database = new Database();
         public ActionResult Index(string gebruikersnaam, string wachtwoord)
         {
-            Database database = new Database();
             if (string.IsNullOrEmpty(gebruikersnaam) && string.IsNullOrEmpty(wachtwoord))
             {
                 ViewBag.foutmelding = "";
@@ -42,6 +42,27 @@ namespace CareMatch.Controllers
         public ActionResult Registreren()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Registreren(string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string radio, string geboortedatum, string pasfoto)
+        {
+            if (!string.IsNullOrEmpty(Voornaam))
+            {
+                bool success = database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, "", pasfoto, "", "", Voornaam, Tussenvoegsel, Achternaam, 0, radio, string geboortedatum);
+                if (success)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
