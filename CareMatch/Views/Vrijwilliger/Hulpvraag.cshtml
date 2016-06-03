@@ -2,7 +2,44 @@
 @{
     ViewBag.Title = "Hulpvraag";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    CareMatch.Models.Hulpvraag h = ViewData["Hulpvraag"] as CareMatch.Models.Hulpvraag;
 }
 
 <h2>Hulpvraag</h2>
-
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Hulpvraag: @h.Titel</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Omschrijving</th>
+                    <td>@h.HulpvraagInhoud</td>
+                </tr>
+                <tr>
+                    <th>Urgent</th>
+                    <td>@h.Urgent</td>
+                </tr>
+                <tr>
+                    <th>Locatie</th>
+                    <td>@h.Locatie</td>
+                </tr>
+                <tr>
+                    <th>Startdatum</th>
+                    <td>@h.StartDatum</td>
+                </tr>
+                <tr>
+                    <th>Einddatum</th>
+                    <td>@h.EindDatum</td>
+                </tr>
+                <tr>
+                    <th>Frequentie</th>
+                    <td>@h.Frequentie</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

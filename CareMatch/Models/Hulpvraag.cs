@@ -11,7 +11,8 @@ namespace CareMatch.Models
         public DateTime DatumTijd { get; set; }
         public int HulpvraagID { get; set; }
         public int Cijfer { get; set; }
-        public string Duur { get; set; }
+        public DateTime StartDatum { get; set; }
+        public DateTime EindDatum { get; set; }
         public string HulpbehoevendeFoto { get; set; }
         public string Locatie { get; set; }
         public string Hulpbehoevende { get; set; }
@@ -19,9 +20,7 @@ namespace CareMatch.Models
         public string Titel { get; set;}
         public string HulpvraagInhoud { get; set; }
         public string Frequentie { get; set; }
-        public string Reactie { get; set; }
         public string Beoordeling { get; set; } //hulpvraag is afgerond als er een beoordeling gegeven is.
-        public string LaatstGereageerdDoor { get; set; }
         public bool Auto { get; set; }
         public bool Urgent { get; set; }
 

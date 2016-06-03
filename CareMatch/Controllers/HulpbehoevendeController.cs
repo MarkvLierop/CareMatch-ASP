@@ -21,5 +21,25 @@ namespace CareMatch.Controllers
             ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
             return View();
         }
+        public ActionResult HulpvraagIndienen(string Urgent, string Auto, string Datum, string Tijd, string Plaatsnaam,
+                                                string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
+        {
+            if (!string.IsNullOrEmpty(Omschrijving))
+            {
+                Hulpvraag hulpvraag = new Hulpvraag();
+                //hulpvraag.Urgent = Urgent;
+                //hulpvraag.Auto = Auto;
+                hulpvraag.DatumTijd = Convert.ToDateTime(Datum + Tijd);
+                hulpvraag.Locatie = StraatEnHuisnummer;
+                hulpvraag.Titel = KOmschrijving;
+                hulpvraag.HulpvraagInhoud = Omschrijving;
+                hulpvraag.Hulpbehoevende = (Session["Gebruiker"] as Gebruiker).Gebruikersnaam;
+
+                carematch.database.HulpvraagToevoegen(hulpvraag, Session["Gebruiker"] as Gebruiker);
+
+                return RedirectToAction("Index", "Hulpbehoevende");
+            }
+            return View();
+        }
     }
 }

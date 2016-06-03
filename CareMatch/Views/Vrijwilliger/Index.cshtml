@@ -1,7 +1,20 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LoginRegister.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
 
+
+<a href="#" class="btn btn-sq-lg btn-warning">
+    <i class="fa fa-user fa-5x"></i><br />
+    <b>Hulpvragen Overzicht</b><br><br /><br />
+</a>
+<a href="#" class="btn btn-sq-lg btn-warning">
+    <i class="fa fa-user fa-5x"></i><br />
+    <b>Chatten</b><br><br /><br />
+</a>
+<a href='@Url.Action("Uitloggen", "Login")' class="btn btn-sq-lg btn-warning">
+    <i class="fa fa-user fa-5x"></i><br />
+    <b>Uitloggen</b><br><br /><br />
+</a>
