@@ -27,7 +27,7 @@ namespace CareMatch.Controllers
             if (!string.IsNullOrEmpty(Omschrijving))
             {
                 Hulpvraag hulpvraag = new Hulpvraag();
-                if(Urgent.ToLower() == "on")
+                if(!string.IsNullOrEmpty(Urgent))
                 {
                     hulpvraag.Urgent = true;
                 }
@@ -35,7 +35,7 @@ namespace CareMatch.Controllers
                 {
                     hulpvraag.Urgent = false;
                 }
-                if(Auto.ToLower() == "on")
+                if(!string.IsNullOrEmpty(Urgent))
                 {
                     hulpvraag.Auto = true;
                 }
