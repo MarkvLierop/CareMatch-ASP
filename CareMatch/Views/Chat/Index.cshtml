@@ -5,13 +5,18 @@
 }
 
 <h2>Index</h2>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+		$(document).ready(function() {
+			var height = 0;
+			$("ul.list-unstyled.media-block").each(function() {
+				height += parseInt($(this).height());
+			});
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#messagewindow').animate({
-            scrollTop: $('#messagewindow')[0].scrollHeight
-        }, 2000);
-    });
+			height += 0;
+
+			$("#messagewindow").animate({ scrollTop: height });
+		});
 </script>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -37,8 +42,8 @@
 
             <!--Widget body-->
             <div id="demo-chat-body" class="collapse in" >
-                <div class="nano has-scrollbar" style="height:380px" id="messagewindow">
-                    <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
+                <div class="nano has-scrollbar" style="height:380px">
+                    <div class="nano-content pad-all" id="messagewindow" tabindex="0" style="right: -17px;">
                         <ul class="list-unstyled media-block">
 
                             @foreach (var bericht in ViewBag.Chat as List<CareMatch.Models.Chatbericht>)
