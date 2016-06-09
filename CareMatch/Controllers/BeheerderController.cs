@@ -24,9 +24,29 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        public ActionResult Hulpvraag(int id)
+        {
+            Hulpvraag gekozenHulpvraag = null;
+            string filter = "ongepaste hulpvragen";
+            foreach (Hulpvraag hulpvraag in carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, filter))
+            {
+                if(hulpvraag.HulpvraagID == id)
+                {
+                    gekozenHulpvraag = hulpvraag;
+                }
+            }
+            if(gekozenHulpvraag != null)
+            {
+                ViewBag.Hulpvraag = gekozenHulpvraag;
+            }
+            
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult Hulpvraag()
         {
-            return View();
+            throw new NotImplementedException();
         }
 
         public ActionResult AccountOverzicht()
@@ -36,6 +56,16 @@ namespace CareMatch.Controllers
         public ActionResult Chat()
         {
             return View();
+        }
+
+        public ActionResult HulpvraagVerwijderen(int id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            if(gebruiker.Rol == "beheerder")
+            {
+                carematch.database.HulpvraagVerwijderen(id);
+            }
+            return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
 
 
