@@ -53,17 +53,17 @@ namespace CareMatch.Models
             {
                 AutoBenodigd = "N";
             }
-            using (command = new OracleCommand(@"INSERT INTO Hulpvraag(GebruikerID, HulpvraagInhoud, Urgent, DatumTijd, Duur, Frequentie, Titel, Locatie, AutoBenodigd)" +
-                                                              "VALUES(:gebruikerid, :hulpvraaginhoud, :temp, :datumtijd, :duur, :frequentie, :titel, :locatie, :auto)", con))
+            using (command = new OracleCommand(@"INSERT INTO Hulpvraag(GebruikerID, Omschrijving, Urgent, Titel, Locatie, Auto, Flagged, StartDatum, EindDatum)" +
+                                                              "VALUES(:gebruikerid, :hulpvraaginhoud, :temp, :titel, :locatie, :auto, 'N', :startdatum, :einddatum)", con))
             {
                 command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
                 command.Parameters.Add(new OracleParameter(":hulpvraaginhoud", OracleDbType.Varchar2)).Value = hulpvraag.HulpvraagInhoud;
                 command.Parameters.Add(new OracleParameter(":temp", OracleDbType.Varchar2)).Value = tempString; //urgent
-                command.Parameters.Add(new OracleParameter(":datumtijd", OracleDbType.Varchar2)).Value = hulpvraag.DatumTijd;
-                command.Parameters.Add(new OracleParameter(":frequentie", OracleDbType.Varchar2)).Value = hulpvraag.Frequentie;
                 command.Parameters.Add(new OracleParameter(":titel", OracleDbType.Varchar2)).Value = hulpvraag.Titel;
                 command.Parameters.Add(new OracleParameter(":locatie", OracleDbType.Varchar2)).Value = hulpvraag.Locatie;
-                command.Parameters.Add(new OracleParameter(":auto", OracleDbType.Varchar2)).Value = AutoBenodigd;
+                command.Parameters.Add(new OracleParameter(":auto", OracleDbType.Char)).Value = AutoBenodigd;
+                command.Parameters.Add(new OracleParameter(":startdatum", OracleDbType.Varchar2)).Value = hulpvraag.StartDatum;
+                command.Parameters.Add(new OracleParameter(":einddatum", OracleDbType.Varchar2)).Value = hulpvraag.EindDatum;
                 command.ExecuteNonQuery();
             }
             con.Close();
