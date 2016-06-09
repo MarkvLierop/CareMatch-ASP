@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "HulpvragenOverzicht";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>HulpvragenOverzicht</h2>
+
+
+
+@foreach(var hulpvraag in ViewBag.hulpvraaglist)
+{
+    <li>@hulpvraag.Titel, @hulpvraag.hulpbehoevende</li>
+    <a href="Beheerder/Hulpvraag/@hulpvraag.id" class="btn btn-sq-lg btn-warning">
+        <i class="fa fa-user fa-5x"></i><br />
+        <b>Bekijk hulpvraag</b><br><br /><br />
+    </a>
+}
+
