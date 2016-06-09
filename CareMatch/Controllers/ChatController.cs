@@ -13,8 +13,9 @@ namespace CareMatch.Controllers
 
         CareMatch.Models.Database database = new CareMatch.Models.Database();
         // GET: Chat
-        public ActionResult Index(string id)
+        public ActionResult Index(string id, string bericht, string ingelogd)
         {
+            database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
             ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
             if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
             {
@@ -25,16 +26,25 @@ namespace CareMatch.Controllers
                 ViewBag.Gebruikers = database.VrijwilligersLijst();
             }
 
+            if (!string.IsNullOrEmpty(bericht))
+            {
+                database.ChatInvoegen(1, bericht, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
+            }
+
             if (!string.IsNullOrEmpty(id))
             {
                 ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
-                ViewBag.Parner = id;
+                ViewBag.Partner = id;
             }
+
             else
             {
                 ViewBag.Chat = new List<Models.Chatbericht>();
-                ViewBag.Parner = "";
+                ViewBag.Partner = "";
             }
+
+
+
             return View();
         }
 
@@ -43,7 +53,7 @@ namespace CareMatch.Controllers
         {
             database.ChatInvoegen(1, bericht, database.ChatpartnerID(partner), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
 
-            return RedirectToAction("Index", "Chat", database.ChatpartnerID(partner));
+            return RedirectToAction("Index", new { id = partner.ToString() });
         }
 
         public ActionResult ChatBekijken(string partner)
