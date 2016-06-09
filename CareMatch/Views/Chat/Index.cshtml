@@ -6,11 +6,18 @@
 
 <h2>Index</h2>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#messagewindow').animate({
+            scrollTop: $('#messagewindow')[0].scrollHeight
+        }, 2000);
+    });
+</script>
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="col-md-12 col-lg-6">
-        <div class="panel">
+        <div class="panel" >
             <!--Heading-->
             <div class="panel-heading">
                 <div class="panel-control">
@@ -29,8 +36,8 @@
             </div>
 
             <!--Widget body-->
-            <div id="demo-chat-body" class="collapse in">
-                <div class="nano has-scrollbar" style="height:380px">
+            <div id="demo-chat-body" class="collapse in" >
+                <div class="nano has-scrollbar" style="height:380px" id="messagewindow">
                     <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
                         <ul class="list-unstyled media-block">
 
@@ -42,7 +49,7 @@
                                         <div class="media-left">
                                             <img src="https://scontent.xx.fbcdn.net/v/t1.0-9/11866463_807261709394312_4803817356460617296_n.jpg?oh=5f849f7f6317e2748c896c71fa7367a3&oe=57E16787" class="img-circle img-sm" alt="Profile Picture">
                                         </div>
-                                        <div class="media-body pad-hor">
+                                        <div class="media-body pad-hor" >
                                             <div class="speech">
                                                 <a href="#" class="media-heading">@bericht.VerzenderNaam</a>
                                                 <p>@bericht.Inhoud</p>
@@ -61,9 +68,9 @@
                                             <img src="https://img.buzzfeed.com/buzzfeed-static/static/2014-05/30/17/enhanced/webdr06/edit-32524-1401486723-3.jpg" class="img-circle img-sm" alt="Profile Picture">
                                         </div>
                                         <div class="media-body pad-hor speech-right">
-                                            <div class="speech">
+                                            <div class="speech" id="speech">
                                                 <a href="#" class="media-heading">@bericht.VerzenderNaam</a>
-                                                <p>@bericht.Inhoud</p>
+                                                <p >@bericht.Inhoud</p>
                                                 <p class="speech-time">
                                                     <i class="fa fa-clock-o fa-fw"></i>@bericht.datumtijd.ToString("dd / MMM HH: mm")
                                                 </p>
@@ -88,7 +95,7 @@
                                         <input type="hidden" name="partner" value="@ViewBag.Partner" class="form-control chat-input">
                                     </div>
                                     <div class="col-xs-3">
-                                        <input type="submit" class="btn btn-primary btn-block" value="Verzend" />
+                                        <input type="submit" class="btn btn-primary btn-block" value="Verzend" onclick="updateScroll()"/>
                                         @*@if(geb)*@
                                     </div>
                                 </form>

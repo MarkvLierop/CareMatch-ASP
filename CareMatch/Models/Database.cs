@@ -381,7 +381,7 @@ namespace CareMatch.Models
         public void ChatZetOnline(int gebruikerID)
         {
             try { con.Open(); } catch { };
-            command = new OracleCommand("UPDATE Gebruiker SET ONLINESTATUS =:STATUS WHERE GebruikerID =:gebruikerid", con);
+            command = new OracleCommand("UPDATE Gebruiker SET \"Online\" =:STATUS WHERE GebruikerID =:gebruikerid", con);
             command.Parameters.Add(new OracleParameter("STATUS", OracleDbType.Char)).Value = "Y";
             command.Parameters.Add(new OracleParameter("gebruikerid", OracleDbType.Int32)).Value = gebruikerID;
             command.ExecuteNonQuery();
