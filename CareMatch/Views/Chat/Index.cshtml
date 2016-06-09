@@ -20,7 +20,7 @@
                         <ul class="dropdown-menu dropdown-menu-right">
                             @foreach (string gebruiker in ViewBag.Gebruikers as List<string>)
                             {
-                                <li><a href="@Url.Action("ChatBekijken", "Chat", new{ id = gebruiker.ToString()})">@gebruiker</a></li>
+                                <li><a href="@Url.Action("ChatBekijken", "Chat", new{ partner = gebruiker.ToString()})">@gebruiker</a></li>
                             }
                         </ul>
                     </div>
@@ -78,7 +78,7 @@
                     <div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div>
                 </div>
                 @{
-                    if (ViewBag.Partner != null)
+                    if (!string.IsNullOrEmpty(ViewBag.Partner))
                     {
                         <div class="panel-footer">
                             <div class="row">

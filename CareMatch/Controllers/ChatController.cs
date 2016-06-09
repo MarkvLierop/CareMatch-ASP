@@ -24,6 +24,7 @@ namespace CareMatch.Controllers
             {
                 ViewBag.Gebruikers = database.VrijwilligersLijst();
             }
+
             if (!string.IsNullOrEmpty(id))
             {
                 ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
@@ -45,9 +46,9 @@ namespace CareMatch.Controllers
             return RedirectToAction("Index", "Chat", database.ChatpartnerID(partner));
         }
 
-        public ActionResult ChatBekijken(string id)
+        public ActionResult ChatBekijken(string partner)
         {
-            return RedirectToAction("Index", "Chat", new { id = id});
+            return RedirectToAction("Index", new { id = partner.ToString() });
         }
     }
            
