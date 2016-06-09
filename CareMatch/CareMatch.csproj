@@ -184,6 +184,7 @@
     <Content Include="Views\Hulpbehoevende\HulpvragenOverzicht.cshtml" />
     <Content Include="Views\Vrijwilliger\HulpvragenOverzicht.cshtml" />
     <Content Include="Views\Vrijwilliger\Hulpvraag.cshtml" />
+    <Content Include="Views\Hulpbehoevende\HulpvraagIndienen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
