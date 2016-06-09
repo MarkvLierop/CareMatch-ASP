@@ -8,11 +8,10 @@ namespace CareMatch.Models
 {
     public class Hulpvraag
     {
-        public DateTime DatumTijd { get; set; }
         public int HulpvraagID { get; set; }
         public int Cijfer { get; set; }
-        public DateTime StartDatum { get; set; }
-        public DateTime EindDatum { get; set; }
+        public DateTime? StartDatum { get; set; }
+        public DateTime? EindDatum { get; set; }
         public string HulpbehoevendeFoto { get; set; }
         public string Locatie { get; set; }
         public string Hulpbehoevende { get; set; }

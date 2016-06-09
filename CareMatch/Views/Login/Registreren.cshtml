@@ -3,9 +3,10 @@
     ViewBag.Title = "Registreren";
     Layout = "~/Views/Shared/_LoginRegister.cshtml";
 }
-<h2>Registreren</h2>
 
-<div class="main-login main-center">
+
+<div class="registerform">
+    <h2>Registreren</h2>
     <form action="~/Login">
         <div class="btn-group" role="group">
             <br />
@@ -80,8 +81,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-lg-2 control-label">Geboortedatum DD/MM/YYYY</label>
-                <input type="text" class="form-control" id="Geboortedatum" placeholder="Geboortedatum" name="Geboortedatum">
+                <label class="col-lg-2 control-label">Geboortedatum</label>
+                <input type="date" class="form-control" id="Geboortedatum" placeholder="Geboortedatum" name="Geboortedatum">
             </div>
             <div class="form-group">
                 <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
@@ -101,6 +102,6 @@
                     <button type="submit" class="btn btn-primary">Aanmelden</button>
                 </div>
             </div>
-            </fieldset>
-        </form>
+        </fieldset>
+    </form>
 </div>
