@@ -47,8 +47,15 @@ namespace CareMatch.Controllers
                 {
                     selectedhulpvraag = hulpvraag;
                 }
+            }
                 //carematch.database.HulpvraagAannemen;
                 return RedirectToAction("Hulpvraag", "Hulpbehoevende");
+        }
+        public ActionResult ChatStarten(string id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            //carematch.database.HulpvraagAannemen;
+            return RedirectToAction("Index", "Chat", id);
         }
     }
 }
