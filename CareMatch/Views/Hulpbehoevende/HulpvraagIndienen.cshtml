@@ -3,6 +3,10 @@
     ViewBag.Title = "HulpvraagToevoegen";
     Layout = "~/Views/Shared/_Simple.cshtml";
 }
+<head>
+
+    <link href="styles/glDatePicker.default.css" rel="stylesheet" type="text/css">
+</head>
 <script>
 	function Succes() {
 		alert("Hulpvraag is met succes opgeslagen.");
@@ -27,19 +31,27 @@
                 </label>
             </div>
             <div class="FormLinks">
-                 
+                <label>Plaatsnaam:</label><br />
+                <input type="text" class="form-control" id="Plaatsnaam" placeholder="Eindhoven" name="Plaatsnaam">
+                <label>Straatnaam & Huisnummer:</label><br />
+                <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Willemstraat 34" name="StraatEnHuisnummer">                 
             </div>
             <div class="FormRechts">
-                <label>Plaatsnaam:</label><br />
-                <input type="text" class="form-control" id="Plaatsnaam" placeholder="Plaatsnaam" name="Plaatsnaam">
-                <label>Straatnaam & Huisnummer:</label><br />
-                <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Straatnaam & HuisNr" name="StraatEnHuisnummer">
+                <input type="text" id="example" />
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script src="glDatePicker.min.js"></script>
+                <script type="text/javascript">
+                    $(window).load(function()
+                    {
+                        $('#example').glDatePicker();
+                    });
+                </script>
             </div>
             <br />
             <hr id="hr" />
             <div class="HulpvraagContent">
                 <label>Titel van de Hulpvraag:</label>
-                <input type="text" class="form-control" id="KOmschrijving" placeholder="Korte Omschrijving" name="KOmschrijving">
+                <input type="text" class="form-control" id="KOmschrijving" placeholder="Titel" name="KOmschrijving">
                 <label>Omschrijving:</label><br />
                 <textarea class="form-control" id="Omschrijving" name="Omschrijving"></textarea>
             </div>

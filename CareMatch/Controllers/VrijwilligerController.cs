@@ -46,12 +46,18 @@ namespace CareMatch.Controllers
                 if (hulpvraag.HulpvraagID == id)
                 {
                     selectedhulpvraag = hulpvraag;
-                    return RedirectToAction("Hulpvraag", "Hulpbehoevende");
                 }
+            }
                 //carematch.database.HulpvraagAannemen;
                 return RedirectToAction("Hulpvraag", "Hulpbehoevende");
             }
-            return RedirectToAction("Hulpvraag", "Hulpbehoevende");
+            return View();
+        }
+        public ActionResult ChatStarten(string id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            //carematch.database.HulpvraagAannemen;
+            return RedirectToAction("Index", "Chat", id);
         }
     }
 }
