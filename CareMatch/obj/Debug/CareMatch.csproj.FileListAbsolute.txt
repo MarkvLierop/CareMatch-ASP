@@ -218,3 +218,6 @@ C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\bin\System.Web.Http.WebHost.x
 C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\obj\Debug\CareMatch.csprojResolveAssemblyReference.cache
 C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\obj\Debug\CareMatch.dll
 C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\obj\Debug\CareMatch.pdb
+C:\Users\Ferry\Source\Repos\CareMatch-ASP5\CareMatch\obj\Debug\CareMatch.csprojResolveAssemblyReference.cache
+C:\Users\Ferry\Source\Repos\CareMatch-ASP5\CareMatch\obj\Debug\CareMatch.dll
+C:\Users\Ferry\Source\Repos\CareMatch-ASP5\CareMatch\obj\Debug\CareMatch.pdb
