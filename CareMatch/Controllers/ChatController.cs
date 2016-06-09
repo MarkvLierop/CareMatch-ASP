@@ -16,23 +16,23 @@ namespace CareMatch.Controllers
         public ActionResult Index(string id)
         {
             ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
-            if((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
+            if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
             {
                 ViewBag.Gebruikers = database.HulpbehoevendeLijst();
             }
-           else
+            else
             {
                 ViewBag.Gebruikers = database.VrijwilligersLijst();
             }
-            if(id != null)
+            if (!string.IsNullOrEmpty(id))
             {
-                ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, 160, 161);
+                ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
                 ViewBag.Parner = id;
             }
             else
             {
-                ViewBag.Chat = "";
-                ViewBag.Parner = "" ;
+                ViewBag.Chat = new List<Models.Chatbericht>();
+                ViewBag.Parner = "";
             }
             return View();
         }
@@ -40,14 +40,15 @@ namespace CareMatch.Controllers
         [HttpPost]
         public ActionResult BerichtVerzenden(string bericht, string partner)
         {
-            database.ChatInvoegen(1, bericht, database.ChatpartnerID(partner),  (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
-            
+            database.ChatInvoegen(1, bericht, database.ChatpartnerID(partner), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
+
             return RedirectToAction("Index", "Chat", database.ChatpartnerID(partner));
         }
 
         public ActionResult ChatBekijken(string id)
         {
-            return RedirectToAction("Index", "Chat", id);
+            return RedirectToAction("Index", "Chat", id.ToString());
         }
     }
-}
+           
+    }

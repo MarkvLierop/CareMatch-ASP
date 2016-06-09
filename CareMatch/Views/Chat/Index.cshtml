@@ -20,14 +20,8 @@
                         <ul class="dropdown-menu dropdown-menu-right">
                             @foreach (string gebruiker in ViewBag.Gebruikers as List<string>)
                             {
-                                <li><a href="@Url.Action("ChatBekijken", new { id = gebruiker})">@gebruiker</a></li>
+                                <li><a href="@Url.Action("ChatBekijken", "Chat", new{ id = gebruiker.ToString()})">@gebruiker</a></li>
                             }
-                            @*<li><a href="#">Available</a></li>
-                            <li><a href="#">Busy</a></li>
-                            <li><a href="#">Away</a></li>
-                            <li class="divider"></li>
-                            <li><a id="demo-connect-chat" href="#" class="diACsabled-link" data-target="#demo-chat-body">Connect</a></li>
-                            <li><a id="demo-disconnect-chat" href="#" data-target="#demo-chat-body">Disconect</a></li>*@
                         </ul>
                     </div>
                 </div>
@@ -42,7 +36,7 @@
 
                             @foreach (var bericht in ViewBag.Chat as List<CareMatch.Models.Chatbericht>)
                             {
-                                if (bericht.VerzenderNaam == "Hulpbehoevende")
+                                if (bericht.VerzenderNaam == ViewBag.Gebruiker.Gebruikersnaam)
                                 {
                                     <li class="mar-btm">
                                         <div class="media-left">

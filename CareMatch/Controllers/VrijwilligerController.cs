@@ -26,9 +26,9 @@ namespace CareMatch.Controllers
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             Hulpvraag selectedhulpvraag = null;
             List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
-            foreach(Hulpvraag hulpvraag in hulpvragen)
+            foreach (Hulpvraag hulpvraag in hulpvragen)
             {
-                if(hulpvraag.HulpvraagID == id)
+                if (hulpvraag.HulpvraagID == id)
                 {
                     selectedhulpvraag = hulpvraag;
                 }
@@ -46,9 +46,12 @@ namespace CareMatch.Controllers
                 if (hulpvraag.HulpvraagID == id)
                 {
                     selectedhulpvraag = hulpvraag;
+                    return RedirectToAction("Hulpvraag", "Hulpbehoevende");
                 }
                 //carematch.database.HulpvraagAannemen;
                 return RedirectToAction("Hulpvraag", "Hulpbehoevende");
+            }
+            return RedirectToAction("Hulpvraag", "Hulpbehoevende");
         }
     }
 }
