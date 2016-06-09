@@ -29,6 +29,7 @@ namespace CareMatch.Controllers
             if (!string.IsNullOrEmpty(bericht))
             {
                 database.ChatInvoegen(1, bericht, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
+                
             }
 
             if (!string.IsNullOrEmpty(id))
@@ -47,15 +48,6 @@ namespace CareMatch.Controllers
 
             return View();
         }
-
-        [HttpPost]
-        public ActionResult BerichtVerzenden(string bericht, string partner)
-        {
-            database.ChatInvoegen(1, bericht, database.ChatpartnerID(partner), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
-
-            return RedirectToAction("Index", new { id = partner.ToString() });
-        }
-
         public ActionResult ChatBekijken(string partner)
         {
             return RedirectToAction("Index", new { id = partner.ToString() });
