@@ -13,41 +13,53 @@ namespace CareMatch.Controllers
 
         CareMatch.Models.Database database = new CareMatch.Models.Database();
         // GET: Chat
-        public ActionResult Index(string id)
+        public ActionResult Index(string id, string bericht, string ingelogd)
         {
+            database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
             ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
-            if((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
+            if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
             {
                 ViewBag.Gebruikers = database.HulpbehoevendeLijst();
             }
-           else
+            else
             {
                 ViewBag.Gebruikers = database.VrijwilligersLijst();
             }
-            if(id != null)
+
+            if (!string.IsNullOrEmpty(bericht))
             {
-                ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, 160, 161);
-                ViewBag.Parner = id;
+                database.ChatInvoegen(1, bericht, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
             }
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
+                ViewBag.Partner = id;
+            }
+
             else
             {
-                ViewBag.Chat = "";
-                ViewBag.Parner = "" ;
+                ViewBag.Chat = new List<Models.Chatbericht>();
+                ViewBag.Partner = "";
             }
+
+
+
             return View();
         }
 
         [HttpPost]
         public ActionResult BerichtVerzenden(string bericht, string partner)
         {
-            database.ChatInvoegen(1, bericht, database.ChatpartnerID(partner),  (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
-            
-            return RedirectToAction("Index", "Chat", database.ChatpartnerID(partner));
+            database.ChatInvoegen(1, bericht, database.ChatpartnerID(partner), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
+
+            return RedirectToAction("Index", new { id = partner.ToString() });
         }
 
-        public ActionResult ChatBekijken(string id)
+        public ActionResult ChatBekijken(string partner)
         {
-            return RedirectToAction("Index", "Chat", id);
+            return RedirectToAction("Index", new { id = partner.ToString() });
         }
     }
-}
+           
+    }
