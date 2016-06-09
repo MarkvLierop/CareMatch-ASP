@@ -18,12 +18,16 @@
                         <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#demo-chat-body"><i class="fa fa-chevron-down"></i></button>
                         <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li><a href="#">Available</a></li>
+                            @foreach (string gebruiker in ViewBag.Gebruikers as List<string>)
+                            {
+                                <li><a href="@Url.Action("ChatBekijken", new { id = gebruiker})">@gebruiker</a></li>
+                            }
+                            @*<li><a href="#">Available</a></li>
                             <li><a href="#">Busy</a></li>
                             <li><a href="#">Away</a></li>
                             <li class="divider"></li>
                             <li><a id="demo-connect-chat" href="#" class="diACsabled-link" data-target="#demo-chat-body">Connect</a></li>
-                            <li><a id="demo-disconnect-chat" href="#" data-target="#demo-chat-body">Disconect</a></li>
+                            <li><a id="demo-disconnect-chat" href="#" data-target="#demo-chat-body">Disconect</a></li>*@
                         </ul>
                     </div>
                 </div>
@@ -36,7 +40,7 @@
                     <div class="nano-content pad-all" tabindex="0" style="right: -17px;">
                         <ul class="list-unstyled media-block">
 
-                            @foreach (var bericht in ViewBag.ditiskut as List<CareMatch.Models.Chatbericht>)
+                            @foreach (var bericht in ViewBag.Chat as List<CareMatch.Models.Chatbericht>)
                             {
                                 if (bericht.VerzenderNaam == "Hulpbehoevende")
                                 {
@@ -79,18 +83,29 @@
                     </div>
                     <div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div>
                 </div>
-
+                @{
+                    if (ViewBag.Partner != null)
+                    {
+                        <div class="panel-footer">
+                            <div class="row">
+                                <form method="post" name="Index">
+                                    <div class="col-xs-9">
+                                        <input type="text" placeholder="Enter your text" name="bericht" class="form-control chat-input">
+                                        <input hidden type="text" name="partner" value="@ViewBag.Partner" class="form-control chat-input">
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="submit" class="btn btn-primary btn-block" value="Verzend" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <h4>Selecteer een partner.</h4>
+                    }
+                }
                 <!--Widget footer-->
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-xs-9">
-                            <input type="text" placeholder="Enter your text" class="form-control chat-input">
-                        </div>
-                        <div class="col-xs-3">
-                            <button class="btn btn-primary btn-block" type="submit">Send</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
