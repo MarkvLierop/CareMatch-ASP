@@ -50,7 +50,7 @@ namespace CareMatch.Controllers
             }
                 //carematch.database.HulpvraagAannemen;
                 return RedirectToAction("Hulpvraag", "Hulpbehoevende");
-        }
+            }
         public ActionResult ChatStarten(string id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
