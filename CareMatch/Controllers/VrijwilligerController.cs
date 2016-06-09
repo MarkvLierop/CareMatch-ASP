@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CAREMATCH;
+using CareMatch.Models;
 
 namespace CareMatch.Controllers
 {
@@ -14,6 +14,41 @@ namespace CareMatch.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+        public ActionResult HulpvragenOverzicht()
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            return View();
+        }
+        public ActionResult Hulpvraag(int id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            Hulpvraag selectedhulpvraag = null;
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            foreach(Hulpvraag hulpvraag in hulpvragen)
+            {
+                if(hulpvraag.HulpvraagID == id)
+                {
+                    selectedhulpvraag = hulpvraag;
+                }
+            }
+            ViewData["Hulpvraag"] = selectedhulpvraag;
+            return View();
+        }
+        public ActionResult Aannemen(int id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            Hulpvraag selectedhulpvraag = null;
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            foreach (Hulpvraag hulpvraag in hulpvragen)
+            {
+                if (hulpvraag.HulpvraagID == id)
+                {
+                    selectedhulpvraag = hulpvraag;
+                }
+                //carematch.database.HulpvraagAannemen;
+                return RedirectToAction("Hulpvraag", "Hulpbehoevende");
         }
     }
 }
