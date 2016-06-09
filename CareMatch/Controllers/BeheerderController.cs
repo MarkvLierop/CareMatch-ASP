@@ -43,14 +43,10 @@ namespace CareMatch.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Hulpvraag()
-        {
-            throw new NotImplementedException();
-        }
-
         public ActionResult AccountOverzicht()
         {
+
+
             return View();
         }
         public ActionResult Chat()

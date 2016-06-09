@@ -622,7 +622,7 @@ namespace CareMatch.Models
             return reader;
         }
         //Gebruiker Queries
-        public OracleDataAdapter GebruikerBeheer(string query)
+        public List<Gebruiker> GebruikerBeheer(string query)
         {
             con.Open();
             if (query == "Alles")
@@ -642,9 +642,31 @@ namespace CareMatch.Models
                 tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'vrijwilliger' AND VOG IS NULL";
             }
 
-            OracleDataAdapter reader = new OracleDataAdapter(tempString, con);
+            command = new OracleCommand(tempString, con);
+            reader = command.ExecuteReader();
+
+            List<Gebruiker> gebruikerlist = new List<Gebruiker>();
+
+            while (reader.Read())
+            {
+                bool tempbool;
+                Gebruiker tempGebruiker = new Gebruiker();
+                tempGebruiker.Voornaam = Convert.ToString(reader["Voornaam"]);
+                tempGebruiker.Achternaam = Convert.ToString(reader["Achternaam"]);
+                tempGebruiker.VOG = Convert.ToString(reader["VOG"]);
+                if(Convert.ToString(reader["Approved"]) == "Y")
+                {
+                    tempbool = true;
+                }
+                else
+                {
+                    tempbool = false;
+                }
+                tempGebruiker.Approved = tempbool;
+
+            }
             con.Close();
-            return reader;
+            return gebruikerlist;
         }
         public OracleDataAdapter DataUpdateBeheerGebruiker(string datagrid)
         {
