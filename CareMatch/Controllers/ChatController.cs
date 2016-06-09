@@ -47,7 +47,7 @@ namespace CareMatch.Controllers
 
         public ActionResult ChatBekijken(string id)
         {
-            return RedirectToAction("Index", "Chat", id.ToString());
+            return RedirectToAction("Index", "Chat", new { id = id});
         }
     }
            
