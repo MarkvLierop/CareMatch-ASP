@@ -21,15 +21,30 @@ namespace CareMatch.Controllers
             ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
             return View();
         }
-        public ActionResult HulpvraagIndienen(string Urgent, string Auto, string Datum, string Tijd, string Plaatsnaam,
+        public ActionResult HulpvraagIndienen(string Urgent, string Auto, DateTime? Datum, TimeSpan? Duur, TimeSpan? Tijd, string Plaatsnaam,
                                                 string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
         {
             if (!string.IsNullOrEmpty(Omschrijving))
             {
                 Hulpvraag hulpvraag = new Hulpvraag();
-                //hulpvraag.Urgent = Urgent;
-                //hulpvraag.Auto = Auto;
-                hulpvraag.DatumTijd = Convert.ToDateTime(Datum + Tijd);
+                if(Urgent.ToLower() == "on")
+                {
+                    hulpvraag.Urgent = true;
+                }
+                else
+                {
+                    hulpvraag.Urgent = false;
+                }
+                if(Auto.ToLower() == "on")
+                {
+                    hulpvraag.Auto = true;
+                }
+                else
+                {
+                    hulpvraag.Auto = false;
+                }
+                hulpvraag.StartDatum = Datum + Tijd;
+                hulpvraag.EindDatum = hulpvraag.StartDatum + Duur;
                 hulpvraag.Locatie = StraatEnHuisnummer;
                 hulpvraag.Titel = KOmschrijving;
                 hulpvraag.HulpvraagInhoud = Omschrijving;
@@ -37,7 +52,7 @@ namespace CareMatch.Controllers
 
                 carematch.database.HulpvraagToevoegen(hulpvraag, Session["Gebruiker"] as Gebruiker);
 
-                return RedirectToAction("Index", "Hulpbehoevende");
+                return RedirectToAction("HulpvragenOverzicht");
             }
             return View();
         }
