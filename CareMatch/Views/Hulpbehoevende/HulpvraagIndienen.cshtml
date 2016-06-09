@@ -3,10 +3,6 @@
     ViewBag.Title = "HulpvraagToevoegen";
     Layout = "~/Views/Shared/_Simple.cshtml";
 }
-<head>
-
-    <link href="styles/glDatePicker.default.css" rel="stylesheet" type="text/css">
-</head>
 <script>
 	function Succes() {
 		alert("Hulpvraag is met succes opgeslagen.");
@@ -20,7 +16,7 @@
         <h3 class="panel-title">Dien uw hulpvraag in</h3>
     </div>
     <div class="panel-body">
-        <form method="post">
+        <form method="post" action="">
             <div class="checkbox">
                 <label>
                     <input type="checkbox" name="Urgent"> Urgent
@@ -30,6 +26,7 @@
                     <input type="checkbox" name="Auto"> Auto Benodigd
                 </label>
             </div>
+            <div>
             <div class="FormLinks">
                 <label>Plaatsnaam:</label><br />
                 <input type="text" class="form-control" id="Plaatsnaam" placeholder="Eindhoven" name="Plaatsnaam">
@@ -37,15 +34,14 @@
                 <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Willemstraat 34" name="StraatEnHuisnummer">                 
             </div>
             <div class="FormRechts">
-                <input type="text" id="example" />
-                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-                <script src="glDatePicker.min.js"></script>
-                <script type="text/javascript">
-                    $(window).load(function()
-                    {
-                        $('#example').glDatePicker();
-                    });
-                </script>
+                <label>Start Datum :</label><br />
+                <input type="date" name="Datum" /><br/>
+                <label>Start Tijd :</label><br />
+                <input type="time" name="Tijd" /><br/>
+                <label>Duur :</label><br />
+                <input type="time" name="Duur" />
+            </div>
+
             </div>
             <br />
             <hr id="hr" />
@@ -60,10 +56,6 @@
                 <a href='@Url.Action("Index", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning">
                     <i class="fa fa-user fa-5x"></i>
                     <b>Sluiten</b><br>
-                </a>
-                <a href='@Url.Action("HulpvraagOpslaan", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning" onclick="Succes()">
-                    <i class="fa fa-user fa-5x"></i>
-                    <b>Opslaan</b><br>
                 </a>
                 <input type="submit" value="Opslaan" class="btn btn-sq-lg btn-warning" onclick="Succes()"/>
             </div>

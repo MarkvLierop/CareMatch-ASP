@@ -50,8 +50,6 @@ namespace CareMatch.Controllers
             }
                 //carematch.database.HulpvraagAannemen;
                 return RedirectToAction("Hulpvraag", "Hulpbehoevende");
-            }
-            return View();
         }
         public ActionResult ChatStarten(string id)
         {
