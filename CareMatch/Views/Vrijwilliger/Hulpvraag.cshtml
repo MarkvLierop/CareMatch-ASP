@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     CareMatch.Models.Hulpvraag h = ViewData["Hulpvraag"] as CareMatch.Models.Hulpvraag;
 }
-
+<a href="@Url.Action("HulpvragenOverzicht", "Vrijwilliger")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a>
 <h2>Hulpvraag</h2>
 <div class="panel panel-info">
     <div class="panel-heading">
@@ -41,6 +41,6 @@
                 </tr>
             </tbody>
         </table>
-        <a type="button" class="btn btn-info" href='@Url.Action("ChatStarten", new { id = @h.Hulpbehoevende})'>Chat Starten</a><a type="button" class="btn btn-info" href='@Url.Action("HulpvraagAannemen", new { id = @h.HulpvraagID})'>Aannemen</a>
+        <a type="button" class="btn btn-info" href='@Url.Action("ChatStarten", new { id = @h.Hulpbehoevende})'>Chat Starten</a>                                  <a type="button" class="btn btn-info" href='@Url.Action("HulpvraagAannemen", new { id = @h.HulpvraagID})'>Aannemen</a>
     </div>
 </div>
