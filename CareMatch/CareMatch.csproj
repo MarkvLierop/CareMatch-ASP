@@ -132,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\CAREMATCHLOGO.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
@@ -185,8 +184,7 @@
     <Content Include="Views\Hulpbehoevende\HulpvragenOverzicht.cshtml" />
     <Content Include="Views\Vrijwilliger\HulpvragenOverzicht.cshtml" />
     <Content Include="Views\Vrijwilliger\Hulpvraag.cshtml" />
-    <Content Include="Views\Beheerder\HulpvragenOverzicht.cshtml" />
-    <Content Include="Views\Beheerder\Hulpvraag.cshtml" />
+    <Content Include="Views\Hulpbehoevende\HulpvraagIndienen.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

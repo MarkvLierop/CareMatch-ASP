@@ -26,15 +26,38 @@ namespace CareMatch.Controllers
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             Hulpvraag selectedhulpvraag = null;
             List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
-            foreach(Hulpvraag hulpvraag in hulpvragen)
+            foreach (Hulpvraag hulpvraag in hulpvragen)
             {
-                if(hulpvraag.HulpvraagID == id)
+                if (hulpvraag.HulpvraagID == id)
                 {
                     selectedhulpvraag = hulpvraag;
                 }
             }
             ViewData["Hulpvraag"] = selectedhulpvraag;
             return View();
+        }
+        public ActionResult Aannemen(int id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            Hulpvraag selectedhulpvraag = null;
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            foreach (Hulpvraag hulpvraag in hulpvragen)
+            {
+                if (hulpvraag.HulpvraagID == id)
+                {
+                    selectedhulpvraag = hulpvraag;
+                }
+            }
+                //carematch.database.HulpvraagAannemen;
+                return RedirectToAction("Hulpvraag", "Hulpbehoevende");
+            }
+            return View();
+        }
+        public ActionResult ChatStarten(string id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            //carematch.database.HulpvraagAannemen;
+            return RedirectToAction("Index", "Chat", id);
         }
     }
 }
