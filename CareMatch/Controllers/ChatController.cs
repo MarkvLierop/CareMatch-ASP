@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using CareMatch.Models;
 namespace CareMatch.Controllers
 {
     public class ChatController : Controller
@@ -15,7 +15,7 @@ namespace CareMatch.Controllers
         // GET: Chat
         public ActionResult Index()
         {
-            CareMatch.Models.Gebruiker gebruiker = new CareMatch.Models.Gebruiker();
+            Gebruiker gebruiker = new Gebruiker();
             Session["Gebruiker"] = gebruiker;
             ViewBag.gebruiker = Session["Gebruiker"];
 
