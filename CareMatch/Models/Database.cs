@@ -454,6 +454,22 @@ namespace CareMatch.Models
             return id;
         }
 
+        public string ChatpartnerNaam(int id)
+        {
+            string naam = string.Empty;
+            try { con.Open(); } catch { };
+            command = new OracleCommand("SELECT Gebruikersnaam FROM gebruiker WHERE GebruikerID = :id", con);
+            command.Parameters.Add(new OracleParameter("id", id));
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                naam = reader["GEBRUIKERSNAAM"].ToString();
+            }
+            con.Close();
+            return naam;
+        }
+
         //Voegt een chatbericht toe aan de database
         public void ChatInvoegen(int chatid, string inhoud, int ontvangerID, int verzenderID, string datum)
         {
