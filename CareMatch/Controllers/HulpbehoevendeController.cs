@@ -78,13 +78,13 @@ namespace CareMatch.Controllers
         }
 
         public ActionResult HulpvraagIndienen(string Urgent, string Auto, DateTime? Datum, TimeSpan? Duur, TimeSpan? Tijd, string Plaatsnaam,
-                                        string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
+                                                string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
         {
 
             if (!string.IsNullOrEmpty(Omschrijving))
             {
                 Hulpvraag hulpvraag = new Hulpvraag();
-                if (Urgent.ToLower() == "on")
+                if(!string.IsNullOrEmpty(Urgent))
                 {
                     hulpvraag.Urgent = true;
                 }
@@ -92,11 +92,9 @@ namespace CareMatch.Controllers
                 {
                     hulpvraag.Urgent = false;
                 }
-                if (!string.IsNullOrEmpty(Auto))
+                if(Auto.ToLower() == "on")
                 {
-                    if (Auto.ToLower() == "on")
-                    {
-                        hulpvraag.Auto = true;
+                    hulpvraag.Auto = true;
 
                     }
                 }
