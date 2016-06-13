@@ -11,6 +11,8 @@
 		alert("Er is iets foutgegaan bij het opslaan van de hulpvraag.");
 	}
 </script>
+<a href="@Url.Action("Index", "Hulpbehoevende")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a>
+<h2>Hulpvragen Overzicht</h2>
 <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Dien uw hulpvraag in</h3>
@@ -53,11 +55,7 @@
             </div>
             <br />
             <div class="HulpvraagMenu">
-                <a href='@Url.Action("Index", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning">
-                    <i class="fa fa-user fa-5x"></i>
-                    <b>Sluiten</b><br>
-                </a>
-                <input type="submit" value="Opslaan" class="btn btn-sq-lg btn-warning" onclick="Succes()"/>
+                <input type="submit" value="Indienen" class="btn btn-sq-lg btn-warning" onclick="Succes()"/>
             </div>
         </form>        
     </div>
