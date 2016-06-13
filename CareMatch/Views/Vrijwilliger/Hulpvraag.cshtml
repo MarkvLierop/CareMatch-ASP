@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Hulpvraag";
+    ViewBag.Title = "Hulpvraag Bekijken";
     Layout = "~/Views/Shared/_Layout.cshtml";
     CareMatch.Models.Hulpvraag h = ViewData["Hulpvraag"] as CareMatch.Models.Hulpvraag;
 }
@@ -34,10 +34,6 @@
                 <tr>
                     <th>Einddatum</th>
                     <td>@h.EindDatum</td>
-                </tr>
-                <tr>
-                    <th>Frequentie</th>
-                    <td>@h.Frequentie</td>
                 </tr>
             </tbody>
         </table>

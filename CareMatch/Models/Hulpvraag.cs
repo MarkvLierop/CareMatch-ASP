@@ -18,7 +18,6 @@ namespace CareMatch.Models
         public string Vrijwilliger { get; set; }
         public string Titel { get; set;}
         public string HulpvraagInhoud { get; set; }
-        public string Frequentie { get; set; }
         public string Beoordeling { get; set; } //hulpvraag is afgerond als er een beoordeling gegeven is.
         public bool Auto { get; set; }
         public bool Urgent { get; set; }
