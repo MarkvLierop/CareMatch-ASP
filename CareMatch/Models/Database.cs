@@ -68,6 +68,16 @@ namespace CareMatch.Models
             }
             con.Close();
         }
+
+        public void HulpvraagAannemen(int id, int vrijwilliger)
+        {
+            con.Open();
+            command = new OracleCommand(@"UPDATE Hulpvraag SET VRIJWILLIGERID =:vrijwilligerid WHERE HULPVRAAGID =:hulpvraagid", con);
+            command.Parameters.Add(new OracleParameter(":vrijwilligerid", OracleDbType.Int32)).Value = vrijwilliger;
+            command.Parameters.Add(new OracleParameter(":hulpvraagid", OracleDbType.Int32)).Value = id;
+            reader = command.ExecuteReader();
+            con.Close();
+        }
         public void HulpvraagRapporteer(Hulpvraag hulpvraag)
         {
             con.Open();
@@ -475,6 +485,22 @@ namespace CareMatch.Models
             }
             con.Close();
             return id;
+        }
+
+        public string ChatpartnerNaam(int id)
+        {
+            string naam = string.Empty;
+            try { con.Open(); } catch { };
+            command = new OracleCommand("SELECT Gebruikersnaam FROM gebruiker WHERE GebruikerID = :id", con);
+            command.Parameters.Add(new OracleParameter("id", id));
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                naam = reader["GEBRUIKERSNAAM"].ToString();
+            }
+            con.Close();
+            return naam;
         }
 
         //Voegt een chatbericht toe aan de database

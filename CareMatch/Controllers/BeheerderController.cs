@@ -13,6 +13,7 @@ namespace CareMatch.Controllers
         // GET: Beheerder
         public ActionResult Index()
         {
+
             return View();
         }
 
@@ -37,20 +38,51 @@ namespace CareMatch.Controllers
             }
             if(gekozenHulpvraag != null)
             {
+                ViewBag.HulpvraagBool = true;
                 ViewBag.Hulpvraag = gekozenHulpvraag;
             }
             
             return View();
         }
 
-        public ActionResult AccountOverzicht()
+        public ActionResult AccountOverzicht(int id = 0)
         {
-
+            switch (id)
+            {
+                case 1:
+                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Niet goedgekeurde gebruikers");
+                    break;
+                case 2:
+                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Vrijwilligers zonder VOG");
+                    break;
+                case 3:
+                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Naam & Wachtwoord");
+                    break;
+                default:
+                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Alles");
+                    break;
+            }
 
             return View();
         }
-        public ActionResult Chat()
+        public ActionResult GebruikerAccount(int id)
         {
+            List<Gebruiker> gebruikerList = carematch.database.GebruikerBeheer("Alles");
+            Gebruiker returnGebruiker = null;
+            foreach(Gebruiker gebruiker in gebruikerList)
+            {
+                if(gebruiker.GebruikersID == id)
+                {
+                    returnGebruiker = gebruiker;
+                }
+            }
+            if(returnGebruiker != null)
+            {
+                ViewBag.gebruikerBool = true;
+                ViewBag.Gebruiker = returnGebruiker;
+                return View();
+            }
+            ViewBag.gebruikerBool = false;
             return View();
         }
 
