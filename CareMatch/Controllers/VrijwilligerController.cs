@@ -39,23 +39,13 @@ namespace CareMatch.Controllers
         public ActionResult HulpvraagAannemen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            Hulpvraag selectedhulpvraag = null;
-            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
-            foreach (Hulpvraag hulpvraag in hulpvragen)
-            {
-                if (hulpvraag.HulpvraagID == id)
-                {
-                    selectedhulpvraag = hulpvraag;
-                }
-            }
-                //carematch.database.HulpvraagAannemen;
+                carematch.database.HulpvraagAannemen(id, gebruiker.GebruikersID);
                 return RedirectToAction("HulpvragenOverzicht", "Vrijwilliger");
             }
         public ActionResult ChatStarten(string id)
         {
-            carematch.database.Chatpartne
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            return RedirectToAction("ChatBekijken", "Chat", new {partner = );
+            return RedirectToAction("ChatBekijken", "Chat", new { partner = id});
         }
     }
 }
