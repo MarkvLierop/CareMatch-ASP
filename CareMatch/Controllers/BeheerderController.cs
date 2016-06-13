@@ -43,24 +43,14 @@ namespace CareMatch.Controllers
             return View();
         }
 
-        public ActionResult AccountOverzicht(string id)
+        public ActionResult AccountOverzicht()
         {
-            //zorg dat id "Alles", "Naam & Wachtwoord","Niet goedgekeurde gebruikers" of "Vrijwilligers zonder VOG" is anders werkt het niet, want goede database...
-            ViewBag.UserList = carematch.database.GebruikerBeheer(id);
-            ViewBag.CurrentView = id;
+
+
             return View();
         }
-        public ActionResult UserAccount(int id)
+        public ActionResult Chat()
         {
-            Gebruiker user = null;
-            foreach(Gebruiker gebruiker in carematch.database.GebruikerBeheer("Alles"))
-            {
-                if(gebruiker.GebruikersID == id)
-                {
-                    user = gebruiker;
-                }
-            }
-            ViewBag.ShowUser = user;
             return View();
         }
 
