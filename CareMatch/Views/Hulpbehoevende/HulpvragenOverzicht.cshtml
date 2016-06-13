@@ -17,13 +17,12 @@
             }
             else {
                 <table class="table table-striped table-hover">
-                    <thead>
-                    <th>Titel</th>
-                    <th>Urgent</th>
-                    <th>Datum</th>
-                    <th></th>
-                    </thead>
-                    <tbody>
+                    <tr>
+                        <th>Titel</th>
+                        <th>Urgent</th>
+                        <th>Datum</th>
+                        <th></th>
+                    </tr>
                         @foreach (CareMatch.Models.Hulpvraag hulpvraag in hulpvragen)
                         {
                             <tr>
@@ -33,7 +32,6 @@
                                 <td><a type="button" class="btn btn-info" href='@Url.Action("Hulpvraag", new { id = @hulpvraag.HulpvraagID})'>Aanpassen</a></td>
                             </tr>
                         }
-                    </tbody>
                 </table>
             }
         }

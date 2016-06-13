@@ -33,6 +33,8 @@ namespace CareMatch.Controllers
                 {
                     selectedhulpvraag = hulpvraag;
                 }
+
+                hulpvraag.EindDatum = DateTime.Parse(Convert.ToString(hulpvraag.EindDatum - hulpvraag.StartDatum));
             }
             ViewData["Hulpvraag"] = selectedhulpvraag;
             return View();
@@ -43,7 +45,7 @@ namespace CareMatch.Controllers
             if (!string.IsNullOrEmpty(Omschrijving))
             {
                 Hulpvraag hulpvraag = new Hulpvraag();
-                if (Urgent.ToLower() == "on")
+                if (!string.IsNullOrEmpty(Urgent))
                 {
                     hulpvraag.Urgent = true;
                 }
@@ -53,11 +55,8 @@ namespace CareMatch.Controllers
                 }
                 if (!string.IsNullOrEmpty(Auto))
                 {
-                    if (Auto.ToLower() == "on")
-                    {
-                        hulpvraag.Auto = true;
+                    hulpvraag.Auto = true;
 
-                    }
                 }
                 else
                 {
@@ -69,8 +68,8 @@ namespace CareMatch.Controllers
                 hulpvraag.Titel = KOmschrijving;
                 hulpvraag.HulpvraagInhoud = Omschrijving;
                 hulpvraag.Hulpbehoevende = (Session["Gebruiker"] as Gebruiker).Gebruikersnaam;
-
-                carematch.database.HulpvraagToevoegen(hulpvraag, Session["Gebruiker"] as Gebruiker);
+                hulpvraag.Plaatsnaam = Plaatsnaam;
+                carematch.database.HulpvraagAanpassen((Session["Gebruiker"] as Gebruiker), hulpvraag);
 
                 return RedirectToAction("HulpvragenOverzicht");
             }
@@ -96,21 +95,23 @@ namespace CareMatch.Controllers
                     hulpvraag.Auto = true;
 
                 }
-            }
-            else
-            {
-                hulpvraag.Auto = false;
-            }
-            hulpvraag.StartDatum = Datum + Tijd;
-            hulpvraag.EindDatum = hulpvraag.StartDatum + Duur;
-            hulpvraag.Locatie = StraatEnHuisnummer;
-            hulpvraag.Titel = KOmschrijving;
-            hulpvraag.HulpvraagInhoud = Omschrijving;
-            hulpvraag.Hulpbehoevende = (Session["Gebruiker"] as Gebruiker).Gebruikersnaam;
+                else
+                {
+                    hulpvraag.Auto = false;
+                }
+                hulpvraag.StartDatum = Datum + Tijd;
+                hulpvraag.EindDatum = hulpvraag.StartDatum + Duur;
+                hulpvraag.Locatie = StraatEnHuisnummer;
+                hulpvraag.Titel = KOmschrijving;
+                hulpvraag.HulpvraagInhoud = Omschrijving;
+                hulpvraag.Hulpbehoevende = (Session["Gebruiker"] as Gebruiker).Gebruikersnaam;
 
-            carematch.database.HulpvraagToevoegen(hulpvraag, Session["Gebruiker"] as Gebruiker);
+                carematch.database.HulpvraagToevoegen(hulpvraag, Session["Gebruiker"] as Gebruiker);
 
-            return RedirectToAction("HulpvragenOverzicht");        
+                return RedirectToAction("HulpvragenOverzicht");
+            }
+            return View();
         }
+        
     }
 }
