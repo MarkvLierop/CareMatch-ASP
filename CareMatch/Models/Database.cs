@@ -651,6 +651,7 @@ namespace CareMatch.Models
             {
                 bool tempbool;
                 Gebruiker tempGebruiker = new Gebruiker();
+                tempGebruiker.GebruikersID = Convert.ToInt32(reader["GebruikerID"]);
                 tempGebruiker.Voornaam = Convert.ToString(reader["Voornaam"]);
                 tempGebruiker.Achternaam = Convert.ToString(reader["Achternaam"]);
                 tempGebruiker.VOG = Convert.ToString(reader["VOG"]);
