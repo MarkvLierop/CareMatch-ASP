@@ -7026,7 +7026,7 @@ legend {
 .panel-body
 {
     overflow-y: scroll;
-    height: 250px;
+    height: 100%;
 }
 
 ::-webkit-scrollbar-track
@@ -7075,7 +7075,7 @@ legend {
     font-weight: normal;
     padding: 0 20px 0 20px;
     font-size: 1.416em;
-    line-height: 50px;
+    line-height: 35px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -7114,6 +7114,12 @@ legend {
 .img-sm {
     width: 46px;
     height: 46px;
+}
+
+.img-logo {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .media-block .media-body {
     display: block;

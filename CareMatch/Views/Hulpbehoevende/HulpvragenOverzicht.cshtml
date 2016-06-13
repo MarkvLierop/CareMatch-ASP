@@ -1,6 +1,6 @@
 ﻿
 @{
-        ViewBag.Title = "HulpvragenOverzicht";
+        ViewBag.Title = "Hulpvragen Overzicht";
         Layout = "~/Views/Shared/_Layout.cshtml";
         List<CareMatch.Models.Hulpvraag> hulpvragen = ViewData["Hulpvragen"] as List<CareMatch.Models.Hulpvraag>;
 }
@@ -29,7 +29,7 @@
                             <tr>
                                 <td>@hulpvraag.Titel</td>
                                 <td>@hulpvraag.Urgent</td>
-                                <td>@hulpvraag.DatumTijd.ToString()</td>
+                                <td>@hulpvraag.StartDatum.ToString()</td>
                                 <td><a type="button" class="btn btn-info" href='@Url.Action("Hulpvraag", new { id = @hulpvraag.HulpvraagID})'>Aanpassen</a></td>
                             </tr>
                         }
