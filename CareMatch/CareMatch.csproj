@@ -187,6 +187,11 @@
     <Content Include="Views\Hulpbehoevende\HulpvraagIndienen.cshtml" />
     <Content Include="Views\Shared\_Simple.cshtml" />
     <Content Include="Views\Hulpbehoevende\Hulpvraag.cshtml" />
+    <Content Include="Views\Beheerder\AccountOverzicht.cshtml" />
+    <Content Include="Views\Beheerder\Chart.cshtml" />
+    <Content Include="Views\Beheerder\Hulpvraag.cshtml" />
+    <Content Include="Views\Beheerder\HulpvragenOverzicht.cshtml" />
+    <Content Include="Views\Beheerder\GebruikerAccount.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
