@@ -684,6 +684,16 @@ namespace CareMatch.Models
             con.Close();
             return gebruikerlist;
         }
+
+        public void VerwijderGebruiker(int id)
+        {
+            con.Open();
+
+            command = new OracleCommand("DELETE FROM Gebruiker WHERE GebruikerID =:id", con);
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = id;
+            command.ExecuteNonQuery();
+            con.Close();
+        }
         public OracleDataAdapter DataUpdateBeheerGebruiker(string datagrid)
         {
             con.Open();

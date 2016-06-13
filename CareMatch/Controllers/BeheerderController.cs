@@ -38,7 +38,6 @@ namespace CareMatch.Controllers
             }
             if(gekozenHulpvraag != null)
             {
-                ViewBag.HulpvraagBool = true;
                 ViewBag.Hulpvraag = gekozenHulpvraag;
             }
             
@@ -85,11 +84,20 @@ namespace CareMatch.Controllers
             ViewBag.gebruikerBool = false;
             return View();
         }
+        public ActionResult GebruikerVerwijderen(int id)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            if(gebruiker.Rol.ToLower() == "beheerder")
+            {
+                carematch.database.VerwijderGebruiker(id);
+            }
+            return RedirectToAction("AccountOverzicht", "Beheerder");
+        }
 
         public ActionResult HulpvraagVerwijderen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            if(gebruiker.Rol == "beheerder")
+            if(gebruiker.Rol.ToLower() == "beheerder")
             {
                 carematch.database.HulpvraagVerwijderen(id);
             }
