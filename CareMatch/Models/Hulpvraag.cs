@@ -21,6 +21,7 @@ namespace CareMatch.Models
         public string Beoordeling { get; set; } //hulpvraag is afgerond als er een beoordeling gegeven is.
         public bool Auto { get; set; }
         public bool Urgent { get; set; }
+        public string Plaatsnaam { get; set; }
 
         public Hulpvraag()
         {
