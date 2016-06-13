@@ -14105,3 +14105,7 @@ legend {
 .modal .close {
   color: #333333;
 }
+video {
+    height: 200px;
+    width: 200px;
+}
