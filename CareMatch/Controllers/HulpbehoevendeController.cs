@@ -84,7 +84,7 @@ namespace CareMatch.Controllers
             if (!string.IsNullOrEmpty(Omschrijving))
             {
                 Hulpvraag hulpvraag = new Hulpvraag();
-                if(!string.IsNullOrEmpty(Urgent))
+                if(Urgent.ToLower() == "on")
                 {
                     hulpvraag.Urgent = true;
                 }
