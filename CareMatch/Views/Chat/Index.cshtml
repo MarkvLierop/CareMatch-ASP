@@ -1,29 +1,21 @@
 ﻿@model CareMatch.Models.Chatbericht
 @{
+    var room = "";
     ViewBag.Title = "CareMatch - Chat";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    if((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol == "hulpbehoevende")
+    {
+        room = @ViewBag.Partner + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam;
+    }
+    else
+    {
+        room = (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam + @ViewBag.Partner;
+    }
+
 }
 
 <h2>Chat</h2>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script>
-    var comm = new Icecomm('HhwjERa67BO6jFoZ9Sy4wQ86N2c64JjRc7NURHrnKocjY2em');
-
-    comm.connect('custom room', { audio: false });
-
-    comm.on('connected', function (peer) {
-        document.body.appendChild(peer.getVideo());
-    });
-
-    comm.on('local', function (peer) {
-        localVideo.src = peer.stream;
-    });
-
-    comm.on('disconnect', function (peer) {
-        document.getElementById(peer.ID).remove();
-    });
-</script>
-<script type="text/javascript" src="~/Content/icecomm.js"></script>
 <script>
 		$(document).ready(function() {
 			var height = 0;
@@ -59,12 +51,12 @@
                         </ul>
                     </div>
                 </div>
-                <h3 class="panel-title">@ViewBag.Partner</h3>
+                <h3 class="panel-title">Chatpartner: @ViewBag.Partner</h3>
             </div>
 </div>
             <!--Widget body-->
             <div id="demo-chat-body" class="collapse in" >
-                <div class="nano has-scrollbar" style="height:380px">
+                <div class="nano has-scrollbar" style="height:400px">
                     <div class="nano-content pad-all" id="messagewindow" tabindex="0" style="right: -17px;">
                         <ul class="list-unstyled media-block">
 
@@ -145,10 +137,28 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Video Chat</h3>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" style="height:400px">
                 @{
                     if (!string.IsNullOrEmpty(ViewBag.Partner))
                     {
+                        <script type="text/javascript" src="~/Content/icecomm.js"></script>
+                        <script>
+                            var comm = new Icecomm('HhwjERa67BO6jFoZ9Sy4wQ86N2c64JjRc7NURHrnKocjY2em');
+
+                            comm.connect('@room', { audio: false });
+
+                            comm.on('connected', function (peer) {
+                                document.body.appendChild(peer.getVideo());
+                            });
+
+                            comm.on('local', function (peer) {
+                                localVideo.src = peer.stream;
+                            });
+
+                            comm.on('disconnect', function (peer) {
+                                document.getElementById(peer.ID).remove();
+                            });
+                        </script>
                         <video id="localVideo" autoplay></video>
                     }
                     else
@@ -159,4 +169,4 @@
             </div>
         </div>
     </div>
-    
+  
