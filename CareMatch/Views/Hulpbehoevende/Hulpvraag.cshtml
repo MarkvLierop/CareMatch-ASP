@@ -4,14 +4,6 @@
     Layout = "~/Views/Shared/_Simple.cshtml";
     CareMatch.Models.Hulpvraag h = ViewData["Hulpvraag"] as CareMatch.Models.Hulpvraag;
 }
-<script>
-	function Succes() {
-		alert("Hulpvraag is met succes opgeslagen.");
-	}
-	function Failed() {
-		alert("Er is iets foutgegaan bij het opslaan van de hulpvraag.");
-	}
-</script>
 <a href="@Url.Action("HulpvragenOverzicht", "Hulpbehoevende")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a>
 <h2>Hulpvragen Wijzigen</h2>
 <div class="panel panel-danger">
