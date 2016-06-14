@@ -66,9 +66,25 @@
                 <textarea class="form-control" id="Omschrijving" name="Omschrijving">@h.HulpvraagInhoud</textarea>
             </div>
             <br />
-            <div class="HulpvraagMenu">
-                <input type="submit" value="Opslaan" class="btn btn-sq-lg btn-warning" onclick="Succes()"/>
-            </div>
+            <h4>Status:</h4>
+            @{ if (h.Vrijwilliger == "")
+                {
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar" style="width: 30%">Ingediend</div>
+                    </div>
+                    <div class="HulpvraagMenu">
+                        <input type="submit" value="Opslaan" class="btn btn-sq-lg btn-warning" onclick="Succes()" />
+                    </div>
+                }
+                else
+                {
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar" style="width: 33%">Ingediend</div>
+                        <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
+                    </div>
+                    <h4>Deze hulpvraag is aangenomen door: <strong>@h.Vrijwilliger</strong>. Hieronder kunt u <strong>@h.Vrijwilliger</strong> beoordelen.</h4>
+                }
+                }
         </form>        
     </div>
 </div>

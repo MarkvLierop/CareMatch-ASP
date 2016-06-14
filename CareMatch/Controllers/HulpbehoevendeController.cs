@@ -118,6 +118,16 @@ namespace CareMatch.Controllers
             }
 
             return View();
-        }       
+        }
+        public ActionResult ChatBarcode()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChatBarcode(string partner)
+        {
+            return RedirectToAction("ChatBekijken", "Chat", new { partner = partner });
+        }
     }
 }
