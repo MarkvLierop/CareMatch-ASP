@@ -9,9 +9,8 @@ namespace CareMatch.Controllers
 {
     public class ChatController : Controller
     {
-
-
         CareMatch.Models.Database database = new CareMatch.Models.Database();
+        
         // GET: Chat
         public ActionResult Index(string id, string ingelogd)
         {
@@ -31,20 +30,18 @@ namespace CareMatch.Controllers
                     ViewBag.Gebruikers = database.VrijwilligersLijst();
                 }
 
-
                 if (!string.IsNullOrEmpty(id))
                 {
                     ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
                     ViewBag.Partner = id;
                 }
-
                 else
                 {
                     ViewBag.Chat = new List<Models.Chatbericht>();
-                    ViewBag.Partner = "";            
+                    ViewBag.Partner = string.Empty;            
                 }
-            return View();
 
+            return View();
         }
 
         public ActionResult ChatBekijken(string partner)
@@ -53,7 +50,7 @@ namespace CareMatch.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index (string id, string bericht, string ingelogd)
+        public ActionResult Index(string id, string bericht, string ingelogd)
         {
             database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
             ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
@@ -69,7 +66,6 @@ namespace CareMatch.Controllers
             if (!string.IsNullOrEmpty(bericht))
             {
                 database.ChatInvoegen(1, bericht, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
-
             }
 
             if (!string.IsNullOrEmpty(id))
@@ -77,12 +73,12 @@ namespace CareMatch.Controllers
                 ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
                 ViewBag.Partner = id;
             }
-
             else
             {
                 ViewBag.Chat = new List<Models.Chatbericht>();
-                ViewBag.Partner = "";
+                ViewBag.Partner = string.Empty;
             }
+
             return RedirectToAction("ChatBekijken", new { partner = id });
         }
     }   

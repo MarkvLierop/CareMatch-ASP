@@ -15,29 +15,31 @@ namespace CareMatch.Controllers
         {
             if (string.IsNullOrEmpty(gebruikersnaam) && string.IsNullOrEmpty(wachtwoord))
             {
-                ViewBag.foutmelding = "";
+                ViewBag.foutmelding = string.Empty;
             }
-            else if(carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord) == null)
+            else if (carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord) == null)
             {
                 ViewBag.foutmelding = "Gebruikersnaam of Wachtwoord is incorrect";
             }
-            else if(carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "beheerder")
+            else if (carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "beheerder")
             {
                 Session["Gebruiker"] = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
-                return RedirectToAction("Index", "Beheerder", new { area = "" });
+                return RedirectToAction("Index", "Beheerder", new { area = string.Empty });
             }
-            else if(carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "vrijwilliger")
+            else if (carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "vrijwilliger")
             {
                 Session["Gebruiker"] = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
-                return RedirectToAction("Index", "Vrijwilliger", new { area = "" });
+                return RedirectToAction("Index", "Vrijwilliger", new { area = string.Empty });
             }
-            else if(carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "hulpbehoevende")
+            else if (carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "hulpbehoevende")
             {
                 Session["Gebruiker"] = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
-                return RedirectToAction("Index", "Hulpbehoevende", new { area = "" });
+                return RedirectToAction("Index", "Hulpbehoevende", new { area = string.Empty });
             }
+
             return View();
         }
+
         //commit
         public ActionResult Registreren()
         {
@@ -66,6 +68,7 @@ namespace CareMatch.Controllers
                 return View();
             }
         }
+
         public ActionResult Uitloggen()
         {
             Session["Gebruiker"] = null;
