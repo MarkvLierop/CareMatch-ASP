@@ -18,7 +18,7 @@ namespace CareMatch.Controllers
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, Request.QueryString["filter"]);
             return View();
         }
         public ActionResult Hulpvraag(int id)
