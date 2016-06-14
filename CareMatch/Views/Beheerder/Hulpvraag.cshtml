@@ -3,7 +3,11 @@
     ViewBag.Title = "Hulpvraag";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<a href="@Url.Action("HulpvragenOverzicht", "Beheerder")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a><br />
+<form method="get" action="@Url.Action("HulpvraagVerwijderen", "Beheerder", new { id = ViewBag.Hulpvraag.HulpvraagID })" class="rechterKnop">
+    <input type="submit" value="Verwijderen" name="hulpvraag" class="btn btn-primary btn-lg">
+</form>
+<br/>
 <h2>Hulpvraag</h2>
 <div class="panel panel-info">
     <div class="panel-heading">
@@ -11,32 +15,34 @@
     </div>
     <div class="panel-body">
         <table class="table table-striped">
-            <thead>
-            </thead>
             <tbody>
                 <tr>
                     <th>Omschrijving</th>
                     <td>@ViewBag.Hulpvraag.HulpvraagInhoud</td>
                 </tr>
                 <tr>
-                    <th>Urgent</th>
-                    <td>@ViewBag.Hulpvraag.Urgent</td>
+                    <th>Vrijwilliger</th>
+                    <td>@ViewBag.Hulpvraag.Vrijwilliger</td>
                 </tr>
                 <tr>
                     <th>Locatie</th>
                     <td>@ViewBag.Hulpvraag.Locatie</td>
                 </tr>
                 <tr>
-                    <th>Startdatum</th>
-                    <td>@ViewBag.Hulpvraag.StartDatum</td>
+                    <th>Plaatsnaam</th>
+                    <td>@ViewBag.Hulpvraag.Plaatsnaam</td>
                 </tr>
                 <tr>
-                    <th>Einddatum</th>
-                    <td>@ViewBag.Hulpvraag.EindDatum</td>
+                    <th>Beoordeling</th>
+                    <td>@ViewBag.Hulpvraag.Beoordeling</td>
                 </tr>
                 <tr>
-                    <th>Frequentie</th>
-                    <td>@ViewBag.Hulpvraag.Frequentie</td>
+                    <th>Titel</th>
+                    <td>@ViewBag.Hulpvraag.Titel</td>
+                </tr>
+                <tr>
+                    <th>Hulpbehoevende</th>
+                    <td>@ViewBag.Hulpvraag.Hulpbehoevende</td>
                 </tr>
             </tbody>
         </table>

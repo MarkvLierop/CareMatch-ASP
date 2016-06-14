@@ -17,12 +17,10 @@ namespace CareMatch.Models
         private Gebruiker gebruiker;
         private Agenda.AgendaPunt agendaPunt;
 
-        private DateTime vandaag;
         private string tempString;
 
         public Database()
         {
-            this.vandaag = new DateTime();
 
             string constr = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=fhictora01.fhict.local)(PORT=1521)))"
                           + "(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=fhictora)));"
@@ -133,7 +131,7 @@ namespace CareMatch.Models
         {
             List<Hulpvraag> hulpvraagList = new List<Hulpvraag>();
             con.Open();
-            if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Alle hulpvragen" || filter == "") && gebruiker.Rol.ToLower() == "vrijwilliger")
+            if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Alle hulpvragen" || filter == string.Empty) && gebruiker.Rol.ToLower() == "vrijwilliger")
             {
                 //Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE Flagged != 'Y'", con);
@@ -177,7 +175,7 @@ namespace CareMatch.Models
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID,Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE VrijwilligerID=:gebruikerid AND Beoordeling IS NOT NULL", con);
                 command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
             }
-            else if (filter == "Ongepaste hulpvragen" && gebruiker.Rol.ToLower() == "beheerder")
+            else if (gebruiker.Rol.ToLower() == "beheerder")
             {
                 //throw new NotImplementedException();
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE Hulpvraag.Flagged = 'Y'", con);
@@ -246,14 +244,14 @@ namespace CareMatch.Models
             {
                 if (rol == "hulpbehoevende")
                 {
-                    if (reader["Foto"].ToString() != "")
+                    if (reader["Foto"].ToString() != string.Empty)
                     {
                         tempString = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\DropBox\CareMatch\" + hulpvraag.Hulpbehoevende + "\\" + reader["Foto"].ToString();
                     }
                 }
                 else if (rol == "vrijwilliger")
                 {
-                    if (reader["Foto"].ToString() != "")
+                    if (reader["Foto"].ToString() != string.Empty)
                     {
                         tempString = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\DropBox\CareMatch\" + hulpvraag.Vrijwilliger + "\\" + reader["Foto"].ToString();
                     }
@@ -396,7 +394,7 @@ namespace CareMatch.Models
         //Geeft de onlinestatus van je chatpartner
         public string ChatPartnerStatus(int id)
         {
-            string status = "";
+            string status = string.Empty;
 
             try { con.Open(); } catch { };
             command = new OracleCommand("SELECT onlinestatus FROM gebruiker WHERE gebruikerid = :id", con);
@@ -697,6 +695,14 @@ namespace CareMatch.Models
             {
                 tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'vrijwilliger' AND VOG IS NULL";
             }
+            else if(query == "Vrijwilligers")
+            {
+                tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'vrijwilliger'";
+            }
+            else if(query == "Hulpbehoevenden")
+            {
+                tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'hulpbehoevende'";
+            }
 
             command = new OracleCommand(tempString, con);
             reader = command.ExecuteReader();
@@ -712,7 +718,7 @@ namespace CareMatch.Models
                 tempGebruiker.Voornaam = Convert.ToString(reader["Voornaam"]);
                 tempGebruiker.Achternaam = Convert.ToString(reader["Achternaam"]);
                 tempGebruiker.VOG = Convert.ToString(reader["VOG"]);
-                if(Convert.ToString(reader["Approved"]) == "Y")
+                if (Convert.ToString(reader["Approved"]) == "Y")
                 {
                     tempbool = true;
                 }
@@ -722,7 +728,7 @@ namespace CareMatch.Models
                     tempbool = false;
                 }
                 tempGebruiker.Approved = tempbool;
-
+                gebruikerlist.Add(tempGebruiker);
             }
             con.Close();
             return gebruikerlist;
@@ -842,7 +848,7 @@ namespace CareMatch.Models
                     {
                         gebruiker.Auto = false;
                     }
-                    if (reader["Foto"].ToString() != "")
+                    if (reader["Foto"].ToString() != string.Empty)
                     {
                         gebruiker.Pasfoto = gebruiker.GetLocalDropBox() + reader["Foto"].ToString();
                     }
@@ -885,7 +891,7 @@ namespace CareMatch.Models
                 else
                 {
                     command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, FOTO, APPROVED, ROL, VOG, GEBOORTEDATUM)" +
-                                                        "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :tussenvoegsel, :achternaam, :filenamefoto, :Approved, :Rol, :filenameVOG, :Geboortedatum)", con);
+                                                        "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :tussenvoegsel, :achternaam, :filenamefoto, :Approved, 'beheerder', :filenameVOG, :Geboortedatum)", con);
                     command.Parameters.Add(new OracleParameter(":gebruikersnaam", OracleDbType.Varchar2)).Value = Gebruikersnaam;
                     command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString(Wachtwoord);
                     command.Parameters.Add(new OracleParameter(":voornaam", OracleDbType.Varchar2)).Value = voornaam;
@@ -893,7 +899,6 @@ namespace CareMatch.Models
                     command.Parameters.Add(new OracleParameter(":achternaam", OracleDbType.Varchar2)).Value = achternaam;
                     command.Parameters.Add(new OracleParameter(":filenameFoto", OracleDbType.Varchar2)).Value = filenameFoto;
                     command.Parameters.Add(new OracleParameter(":Approved", OracleDbType.Varchar2)).Value = "N";
-                    command.Parameters.Add(new OracleParameter(":Rol", OracleDbType.Varchar2)).Value = Rol;
                     command.Parameters.Add(new OracleParameter(":filenameVOG", OracleDbType.Varchar2)).Value = filenameVOG;
                     command.Parameters.Add(new OracleParameter(":Geboortedatum", OracleDbType.Date)).Value = geboortedatum;
                 }
