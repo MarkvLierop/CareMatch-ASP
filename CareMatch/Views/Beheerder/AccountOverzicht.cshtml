@@ -12,14 +12,14 @@
     <div class="dropdown">
         <form action="" method="get">
             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                Filter op: @Request.QueryString["filter"]
+                Filter op: @ViewBag.filter
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href='@Url.Action("AccountOverzicht", "Beheerder", new { id = 0})'>Alle Gebruikers</a></li>
                 <li><a href='@Url.Action("AccountOverzicht", "Beheerder", new { id = 1})'>Vrijwilligers</a></li>
                 <li><a href='@Url.Action("AccountOverzicht", "Beheerder", new { id = 2})'>Hulpbehoevende</a></li>
-                <li><a href='@Url.Action("AccountOverzicht", "Beheerder", new { id = 3})'>Niet goed gekeurde vrijwilligers</a></li>
+                <li><a href='@Url.Action("AccountOverzicht", "Beheerder", new { id = 3})'>Niet goedgekeurde vrijwilligers</a></li>
                 <li><a href='@Url.Action("AccountOverzicht", "Beheerder", new { id = 4})'>Vrijwilligers zonder VOG</a></li>
             </ul>
         </form>
@@ -45,15 +45,22 @@
                     <td>@gebruiker.Gebruikersnaam</td>
                     <td>@gebruiker.Voornaam</td>
                     <td>@gebruiker.Achternaam</td>
-                    <td>@gebruiker.Rol</td>
-                    <td>@gebruiker.VOG</td>
+                    <td><a href="@gebruiker.Rol" target="_blank">@gebruiker.Rol</a></td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(gebruiker.VOG))
+                        {
+                            <a href="@Url.Action("Download", "Beheerder", new { gebruiker = gebruiker.Gebruikersnaam, file = gebruiker.VOG })">@gebruiker.VOG</a>
+                        }
+                    </td>
                     @if (gebruiker.Approved)
                     {
                         <td><h4>✔</h4></td>
                     }
                     else
                     {
-                        <td>&nbsp;</td>
+                        <td>
+                            <a href="@Url.Action("GebruikerAccepteren", "Beheerder", new { id = gebruiker.GebruikersID })" class="btn btn-primary">Approve</a>
+                        </td>
                     }
                 </tr>
             }
