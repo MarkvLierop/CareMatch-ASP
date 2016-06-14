@@ -117,24 +117,23 @@ namespace CareMatch.Models
                 auto = "N";
             }
             command = new OracleCommand(@"UPDATE Hulpvraag SET Auto=:auto, Plaatsnaam=:plaatsnaam, Locatie=:locatie, Startdatum=:startdatum, Einddatum=:einddatum, Titel=:titel, Omschrijving=:hulpvraaginhoud, Urgent=:temp WHERE HulpvraagID=:hulpvraagid", con);
+            command.Parameters.Add(new OracleParameter(":auto", OracleDbType.Varchar2)).Value = auto;
+            command.Parameters.Add(new OracleParameter(":plaatsnaam", OracleDbType.Varchar2)).Value = hulpvraag.Plaatsnaam;
+            command.Parameters.Add(new OracleParameter(":locatie", OracleDbType.Varchar2)).Value = hulpvraag.Locatie;
+            command.Parameters.Add(new OracleParameter(":startdatum", OracleDbType.Varchar2)).Value = hulpvraag.StartDatum;
+            command.Parameters.Add(new OracleParameter(":einddatum", OracleDbType.Varchar2)).Value = hulpvraag.EindDatum;
+            command.Parameters.Add(new OracleParameter(":titel", OracleDbType.Varchar2)).Value = hulpvraag.Titel;
             command.Parameters.Add(new OracleParameter(":hulpvraaginhoud", OracleDbType.Varchar2)).Value = hulpvraag.HulpvraagInhoud;
             command.Parameters.Add(new OracleParameter(":temp", OracleDbType.Varchar2)).Value = tempString;
-            command.Parameters.Add(new OracleParameter(":auto", OracleDbType.Varchar2)).Value = auto;
             command.Parameters.Add(new OracleParameter(":hulpvraagid", OracleDbType.Int32)).Value = hulpvraag.HulpvraagID;
-            command.Parameters.Add(new OracleParameter(":locatie", OracleDbType.Varchar2)).Value = hulpvraag.Locatie;
-            command.Parameters.Add(new OracleParameter(":plaatsnaam", OracleDbType.Varchar2)).Value = hulpvraag.Plaatsnaam;
-            command.Parameters.Add(new OracleParameter(":einddatum", OracleDbType.Date)).Value = hulpvraag.EindDatum;
-            command.Parameters.Add(new OracleParameter(":startdatum", OracleDbType.Date)).Value = hulpvraag.StartDatum;
-            command.Parameters.Add(new OracleParameter(":titel", OracleDbType.Varchar2)).Value = hulpvraag.Titel;
             command.ExecuteNonQuery();
             con.Close();
         }
         public List<Hulpvraag> HulpvragenOverzicht(Gebruiker gebruiker, string filter)
         {
             List<Hulpvraag> hulpvraagList = new List<Hulpvraag>();
-
             con.Open();
-            if ((filter == "Alle hulpvragen" || filter == "") && gebruiker.Rol.ToLower() == "vrijwilliger")
+            if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Alle hulpvragen" || filter == "") && gebruiker.Rol.ToLower() == "vrijwilliger")
             {
                 //Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE Flagged != 'Y'", con);
@@ -144,6 +143,18 @@ namespace CareMatch.Models
             {
                 //overzicht eigen toegekende hulpvragen voor vrijwilligers
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE VrijwilligerID=:gebruikerid", con);
+                command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
+            }
+            else if (filter == "Urgent" && gebruiker.Rol.ToLower() == "vrijwilliger")
+            {
+                //overzicht eigen toegekende hulpvragen voor vrijwilligers
+                command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE Urgent='Y'", con);
+                command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
+            }
+            else if (filter == "Urgent" && gebruiker.Rol.ToLower() == "hulpbehoevende")
+            {
+                //overzicht eigen toegekende hulpvragen voor vrijwilligers
+                command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE GebruikerID=:gebruikerid AND Urgent='Y'", con);
                 command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
             }
             else if (filter == "Nieuwe reacties" && gebruiker.Rol.ToLower() == "vrijwilliger")
@@ -166,7 +177,7 @@ namespace CareMatch.Models
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID,Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE VrijwilligerID=:gebruikerid AND Beoordeling IS NOT NULL", con);
                 command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
             }
-            else if (filter.ToLower() == "ongepaste hulpvragen" && gebruiker.Rol.ToLower() == "beheerder")
+            else if (filter == "Ongepaste hulpvragen" && gebruiker.Rol.ToLower() == "beheerder")
             {
                 //throw new NotImplementedException();
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE Hulpvraag.Flagged = 'Y'", con);
@@ -700,6 +711,7 @@ namespace CareMatch.Models
             {
                 bool tempbool;
                 Gebruiker tempGebruiker = new Gebruiker();
+                tempGebruiker.GebruikersID = Convert.ToInt32(reader["GebruikerID"]);
                 tempGebruiker.Voornaam = Convert.ToString(reader["Voornaam"]);
                 tempGebruiker.Achternaam = Convert.ToString(reader["Achternaam"]);
                 tempGebruiker.VOG = Convert.ToString(reader["VOG"]);
@@ -709,6 +721,7 @@ namespace CareMatch.Models
                 }
                 else
                 {
+
                     tempbool = false;
                 }
                 tempGebruiker.Approved = tempbool;
@@ -716,6 +729,16 @@ namespace CareMatch.Models
             }
             con.Close();
             return gebruikerlist;
+        }
+
+        public void VerwijderGebruiker(int id)
+        {
+            con.Open();
+
+            command = new OracleCommand("DELETE FROM Gebruiker WHERE GebruikerID =:id", con);
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = id;
+            command.ExecuteNonQuery();
+            con.Close();
         }
         public OracleDataAdapter DataUpdateBeheerGebruiker(string datagrid)
         {
