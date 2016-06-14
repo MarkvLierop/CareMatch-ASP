@@ -1,11 +1,29 @@
 ﻿@model CareMatch.Models.Chatbericht
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "CareMatch - Chat";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Chat</h2>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+    var comm = new Icecomm('HhwjERa67BO6jFoZ9Sy4wQ86N2c64JjRc7NURHrnKocjY2em');
+
+    comm.connect('custom room', { audio: false });
+
+    comm.on('connected', function (peer) {
+        document.body.appendChild(peer.getVideo());
+    });
+
+    comm.on('local', function (peer) {
+        localVideo.src = peer.stream;
+    });
+
+    comm.on('disconnect', function (peer) {
+        document.getElementById(peer.ID).remove();
+    });
+</script>
+<script type="text/javascript" src="~/Content/icecomm.js"></script>
 <script>
 		$(document).ready(function() {
 			var height = 0;
@@ -27,13 +45,12 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="col-md-12 col-lg-6">
-        <div class="panel" >
+        <div class="panel panel-primary" >
             <!--Heading-->
             <div class="panel-heading">
                 <div class="panel-control">
                     <div class="btn-group">
-                        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#demo-chat-body"><i class="fa fa-chevron-down"></i></button>
-                        <button type="button" class="btn btn-default" data-toggle="dropdown"><i class="fa fa-gear"></i></button>
+                        <button type="button" class="btn btn-default" data-toggle="dropdown">Chatparner kiezen</button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             @foreach (string gebruiker in ViewBag.Gebruikers as List<string>)
                             {
@@ -42,7 +59,7 @@
                         </ul>
                     </div>
                 </div>
-                <h3 class="panel-title">Chat</h3>
+                <h3 class="panel-title">@ViewBag.Partner</h3>
             </div>
 
             <!--Widget body-->
@@ -108,6 +125,7 @@
                                         <input type="submit" class="btn btn-primary btn-block" value="Verzend"/>
                                         @*@if(geb)*@
                                     </div>
+                                    
                                 </form>
                             </div>
                         </div>
@@ -121,4 +139,24 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="col-md-12 col-lg-6">
+        <div class="panel panel-primary">
+            <!--Heading-->
+            <div class="panel-heading">
+                <h3 class="panel-title">Video Chat</h3>
+            </div>
+            <div class="panel-body">
+                @{
+                    if (!string.IsNullOrEmpty(ViewBag.Partner))
+                    {
+                        
+                    }
+                    else
+                    {
+                        <h4>Selecteer een partner.</h4>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <video id="localVideo" autoplay></video>

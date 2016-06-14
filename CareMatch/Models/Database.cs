@@ -711,6 +711,7 @@ namespace CareMatch.Models
             {
                 bool tempbool;
                 Gebruiker tempGebruiker = new Gebruiker();
+                tempGebruiker.GebruikersID = Convert.ToInt32(reader["GebruikerID"]);
                 tempGebruiker.Voornaam = Convert.ToString(reader["Voornaam"]);
                 tempGebruiker.Achternaam = Convert.ToString(reader["Achternaam"]);
                 tempGebruiker.VOG = Convert.ToString(reader["VOG"]);
@@ -720,6 +721,7 @@ namespace CareMatch.Models
                 }
                 else
                 {
+
                     tempbool = false;
                 }
                 tempGebruiker.Approved = tempbool;
@@ -727,6 +729,16 @@ namespace CareMatch.Models
             }
             con.Close();
             return gebruikerlist;
+        }
+
+        public void VerwijderGebruiker(int id)
+        {
+            con.Open();
+
+            command = new OracleCommand("DELETE FROM Gebruiker WHERE GebruikerID =:id", con);
+            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = id;
+            command.ExecuteNonQuery();
+            con.Close();
         }
         public OracleDataAdapter DataUpdateBeheerGebruiker(string datagrid)
         {
