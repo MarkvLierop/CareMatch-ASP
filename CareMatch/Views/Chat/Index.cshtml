@@ -14,26 +14,39 @@
 
 }
 
-<h2>Chat</h2>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
-		$(document).ready(function() {
-			var height = 0;
-			$("ul.list-unstyled.media-block").each(function() {
-				height += parseInt($(this).height());
-			});
-
-			height += 0;
-
-			$("#messagewindow").animate({ scrollTop: height });
+	$(document).ready(function() {
+		var height = 0;
+		$("ul.list-unstyled.media-block").each(function() {
+			height += parseInt($(this).height());
 		});
-        //Post request op de achtergrond uitvoeren. Pagina - Functienaam - parameters.
-		$.post("Index.cshtml", { Index }, function (data) {
-		    console.log(data.name); // John
-		    console.log(data.time); // 2pm
-		}, "json");
+
+		height += 0;
+
+		$("#messagewindow").animate({ scrollTop: height });
+	});
+    //Post request op de achtergrond uitvoeren. Pagina - Functienaam - parameters.
+	$.post("Index.cshtml", { Index }, function (data) {
+		console.log(data.name); // John
+		console.log(data.time); // 2pm
+	}, "json");
+
+    //Kijken of de chat veranderd moet worden.
+	$(document).ready(function () {
+		function RefreshChat() {
+		    @Url.Action("Action", "Controller");
+		}
+
+		//set an interval
+	    setInterval(RefreshChat, 10000); // 10 seconden.
+
+		//Call the function
+		hi();
+	});
 </script>
 
+<h2>Chat</h2>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="col-md-12 col-lg-6">

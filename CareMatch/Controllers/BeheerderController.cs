@@ -145,7 +145,7 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
-        public void Download(string gebruiker, string file)
+        public void DownloadFile(string gebruiker, string file)
         {
             Response.ContentType = "APPLICATION/OCTET-STREAM";
             System.IO.FileInfo Dfile = new System.IO.FileInfo(@"C:\"+gebruiker+@"\"+file);
