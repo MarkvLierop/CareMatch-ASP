@@ -15,43 +15,45 @@ namespace CareMatch.Controllers
         // GET: Chat
         public ActionResult Index(string id, string ingelogd)
         {
-            database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
-            ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
-            if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
+            if (Session["Gebruiker"] == null)
             {
-                ViewBag.Gebruikers = database.HulpbehoevendeLijst();
-            }
-            else
-            {
-                ViewBag.Gebruikers = database.VrijwilligersLijst();
+                return RedirectToAction("Index", "Login", new { area = string.Empty });
             }
 
-            if (!string.IsNullOrEmpty(string.Empty))
-            {
-                database.ChatInvoegen(1, string.Empty, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID, DateTime.Now.ToString("dd / MMM HH: mm"));
+                database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
+                ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
+                if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
+                {
+                    ViewBag.Gebruikers = database.HulpbehoevendeLijst();
+                }
+                else
+                {
+                    ViewBag.Gebruikers = database.VrijwilligersLijst();
+                }
 
-            }
 
-            if (!string.IsNullOrEmpty(id))
-            {
-                ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
-                ViewBag.Partner = id;
-            }
+                if (!string.IsNullOrEmpty(id))
+                {
+                    ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
+                    ViewBag.Partner = id;
+                }
 
-            else
-            {
-                ViewBag.Chat = new List<Models.Chatbericht>();
-                ViewBag.Partner = "";
-            }
+                else
+                {
+                    ViewBag.Chat = new List<Models.Chatbericht>();
+                    ViewBag.Partner = "";            
+                }
             return View();
+
         }
+
         public ActionResult ChatBekijken(string partner)
         {
             return RedirectToAction("Index", new { id = partner.ToString() });
         }
 
         [HttpPost]
-        public ActionResult Index(string id, string bericht, string ingelogd)
+        public ActionResult Index (string id, string bericht, string ingelogd)
         {
             database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
             ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
@@ -81,7 +83,7 @@ namespace CareMatch.Controllers
                 ViewBag.Chat = new List<Models.Chatbericht>();
                 ViewBag.Partner = "";
             }
-            return View();
+            return RedirectToAction("ChatBekijken", new { partner = id });
         }
     }   
     }

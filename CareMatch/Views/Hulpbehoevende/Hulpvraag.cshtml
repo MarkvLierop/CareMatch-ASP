@@ -19,32 +19,50 @@
         <h3 class="panel-title">Hulpvraag: @h.Titel</h3>
     </div>
     <div class="panel-body">
-        <form method="post" action="">
+        <form method="post" action="@Url.Action("HulpvraagWijzigen", "Hulpbehoevende")">
             <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="Urgent"> Urgent
-                </label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <label>
-                    <input type="checkbox" name="Auto"> Auto Benodigd
-                </label>
+                @if (h.Urgent)
+                {
+                    <label>
+                        <input type="checkbox" name="Urgent" checked> Urgent
+                    </label>
+                }
+                else
+                {
+                    <label>
+                        <input type="checkbox" name="Urgent"> Urgent
+                    </label>
+                    
+                }
+                @if (h.Auto)
+                {
+                    <label>
+                        <input type="checkbox" name="Auto" checked> Auto Benodigd
+                    </label>
+                }
+                else
+                {
+                    <label>
+                        <input type="checkbox" name="Auto"> Auto Benodigd
+                    </label>
+                }
             </div>
             <div>
             <div class="FormLinks">
                 <label>Plaatsnaam:</label><br />
-                <input type="text" class="form-control" id="Plaatsnaam" placeholder="Eindhoven" name="Plaatsnaam">
+                <input type="text" class="form-control" id="Plaatsnaam" placeholder="Eindhoven" name="Plaatsnaam" value="@h.Plaatsnaam"/>
                 <label>Straatnaam & Huisnummer:</label><br />
-                <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Willemstraat 34" name="StraatEnHuisnummer">                 
+                <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Willemstraat 34" name="StraatEnHuisnummer" value="@h.Locatie"/>                 
             </div>
             <div class="FormRechts">
                 <label>Start Datum :</label><br />
-                <input type="date" value="@h.StartDatum" name="Datum" /><br/>
+                <input type="date" value="@Convert.ToDateTime(h.StartDatum).ToString("yyyy-MM-dd")" name="Datum" /><br/>
                 <label>Start Tijd :</label><br />
-                <input type="time" value="@h.StartDatum" name="Tijd" /><br/>
+                <input type="time" value="@Convert.ToDateTime(h.StartDatum).TimeOfDay" name="Tijd" /><br/>
                 <label>Duur :</label><br />
-                <input type="time" name="Duur" />
+                <input type="time" name="Duur" value="@Convert.ToDateTime(h.EindDatum).TimeOfDay" />
             </div>
-
+                
             </div>
             <br />
             <hr id="hr" />
@@ -52,7 +70,7 @@
                 <label>Titel van de Hulpvraag:</label>
                 <input type="text" value="@h.Titel" class="form-control" id="KOmschrijving" placeholder="Titel" name="KOmschrijving">
                 <label>Omschrijving:</label><br />
-                <textarea placeholder="@h.HulpvraagInhoud" class="form-control" id="Omschrijving" name="Omschrijving"></textarea>
+                <textarea class="form-control" id="Omschrijving" name="Omschrijving">@h.HulpvraagInhoud</textarea>
             </div>
             <br />
             <div class="HulpvraagMenu">
