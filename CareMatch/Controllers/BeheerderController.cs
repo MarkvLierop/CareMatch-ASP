@@ -48,11 +48,17 @@ namespace CareMatch.Controllers
         {
             switch (id)
             {
-                case 1:
+                case 3:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Niet goedgekeurde gebruikers");
                     break;
-                case 2:
+                case 4:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Vrijwilligers zonder VOG");
+                    break;
+                case 1:
+                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Vrijwilligers");
+                    break;
+                case 2:
+                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Hulpbehoevenden");
                     break;
                 default:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Alles");
@@ -86,7 +92,8 @@ namespace CareMatch.Controllers
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             if (gebruiker.Rol.ToLower() == "beheerder")
-            {
+            {   
+
                 carematch.database.DataUpdateBeheerRol(accountID);
             }
 
