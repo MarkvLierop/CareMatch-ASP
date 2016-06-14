@@ -18,7 +18,16 @@
     margin-right:70%;
     width:50%;
 }
-
+.overzichtTitle{
+    margin-bottom:30px;
+}
+.dropdown{
+    float:right;
+    top:-50px;
+}
+.overzicht{
+    padding-top:50px;
+}
 .registerform{
     margin-left: 30%;
     margin-right:70%;
@@ -56,8 +65,7 @@
 	border: 0;
 	height: 1px;
 	background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));  
 	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
 }
 .panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
@@ -7513,7 +7521,6 @@ th {
   font-weight: normal;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 .glyphicon-asterisk:before {
   content: "\002a";
@@ -12391,7 +12398,6 @@ a.thumbnail.active {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
-  -webkit-background-size: 40px 40px;
           background-size: 40px 40px;
 }
 .progress.active .progress-bar,
@@ -14104,4 +14110,8 @@ legend {
 }
 .modal .close {
   color: #333333;
+}
+video {
+    height: 200px;
+    width: 200px;
 }
