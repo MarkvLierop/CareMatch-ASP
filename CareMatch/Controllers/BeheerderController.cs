@@ -21,16 +21,15 @@ namespace CareMatch.Controllers
 
         // laat een lijst met alle ongepaste hulpvragen zien
         {
-            string filter = "ongepaste hulpvragen";
-            ViewBag.hulpvraaglist = carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, filter);
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
             return View();
         }
 
         public ActionResult Hulpvraag(int id)
         {
             Hulpvraag gekozenHulpvraag = null;
-            string filter = "ongepaste hulpvragen";
-            foreach (Hulpvraag hulpvraag in carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, filter))
+            foreach (Hulpvraag hulpvraag in carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, ""))
             {
                 if (hulpvraag.HulpvraagID == id)
                 {

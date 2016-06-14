@@ -18,6 +18,9 @@
     margin-right:70%;
     width:50%;
 }
+.rechterKnop{
+    float:right;
+}
 .overzichtTitle{
     margin-bottom:30px;
 }
