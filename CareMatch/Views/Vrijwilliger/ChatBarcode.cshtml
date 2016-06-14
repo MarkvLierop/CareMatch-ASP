@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "ChatBarcode";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Start een chat door een barcode te scannen.</h2>
+<form method="post" name="StartChat">
+    <div class="col-xs-9">
+        <input type="text" name="partner" class="form-control chat-input">
+    </div>
+    <div class="col-xs-3">
+        <input type="submit" class="btn btn-primary btn-block" value="Verzend" />
+        
+    </div>
+
+</form>

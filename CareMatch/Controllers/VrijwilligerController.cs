@@ -17,6 +17,10 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        public ActionResult ChatBarcode()
+        {
+            return View();
+        }
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -51,3 +55,4 @@ namespace CareMatch.Controllers
         }
     }
 }
+

@@ -192,6 +192,7 @@
     <Content Include="Views\Beheerder\HulpvragenOverzicht.cshtml" />
     <Content Include="Views\Beheerder\GebruikerAccount.cshtml" />
     <Content Include="Views\Beheerder\AccountOverzicht.cshtml" />
+    <Content Include="Views\Vrijwilliger\ChatBarcode.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
