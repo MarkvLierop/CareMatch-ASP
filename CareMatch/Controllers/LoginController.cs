@@ -13,27 +13,32 @@ namespace CareMatch.Controllers
         CareMatch1 carematch = new CareMatch1();
         public ActionResult Index(string gebruikersnaam, string wachtwoord)
         {
-            if (string.IsNullOrEmpty(gebruikersnaam) && string.IsNullOrEmpty(wachtwoord))
-            {
-                ViewBag.foutmelding = string.Empty;
-            }
-            else if (carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord) == null)
+            Gebruiker gebruiker = new Gebruiker();
+            gebruiker = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
+
+            if (gebruiker == null)
             {
                 ViewBag.foutmelding = "Gebruikersnaam of Wachtwoord is incorrect";
             }
-            else if (carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "beheerder")
+            else if (gebruiker.Rol.ToLower() == "beheerder")
             {
-                Session["Gebruiker"] = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
                 return RedirectToAction("Index", "Beheerder", new { area = string.Empty });
             }
-            else if (carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "vrijwilliger")
+            else if (gebruiker.Rol.ToLower() == "vrijwilliger")
             {
-                Session["Gebruiker"] = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
-                return RedirectToAction("Index", "Vrijwilliger", new { area = string.Empty });
+                if (gebruiker.Approved)
+                {
+                    Session["Gebruiker"] = gebruiker;
+                    return RedirectToAction("Index", "Vrijwilliger", new { area = string.Empty });
+                }
+                else
+                {
+                    ViewBag.foutmelding = "Account is nog niet goedgekeurd";
+                }
             }
-            else if (carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord).Rol.ToLower() == "hulpbehoevende")
+            else if (gebruiker.Rol.ToLower() == "hulpbehoevende")
             {
-                Session["Gebruiker"] = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
+                Session["Gebruiker"] = gebruiker;
                 return RedirectToAction("Index", "Hulpbehoevende", new { area = string.Empty });
             }
 

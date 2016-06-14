@@ -714,6 +714,7 @@ namespace CareMatch.Models
             {
                 bool tempbool;
                 Gebruiker tempGebruiker = new Gebruiker();
+                tempGebruiker.Gebruikersnaam = reader["gebruikersnaam"].ToString();
                 tempGebruiker.GebruikersID = Convert.ToInt32(reader["GebruikerID"]);
                 tempGebruiker.Voornaam = Convert.ToString(reader["Voornaam"]);
                 tempGebruiker.Achternaam = Convert.ToString(reader["Achternaam"]);
@@ -764,7 +765,7 @@ namespace CareMatch.Models
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "UPDATE GEBRUIKER SET APPROVED = 'Y' WHERE GebruikerID = :gebruikerID ";
-            command.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
+            cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();            
         }
 
@@ -891,14 +892,14 @@ namespace CareMatch.Models
                 else
                 {
                     command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, FOTO, APPROVED, ROL, VOG, GEBOORTEDATUM)" +
-                                                        "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :tussenvoegsel, :achternaam, :filenamefoto, :Approved, 'beheerder', :filenameVOG, :Geboortedatum)", con);
+                                                        "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :tussenvoegsel, :achternaam, :filenamefoto, 'N', :rol, :filenameVOG, :Geboortedatum)", con);
                     command.Parameters.Add(new OracleParameter(":gebruikersnaam", OracleDbType.Varchar2)).Value = Gebruikersnaam;
                     command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString(Wachtwoord);
                     command.Parameters.Add(new OracleParameter(":voornaam", OracleDbType.Varchar2)).Value = voornaam;
                     command.Parameters.Add(new OracleParameter(":tussenvoegsel", OracleDbType.Varchar2)).Value = tussenvoegsel;
                     command.Parameters.Add(new OracleParameter(":achternaam", OracleDbType.Varchar2)).Value = achternaam;
                     command.Parameters.Add(new OracleParameter(":filenameFoto", OracleDbType.Varchar2)).Value = filenameFoto;
-                    command.Parameters.Add(new OracleParameter(":Approved", OracleDbType.Varchar2)).Value = "N";
+                    command.Parameters.Add(new OracleParameter(":rol", OracleDbType.Varchar2)).Value = Rol;
                     command.Parameters.Add(new OracleParameter(":filenameVOG", OracleDbType.Varchar2)).Value = filenameVOG;
                     command.Parameters.Add(new OracleParameter(":Geboortedatum", OracleDbType.Date)).Value = geboortedatum;
                 }
