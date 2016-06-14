@@ -177,7 +177,7 @@ namespace CareMatch.Models
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID,Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE VrijwilligerID=:gebruikerid AND Beoordeling IS NOT NULL", con);
                 command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
             }
-            else if (filter == "Ongepaste hulpvragen" && gebruiker.Rol.ToLower() == "beheerder")
+            else if (gebruiker.Rol.ToLower() == "beheerder")
             {
                 //throw new NotImplementedException();
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel FROM Hulpvraag WHERE Hulpvraag.Flagged = 'Y'", con);
