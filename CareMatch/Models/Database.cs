@@ -689,10 +689,6 @@ namespace CareMatch.Models
             {
                 tempString = "SELECT * FROM GEBRUIKER";
             }
-            else if (query == "Naam & Wachtwoord")
-            {
-                tempString = "SELECT GEBRUIKERSNAAM, WACHTWOORD FROM GEBRUIKER";
-            }
             else if (query == "Niet goedgekeurde gebruikers")
             {
                 tempString = "SELECT * FROM GEBRUIKER WHERE APPROVED = 'N'";
@@ -701,9 +697,18 @@ namespace CareMatch.Models
             {
                 tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'vrijwilliger' AND VOG IS NULL";
             }
+            else if(query == "Vrijwilligers")
+            {
+                tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'Vrijwilliger'";
+            }
+            else if(query == "Hulpbehoevenden")
+            {
+                tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'Hulpbehoevende'";
+            }
 
             command = new OracleCommand(tempString, con);
             reader = command.ExecuteReader();
+
 
             List<Gebruiker> gebruikerlist = new List<Gebruiker>();
 
@@ -736,7 +741,7 @@ namespace CareMatch.Models
             con.Open();
 
             command = new OracleCommand("DELETE FROM Gebruiker WHERE GebruikerID =:id", con);
-            command.Parameters.Add(new OracleParameter(":id", OracleDbType.Int32)).Value = id;
+            
             command.ExecuteNonQuery();
             con.Close();
         }
@@ -754,30 +759,26 @@ namespace CareMatch.Models
             return reader;
         }
 
-        public OracleDataAdapter DataUpdateBeheerApproved(string datagrid)
+        public void DataUpdateBeheerApproved(int gebruikerID)
         {
+            //set gebruiker als approved
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE GEBRUIKER SET APPROVED ='" + datagrid;
-            cmd.ExecuteNonQuery();
-            OracleDataAdapter reader = new OracleDataAdapter(tempString, con);
-            con.Close();
-
-            return reader;
+            cmd.CommandText = "UPDATE GEBRUIKER SET APPROVED = 'Y' WHERE GebruikerID = :gebruikerID ";
+            command.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
+            cmd.ExecuteNonQuery();            
         }
 
-        public OracleDataAdapter DataUpdateBeheerRol(string datagrid)
+        public void DataUpdateBeheerRol(int gebruikerID)
         {
+            //set gebruiker als beheerder
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE GEBRUIKER SET ROL ='" + datagrid;
-            OracleDataAdapter reader = new OracleDataAdapter(tempString, con);
+            cmd.CommandText = "UPDATE GEBRUIKER SET ROL = \"Beheerder\" WHERE GebruikerID = :gebruikerID ";
+            command.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();
-            con.Close();
-
-            return reader;
         }
 
 
