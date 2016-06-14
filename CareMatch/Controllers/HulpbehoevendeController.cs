@@ -18,7 +18,7 @@ namespace CareMatch.Controllers
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, Request.QueryString["filter"]);
             return View();
         }
 
@@ -39,7 +39,7 @@ namespace CareMatch.Controllers
             ViewData["Hulpvraag"] = selectedhulpvraag;
             return View();
         }
-        public ActionResult HulpvraagWijzigen(string Urgent, string Auto, DateTime? Datum, TimeSpan? Duur, TimeSpan? Tijd, string Plaatsnaam,
+        public ActionResult HulpvraagWijzigen(int id, string Urgent, string Auto, DateTime? Datum, TimeSpan? Duur, TimeSpan? Tijd, string Plaatsnaam,
                                                 string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
         {
             if (!string.IsNullOrEmpty(Omschrijving))
@@ -62,6 +62,7 @@ namespace CareMatch.Controllers
                 {
                     hulpvraag.Auto = false;
                 }
+                hulpvraag.HulpvraagID = id;
                 hulpvraag.StartDatum = Datum + Tijd;
                 hulpvraag.EindDatum = hulpvraag.StartDatum + Duur;
                 hulpvraag.Locatie = StraatEnHuisnummer;
