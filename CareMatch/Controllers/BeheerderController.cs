@@ -50,18 +50,23 @@ namespace CareMatch.Controllers
             {
                 case 3:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Niet goedgekeurde gebruikers");
+                    ViewBag.filter = "Niet goedgekeurde gebruikers";
                     break;
                 case 4:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Vrijwilligers zonder VOG");
+                    ViewBag.filter = "Vrijwilligers zonder VOG";
                     break;
                 case 1:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Vrijwilligers");
+                    ViewBag.filter = "Vrijwilligers";
                     break;
                 case 2:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Hulpbehoevenden");
+                    ViewBag.filter = "Hulpbehoevenden";
                     break;
                 default:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Alles");
+                    ViewBag.filter = "Alles";
                     break;
             }
 
