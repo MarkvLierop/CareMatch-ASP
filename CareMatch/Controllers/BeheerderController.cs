@@ -54,9 +54,6 @@ namespace CareMatch.Controllers
                 case 2:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Vrijwilligers zonder VOG");
                     break;
-                case 3:
-                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Naam & Wachtwoord");
-                    break;
                 default:
                     ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Alles");
                     break;
@@ -83,6 +80,27 @@ namespace CareMatch.Controllers
             }
             ViewBag.gebruikerBool = false;
             return View();
+        }
+
+        public ActionResult GebruikerSetBeheerder(int accountID)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            if (gebruiker.Rol.ToLower() == "beheerder")
+            {
+                carematch.database.DataUpdateBeheerRol(accountID);
+            }
+
+            return RedirectToAction("AccountOverzicht", "Beheerder");
+        }
+        public ActionResult GebruikerAccepteren(int accountID)
+        {
+            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
+            if (gebruiker.Rol.ToLower() == "beheerder")
+            {
+                carematch.database.DataUpdateBeheerApproved(accountID);
+            }
+
+            return RedirectToAction("AccountOverzicht", "Beheerder");
         }
         public ActionResult GebruikerVerwijderen(int id)
         {
