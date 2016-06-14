@@ -339,7 +339,7 @@ th {
   }
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
-    content: "";
+    content: string.Empty;
   }
   pre,
   blockquote {
@@ -3751,7 +3751,7 @@ tbody.collapse.in {
   border-top: 0;
   border-bottom: 4px dashed;
   border-bottom: 4px solid \9;
-  content: "";
+  content: string.Empty;
 }
 .dropup .dropdown-menu,
 .navbar-fixed-bottom .dropdown .dropdown-menu {
@@ -6296,7 +6296,7 @@ button.close {
 }
 .popover > .arrow:after {
   border-width: 10px;
-  content: "";
+  content: string.Empty;
 }
 .popover.top > .arrow {
   left: 50%;
@@ -7147,7 +7147,7 @@ legend {
     padding: 12px 20px;
 }
 .speech:before {
-    content: "";
+    content: string.Empty;
     display: block;
     position: absolute;
     width: 0;
@@ -7458,7 +7458,7 @@ th {
   }
   a[href^="#"]:after,
   a[href^="javascript:"]:after {
-    content: "";
+    content: string.Empty;
   }
   pre,
   blockquote {
@@ -10870,7 +10870,7 @@ tbody.collapse.in {
   border-top: 0;
   border-bottom: 4px dashed;
   border-bottom: 4px solid \9;
-  content: "";
+  content: string.Empty;
 }
 .dropup .dropdown-menu,
 .navbar-fixed-bottom .dropdown .dropdown-menu {
@@ -13415,7 +13415,7 @@ button.close {
 }
 .popover > .arrow:after {
   border-width: 10px;
-  content: "";
+  content: string.Empty;
 }
 .popover.top > .arrow {
   left: 50%;

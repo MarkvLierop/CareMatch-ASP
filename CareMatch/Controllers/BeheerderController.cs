@@ -10,15 +10,16 @@ namespace CareMatch.Controllers
     public class BeheerderController : Controller
     {
         CareMatch1 carematch = new CareMatch1();
+
         // GET: Beheerder
         public ActionResult Index()
         {
-
             return View();
         }
 
         public ActionResult HulpvragenOverzicht()
-        //laat een lijst met alle ongepaste hulpvragen zien
+
+        // laat een lijst met alle ongepaste hulpvragen zien
         {
             string filter = "ongepaste hulpvragen";
             ViewBag.hulpvraaglist = carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, filter);
@@ -31,12 +32,13 @@ namespace CareMatch.Controllers
             string filter = "ongepaste hulpvragen";
             foreach (Hulpvraag hulpvraag in carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, filter))
             {
-                if(hulpvraag.HulpvraagID == id)
+                if (hulpvraag.HulpvraagID == id)
                 {
                     gekozenHulpvraag = hulpvraag;
                 }
             }
-            if(gekozenHulpvraag != null)
+
+            if (gekozenHulpvraag != null)
             {
                 ViewBag.Hulpvraag = gekozenHulpvraag;
             }
@@ -61,23 +63,26 @@ namespace CareMatch.Controllers
 
             return View();
         }
+
         public ActionResult GebruikerAccount(int id)
         {
             List<Gebruiker> gebruikerList = carematch.database.GebruikerBeheer("Alles");
             Gebruiker returnGebruiker = null;
-            foreach(Gebruiker gebruiker in gebruikerList)
+            foreach (Gebruiker gebruiker in gebruikerList)
             {
-                if(gebruiker.GebruikersID == id)
+                if (gebruiker.GebruikersID == id)
                 {
                     returnGebruiker = gebruiker;
                 }
             }
-            if(returnGebruiker != null)
+
+            if (returnGebruiker != null)
             {
                 ViewBag.gebruikerBool = true;
                 ViewBag.Gebruiker = returnGebruiker;
                 return View();
             }
+
             ViewBag.gebruikerBool = false;
             return View();
         }
@@ -92,6 +97,7 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
+
         public ActionResult GebruikerAccepteren(int accountID)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -102,26 +108,27 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
+
         public ActionResult GebruikerVerwijderen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            if(gebruiker.Rol.ToLower() == "beheerder")
+            if (gebruiker.Rol.ToLower() == "beheerder")
             {
                 carematch.database.VerwijderGebruiker(id);
             }
+
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
 
         public ActionResult HulpvraagVerwijderen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            if(gebruiker.Rol.ToLower() == "beheerder")
+            if (gebruiker.Rol.ToLower() == "beheerder")
             {
                 carematch.database.HulpvraagVerwijderen(id);
             }
+
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
-
-
     }
 }

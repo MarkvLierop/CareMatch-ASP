@@ -10,11 +10,13 @@ namespace CareMatch.Controllers
     public class VrijwilligerController : Controller
     {
         CareMatch1 carematch = new CareMatch1();
+
         // GET: Vrijwilliger
         public ActionResult Index()
         {
             return View();
         }
+
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -25,7 +27,7 @@ namespace CareMatch.Controllers
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             Hulpvraag selectedhulpvraag = null;
-            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, string.Empty);
             foreach (Hulpvraag hulpvraag in hulpvragen)
             {
                 if (hulpvraag.HulpvraagID == id)

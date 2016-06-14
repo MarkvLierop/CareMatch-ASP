@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if (!n[o]){if (!t[o]){var a=typeof require=="function"&&require;if (!u&&a)return a(o,!0);if (i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 var socket = require('./socket/socketHandler');
@@ -76,7 +76,7 @@ window.Icecomm = Icecomm;
  * bluebird build version 2.10.2
  * Features enabled: core, race, call_get, generators, map, nodeify, promisify, props, reduce, settle, some, cancel, using, filter, any, each, timers
 */
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.Promise=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof _dereq_=="function"&&_dereq_;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof _dereq_=="function"&&_dereq_;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if ("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if ("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.Promise=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if (!n[o]){if (!t[o]){var a=typeof _dereq_=="function"&&_dereq_;if (!u&&a)return a(o,!0);if (i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof _dereq_=="function"&&_dereq_;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 "use strict";
 module.exports = function(Promise) {
 var SomePromiseArray = Promise._SomePromiseArray;
@@ -674,7 +674,7 @@ function cleanStack(stack) {
 }
 
 function stackFramesAsArray(error) {
-    var stack = error.stack.replace(/\s+$/g, "").split("\n");
+    var stack = error.stack.replace(/\s+$/g, string.Empty).split("\n");
     for (var i = 0; i < stack.length; ++i) {
         var line = stack[i];
         if ("    (No stack trace)" === line || stackFramePattern.test(line)) {
@@ -1237,7 +1237,7 @@ Promise.prototype._warn = function(message) {
         var parsed = CapturedTrace.parseStackAndMessage(warning);
         warning.stack = parsed.message + "\n" + parsed.stack.join("\n");
     }
-    CapturedTrace.formatAndLogError(warning, "");
+    CapturedTrace.formatAndLogError(warning, string.Empty);
 };
 
 Promise.onPossiblyUnhandledRejection = function (fn) {
@@ -1419,7 +1419,7 @@ AggregateError.prototype.toString = function() {
     level++;
     indent = Array(level * 4 + 1).join(" ");
     for (var i = 0; i < this.length; ++i) {
-        var str = this[i] === this ? "[Circular AggregateError]" : this[i] + "";
+        var str = this[i] === this ? "[Circular AggregateError]" : this[i] + string.Empty;
         var lines = str.split("\n");
         for (var j = 0; j < lines.length; ++j) {
             lines[j] = indent + lines[j];
@@ -3312,7 +3312,7 @@ function checkValid(ret, suffix, suffixRegexp) {
     for (var i = 0; i < ret.length; i += 2) {
         var key = ret[i];
         if (suffixRegexp.test(key)) {
-            var keyWithoutAsyncSuffix = key.replace(suffixRegexp, "");
+            var keyWithoutAsyncSuffix = key.replace(suffixRegexp, string.Empty);
             for (var j = 0; j < ret.length; j += 2) {
                 if (ret[j] === keyWithoutAsyncSuffix) {
                     throw new TypeError("Cannot promisify an API that has normal methods with '%s'-suffix\u000a\u000a    See http://goo.gl/iWrZbw\u000a"
@@ -3361,12 +3361,12 @@ var switchCaseArgumentOrder = function(likelyArgumentCount) {
 };
 
 var argumentSequence = function(argumentCount) {
-    return util.filledRange(argumentCount, "_arg", "");
+    return util.filledRange(argumentCount, "_arg", string.Empty);
 };
 
 var parameterDeclaration = function(parameterCount) {
     return util.filledRange(
-        Math.max(parameterCount, 3), "_arg", "");
+        Math.max(parameterCount, 3), "_arg", string.Empty);
 };
 
 var parameterCount = function(fn) {
@@ -3384,7 +3384,7 @@ function(callback, receiver, originalName, fn) {
 
     function generateCallForArgumentCount(count) {
         var args = argumentSequence(count).join(", ");
-        var comma = count > 0 ? ", " : "";
+        var comma = count > 0 ? ", " : string.Empty;
         var ret;
         if (shouldProxyThis) {
             ret = "ret = callback.call(this, {{args}}, nodeback); break;\n";
@@ -3397,7 +3397,7 @@ function(callback, receiver, originalName, fn) {
     }
 
     function generateArgumentSwitchCase() {
-        var ret = "";
+        var ret = string.Empty;
         for (var i = 0; i < argumentOrder.length; ++i) {
             ret += "case " + argumentOrder[i] +":" +
                 generateCallForArgumentCount(argumentOrder[i]);
@@ -4339,7 +4339,7 @@ var afterTimeout = function (promise, message) {
     if (!promise.isPending()) return;
     
     var err;
-    if(!util.isPrimitive(message) && (message instanceof Error)) {
+    if (!util.isPrimitive(message) && (message instanceof Error)) {
         err = message;
     } else {
         if (typeof message !== "string") {
@@ -4800,7 +4800,7 @@ function isClass(fn) {
             var hasMethodsOtherThanConstructor = keys.length > 0 &&
                 !(keys.length === 1 && keys[0] === "constructor");
             var hasThisAssignmentAndStaticMethods =
-                thisAssignmentPattern.test(fn + "") && es5.names(fn).length > 0;
+                thisAssignmentPattern.test(fn + string.Empty) && es5.names(fn).length > 0;
 
             if (hasMethods || hasMethodsOtherThanConstructor ||
                 hasThisAssignmentAndStaticMethods) {
@@ -4838,7 +4838,7 @@ function filledRange(count, prefix, suffix) {
 
 function safeToString(obj) {
     try {
-        return obj + "";
+        return obj + string.Empty;
     } catch (e) {
         return "[no string representation]";
     }
@@ -5656,7 +5656,7 @@ Caller.prototype._onopen = function() {
     to: this
   }
   this._save();
-  this.pendingMessages.forEach(function(message) {
+  this.pendingMessages.foreach (function(message) {
     this.send(message);
   }, this);
   this.pendingMessages = [];
@@ -5717,7 +5717,7 @@ Caller.prototype._createAudioElement = function() {
 }
 
 Caller.prototype.remove = function() {
-  this.stream = "";
+  this.stream = string.Empty;
   this.channel.close();
   EventEmitter.emit('disconnect', this);
 }
@@ -5930,7 +5930,7 @@ function setHost(hostStatus) {
 module.exports = roomHandler;
 },{"./../utils/logger":16,"./../utils/settingsHandler":18,"./../utils/utils":19}],9:[function(require,module,exports){
 (function (global){
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.io=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if ("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if ("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.io=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if (!n[o]){if (!t[o]){var a=typeof require=="function"&&require;if (!u&&a)return a(o,!0);if (i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 
 module.exports = _dereq_('./lib/');
 
@@ -8428,7 +8428,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
     }
 
     try {
-      // ie6 dynamic iframes with target="" support (thanks Chris Lambacher)
+      // ie6 dynamic iframes with target=string.Empty support (thanks Chris Lambacher)
       var html = '<iframe src="javascript:0" name="'+ self.iframeId +'">';
       iframe = document.createElement(html);
     } catch (e) {
@@ -10237,7 +10237,7 @@ exports.encodePayloadAsArrayBuffer = function(packets, callback) {
     var resultArray = new Uint8Array(totalLength);
 
     var bufferIndex = 0;
-    encodedPackets.forEach(function(p) {
+    encodedPackets.foreach (function(p) {
       var isString = typeof p === 'string';
       var ab = p;
       if (isString) {
@@ -10346,7 +10346,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
       msgLength += tailArray[i];
     }
 
-    if(numberTooLong) return callback(err, 0, 1);
+    if (numberTooLong) return callback(err, 0, 1);
 
     bufferTail = sliceBuffer(bufferTail, 2 + msgLength.length);
     msgLength = parseInt(msgLength);
@@ -10370,7 +10370,7 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
   }
 
   var total = buffers.length;
-  buffers.forEach(function(buffer, i) {
+  buffers.foreach (function(buffer, i) {
     callback(exports.decodePacket(buffer, binaryType, true), i, total);
   });
 };
@@ -10471,7 +10471,7 @@ module.exports = function(arraybuffer, start, end) {
 
   exports.encode = function(arraybuffer) {
     var bytes = new Uint8Array(arraybuffer),
-    i, len = bytes.length, base64 = "";
+    i, len = bytes.length, base64 = string.Empty;
 
     for (i = 0; i < len; i+=3) {
       base64 += chars[bytes[i] >> 2];
@@ -11319,7 +11319,7 @@ exports.removeBlobs = function(data, callback) {
         }
 
         // if nothing pending its callback time
-        if(! --pendingBlobs) {
+        if (! --pendingBlobs) {
           callback(bloblessData);
         }
       };
@@ -11837,7 +11837,7 @@ module.exports=_dereq_(36)
               // FF 3.1b1, b2, and JSON 2 serialize wrapped primitives as object
               // literals.
               stringify(new Number()) === "0" &&
-              stringify(new String()) == '""' &&
+              stringify(new String()) == 'string.Empty' &&
               // FF 3.1b1, 2 throw an error if the value is `null`, `undefined`, or
               // does not define a canonical JSON representation (this applies to
               // objects with `toJSON` properties as well, *unless* they are nested
@@ -12081,7 +12081,7 @@ module.exports=_dereq_(36)
           }
         };
       }
-      return forEach(object, callback);
+      return foreach (object, callback);
     };
 
     // Public: Serializes a JavaScript `value` as a JSON string. The optional
@@ -12119,7 +12119,7 @@ module.exports=_dereq_(36)
       var quote = function (value) {
         var result = '"', index = 0, length = value.length, isLarge = length > 10 && charIndexBuggy, symbols;
         if (isLarge) {
-          symbols = value.split("");
+          symbols = value.split(string.Empty);
         }
         for (; index < length; index++) {
           var charCode = value.charCodeAt(index);
@@ -12213,14 +12213,14 @@ module.exports=_dereq_(36)
         className = getClass.call(value);
         if (className == booleanClass) {
           // Booleans are represented literally.
-          return "" + value;
+          return string.Empty + value;
         } else if (className == numberClass) {
           // JSON numbers must be finite. `Infinity` and `NaN` are serialized as
           // `"null"`.
-          return value > -1 / 0 && value < 1 / 0 ? "" + value : "null";
+          return value > -1 / 0 && value < 1 / 0 ? string.Empty + value : "null";
         } else if (className == stringClass) {
           // Strings are double-quoted and escaped.
-          return quote("" + value);
+          return quote(string.Empty + value);
         }
         // Recursively serialize objects and arrays.
         if (typeof value == "object") {
@@ -12249,7 +12249,7 @@ module.exports=_dereq_(36)
             // Recursively serialize object members. Members are selected from
             // either a user-specified list of property names, or the object
             // itself.
-            forEach(properties || value, function (property) {
+            foreach (properties || value, function (property) {
               var element = serialize(property, value, callback, properties, whitespace, indentation, stack);
               if (element !== undef) {
                 // According to ES 5.1 section 15.12.3: "If `gap` {whitespace}
@@ -12258,7 +12258,7 @@ module.exports=_dereq_(36)
                 // The "`space` character" refers to the literal space
                 // character, not the `space` {width} argument provided to
                 // `JSON.stringify`.
-                results.push(quote(property) + ":" + (whitespace ? " " : "") + element);
+                results.push(quote(property) + ":" + (whitespace ? " " : string.Empty) + element);
               }
             });
             result = results.length ? (whitespace ? "{\n" + indentation + results.join(",\n" + indentation) + "\n" + prefix + "}" : ("{" + results.join(",") + "}")) : "{}";
@@ -12286,16 +12286,16 @@ module.exports=_dereq_(36)
             // Convert the `width` to an integer and create a string containing
             // `width` number of space characters.
             if ((width -= width % 1) > 0) {
-              for (whitespace = "", width > 10 && (width = 10); whitespace.length < width; whitespace += " ");
+              for (whitespace = string.Empty, width > 10 && (width = 10); whitespace.length < width; whitespace += " ");
             }
           } else if (className == stringClass) {
             whitespace = width.length <= 10 ? width : width.slice(0, 10);
           }
         }
         // Opera <= 7.54u2 discards the values associated with empty string keys
-        // (`""`) only if they are used directly within an object member list
-        // (e.g., `!("" in { "": 1})`).
-        return serialize("", (value = {}, value[""] = source, value), callback, properties, whitespace, "", []);
+        // (`string.Empty`) only if they are used directly within an object member list
+        // (e.g., `!(string.Empty in { string.Empty: 1})`).
+        return serialize(string.Empty, (value = {}, value[string.Empty] = source, value), callback, properties, whitespace, string.Empty, []);
       };
     }
 
@@ -12592,7 +12592,7 @@ module.exports=_dereq_(36)
               update(value, length, callback);
             }
           } else {
-            forEach(value, function (property) {
+            foreach (value, function (property) {
               update(value, property, callback);
             });
           }
@@ -12604,7 +12604,7 @@ module.exports=_dereq_(36)
       JSON3.parse = function (source, callback) {
         var result, value;
         Index = 0;
-        Source = "" + source;
+        Source = string.Empty + source;
         result = get(lex());
         // If a JSON string contains multiple tokens, it is invalid.
         if (lex() != "$") {
@@ -12612,7 +12612,7 @@ module.exports=_dereq_(36)
         }
         // Reset the parser state.
         Index = Source = null;
-        return callback && getClass.call(callback) == functionClass ? walk((value = {}, value[""] = result, value), "", callback) : result;
+        return callback && getClass.call(callback) == functionClass ? walk((value = {}, value[string.Empty] = result, value), string.Empty, callback) : result;
       };
     }
   }
@@ -12711,7 +12711,7 @@ function setLocalStream(stream) {
 
 function removeRemoteElement(ID) {
   if (remoteElements[ID]) {
-    remoteElements[ID].src = "";
+    remoteElements[ID].src = string.Empty;
     delete remoteElements[ID];
   }
 }
@@ -12900,7 +12900,7 @@ function replaceVideoSrc(old, newSrc) {
    var length = videos.length;
    var ret = [];
    for(var i = 0; i < length; ++i) {
-      // if(videos[i].src === old) {
+      // if (videos[i].src === old) {
         videos[i].src = URL.createObjectURL(newSrc);
       // }
    }
@@ -13288,7 +13288,7 @@ function deepEquals(obj1, obj2) {
 
 function mobileCheck() {
   var check = false;
-  (function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)))check = true})(navigator.userAgent||navigator.vendor||window.opera);
+  (function(a){if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)))check = true})(navigator.userAgent||navigator.vendor||window.opera);
   return check;
 }
 

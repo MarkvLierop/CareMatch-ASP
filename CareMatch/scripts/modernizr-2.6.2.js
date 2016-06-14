@@ -404,7 +404,7 @@ window.Modernizr = (function( window, document, undefined ) {
             props   = (prop + ' ' + cssomPrefixes.join(ucProp + ' ') + ucProp).split(' ');
 
         // did they call .prefixed('boxSizing') or are we just testing a prop?
-        if(is(prefixed, "string") || is(prefixed, "undefined")) {
+        if (is(prefixed, "string") || is(prefixed, "undefined")) {
           return testProps(props, prefixed);
 
         // otherwise, they called .prefixed('requestAnimationFrame', window[, elem])
@@ -474,7 +474,7 @@ window.Modernizr = (function( window, document, undefined ) {
     tests['touch'] = function() {
         var bool;
 
-        if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+        if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
           bool = true;
         } else {
           injectElementWithStyles(['@media (',prefixes.join('touch-enabled),('),mod,')','{#modernizr{top:9px;position:absolute}}'].join(''), function( node ) {
@@ -1133,7 +1133,7 @@ window.Modernizr = (function( window, document, undefined ) {
         if (!ownerDocument) {
             ownerDocument = document;
         }
-        if(supportsUnknownElements){
+        if (supportsUnknownElements){
             return ownerDocument.createElement(nodeName);
         }
         if (!data) {
@@ -1169,7 +1169,7 @@ window.Modernizr = (function( window, document, undefined ) {
         if (!ownerDocument) {
             ownerDocument = document;
         }
-        if(supportsUnknownElements){
+        if (supportsUnknownElements){
             return ownerDocument.createDocumentFragment();
         }
         data = data || getExpandoData(ownerDocument);
@@ -1393,7 +1393,7 @@ window.Modernizr = (function( window, document, undefined ) {
     //     transEndEventName = transEndEventNames[ Modernizr.prefixed('transition') ];
 
     Modernizr.prefixed      = function(prop, obj, elem){
-      if(!obj) {
+      if (!obj) {
         return testPropsAll(prop, 'pfx');
       } else {
         // Testing DOM property e.g. Modernizr.prefixed('requestAnimationFrame', window) // 'mozRequestAnimationFrame'
