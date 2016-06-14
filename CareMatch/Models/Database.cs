@@ -695,6 +695,14 @@ namespace CareMatch.Models
             {
                 tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'vrijwilliger' AND VOG IS NULL";
             }
+            else if(query == "Vrijwilligers")
+            {
+                tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'Vrijwilliger'";
+            }
+            else if(query == "Hulpbehoevenden")
+            {
+                tempString = "SELECT * FROM GEBRUIKER WHERE ROL = 'Hulpbehoevende'";
+            }
 
             command = new OracleCommand(tempString, con);
             reader = command.ExecuteReader();
