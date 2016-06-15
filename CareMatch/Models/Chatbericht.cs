@@ -24,7 +24,7 @@ namespace CareMatch.Models
         // Constructor
         public Chatbericht(string inhoud, string verzender, int id, DateTime datum)
         {
-            Inhoud = inhoud.Replace(System.Environment.NewLine, string.Empty);
+            Inhoud = inhoud.Replace(System.Environment.NewLine, "");
             VerzenderNaam = verzender;
             ID = id;
             datumtijd = datum;

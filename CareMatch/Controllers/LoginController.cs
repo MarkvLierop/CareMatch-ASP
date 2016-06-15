@@ -25,14 +25,14 @@ namespace CareMatch.Controllers
                 else if (gebruiker.Rol.ToLower() == "beheerder")
                 {
                     Session["Gebruiker"] = gebruiker;
-                    return RedirectToAction("Index", "Beheerder", new { area = string.Empty });
+                    return RedirectToAction("Index", "Beheerder", new { area = "" });
                 }
                 else if (gebruiker.Rol.ToLower() == "vrijwilliger")
                 {
                     if (gebruiker.Approved)
                     {
                         Session["Gebruiker"] = gebruiker;
-                        return RedirectToAction("Index", "Vrijwilliger", new { area = string.Empty });
+                        return RedirectToAction("Index", "Vrijwilliger", new { area = "" });
                     }
                     else
                     {
@@ -42,7 +42,7 @@ namespace CareMatch.Controllers
                 else if (gebruiker.Rol.ToLower() == "hulpbehoevende")
                 {
                     Session["Gebruiker"] = gebruiker;
-                    return RedirectToAction("Index", "Hulpbehoevende", new { area = string.Empty });
+                    return RedirectToAction("Index", "Hulpbehoevende", new { area = "" });
                 }
             }
             return View();

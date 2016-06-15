@@ -246,14 +246,14 @@ namespace CareMatch.Models
             {
                 if (rol == "hulpbehoevende")
                 {
-                    if (reader["Foto"].ToString() != string.Empty)
+                    if (reader["Foto"].ToString() != "")
                     {
                         tempString = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\DropBox\CareMatch\" + hulpvraag.Hulpbehoevende + "\\" + reader["Foto"].ToString();
                     }
                 }
                 else if (rol == "vrijwilliger")
                 {
-                    if (reader["Foto"].ToString() != string.Empty)
+                    if (reader["Foto"].ToString() != "")
                     {
                         tempString = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\DropBox\CareMatch\" + hulpvraag.Vrijwilliger + "\\" + reader["Foto"].ToString();
                     }
@@ -396,7 +396,7 @@ namespace CareMatch.Models
         //Geeft de onlinestatus van je chatpartner
         public string ChatPartnerStatus(int id)
         {
-            string status = string.Empty;
+            string status = "";
 
             try { con.Open(); } catch { };
             command = new OracleCommand("SELECT onlinestatus FROM gebruiker WHERE gebruikerid = :id", con);
@@ -500,7 +500,7 @@ namespace CareMatch.Models
 
         public string ChatpartnerNaam(int id)
         {
-            string naam = string.Empty;
+            string naam = "";
             try { con.Open(); } catch { };
             command = new OracleCommand("SELECT Gebruikersnaam FROM gebruiker WHERE GebruikerID = :id", con);
             command.Parameters.Add(new OracleParameter("id", id));
@@ -855,7 +855,7 @@ namespace CareMatch.Models
                     {
                         gebruiker.Auto = false;
                     }
-                    if (reader["Foto"].ToString() != string.Empty)
+                    if (reader["Foto"].ToString() != "")
                     {
                         gebruiker.Pasfoto = gebruiker.GetLocalDropBox() + reader["Foto"].ToString();
                     }
