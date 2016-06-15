@@ -215,7 +215,6 @@ C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\bin\Newtonsoft.Json.xml
 C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\bin\System.Net.Http.Formatting.xml
 C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\bin\System.Web.Http.xml
 C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\bin\System.Web.Http.WebHost.xml
-C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\obj\Debug\CareMatch.csprojResolveAssemblyReference.cache
 C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\obj\Debug\CareMatch.dll
 C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\obj\Debug\CareMatch.pdb
 C:\Users\yannic\Source\Repos\ASPproftaak\CareMatch\bin\ApplicationInsights.config
