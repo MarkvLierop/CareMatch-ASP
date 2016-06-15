@@ -24,11 +24,13 @@ namespace CareMatch.Controllers
                 if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
                 {
                     ViewBag.Gebruikers = database.HulpbehoevendeLijst();
+                    ViewBag.Bestaand = database.BestaandeChatlijstHulpbehoevende((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
                 }
                 else
                 {
                     ViewBag.Gebruikers = database.VrijwilligersLijst();
-                }
+                ViewBag.Bestaand = database.BestaandeChatlijstVrijwilligers((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
+            }
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -41,6 +43,11 @@ namespace CareMatch.Controllers
                     ViewBag.Partner = string.Empty;            
                 }
 
+            return View();
+        }
+
+        public ActionResult videotest()
+        {
             return View();
         }
 
