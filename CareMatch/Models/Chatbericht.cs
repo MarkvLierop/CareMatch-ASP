@@ -9,19 +9,22 @@ namespace CareMatch.Models
 {
     public class Chatbericht
     {
-        //Properties
+        // Properties
         public int ID { get; }
+
         public string Inhoud { get; }
+
         public string VerzenderNaam { get; }
+
         public DateTime datumtijd { get; }
 
-        //Properties
+        // Properties
 
 
-        //Constructor
+        // Constructor
         public Chatbericht(string inhoud, string verzender, int id, DateTime datum)
         {
-            Inhoud = inhoud.Replace(System.Environment.NewLine, string.Empty);
+            Inhoud = inhoud.Replace(System.Environment.NewLine, "");
             VerzenderNaam = verzender;
             ID = id;
             datumtijd = datum;

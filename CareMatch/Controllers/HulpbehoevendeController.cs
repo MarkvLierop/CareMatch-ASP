@@ -28,7 +28,7 @@ namespace CareMatch.Controllers
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             Hulpvraag selectedhulpvraag = null;
-            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, string.Empty);
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
             foreach (Hulpvraag hulpvraag in hulpvragen)
             {
                 if (hulpvraag.HulpvraagID == id)
@@ -82,6 +82,24 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        public ActionResult HulpvraagBeoordelen(int id, int Cijfer, string Beoordeling)
+        {
+            if (!string.IsNullOrEmpty(Beoordeling))
+            {
+                Hulpvraag hulpvraag = new Hulpvraag();
+                hulpvraag.HulpvraagID = id;
+                hulpvraag.Cijfer = Cijfer.ToString();
+                hulpvraag.Beoordeling = Beoordeling;
+
+                carematch.database.HulpvraagBeoordelingToevoegen(hulpvraag);
+                return RedirectToAction("HulpvragenOverzicht");
+            }
+            else
+            {
+                return View();
+            }
+            
+        }
         public ActionResult HulpvraagIndienen(string Urgent, string Auto, DateTime? Datum, TimeSpan? Duur, TimeSpan? Tijd, string Plaatsnaam, string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
         {
             Hulpvraag hulpvraag = new Hulpvraag();

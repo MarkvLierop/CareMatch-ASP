@@ -35,7 +35,7 @@ namespace CareMatch.Controllers
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             Hulpvraag selectedhulpvraag = null;
-            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, string.Empty);
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
             foreach (Hulpvraag hulpvraag in hulpvragen)
             {
                 if (hulpvraag.HulpvraagID == id)

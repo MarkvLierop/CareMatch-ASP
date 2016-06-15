@@ -674,7 +674,7 @@ function cleanStack(stack) {
 }
 
 function stackFramesAsArray(error) {
-    var stack = error.stack.replace(/\s+$/g, string.Empty).split("\n");
+    var stack = error.stack.replace(/\s+$/g, "").split("\n");
     for (var i = 0; i < stack.length; ++i) {
         var line = stack[i];
         if ("    (No stack trace)" === line || stackFramePattern.test(line)) {
@@ -1237,7 +1237,7 @@ Promise.prototype._warn = function(message) {
         var parsed = CapturedTrace.parseStackAndMessage(warning);
         warning.stack = parsed.message + "\n" + parsed.stack.join("\n");
     }
-    CapturedTrace.formatAndLogError(warning, string.Empty);
+    CapturedTrace.formatAndLogError(warning, "");
 };
 
 Promise.onPossiblyUnhandledRejection = function (fn) {
@@ -1419,7 +1419,7 @@ AggregateError.prototype.toString = function() {
     level++;
     indent = Array(level * 4 + 1).join(" ");
     for (var i = 0; i < this.length; ++i) {
-        var str = this[i] === this ? "[Circular AggregateError]" : this[i] + string.Empty;
+        var str = this[i] === this ? "[Circular AggregateError]" : this[i] + "";
         var lines = str.split("\n");
         for (var j = 0; j < lines.length; ++j) {
             lines[j] = indent + lines[j];
@@ -3312,7 +3312,7 @@ function checkValid(ret, suffix, suffixRegexp) {
     for (var i = 0; i < ret.length; i += 2) {
         var key = ret[i];
         if (suffixRegexp.test(key)) {
-            var keyWithoutAsyncSuffix = key.replace(suffixRegexp, string.Empty);
+            var keyWithoutAsyncSuffix = key.replace(suffixRegexp, "");
             for (var j = 0; j < ret.length; j += 2) {
                 if (ret[j] === keyWithoutAsyncSuffix) {
                     throw new TypeError("Cannot promisify an API that has normal methods with '%s'-suffix\u000a\u000a    See http://goo.gl/iWrZbw\u000a"
@@ -3361,12 +3361,12 @@ var switchCaseArgumentOrder = function(likelyArgumentCount) {
 };
 
 var argumentSequence = function(argumentCount) {
-    return util.filledRange(argumentCount, "_arg", string.Empty);
+    return util.filledRange(argumentCount, "_arg", "");
 };
 
 var parameterDeclaration = function(parameterCount) {
     return util.filledRange(
-        Math.max(parameterCount, 3), "_arg", string.Empty);
+        Math.max(parameterCount, 3), "_arg", "");
 };
 
 var parameterCount = function(fn) {
@@ -3384,7 +3384,7 @@ function(callback, receiver, originalName, fn) {
 
     function generateCallForArgumentCount(count) {
         var args = argumentSequence(count).join(", ");
-        var comma = count > 0 ? ", " : string.Empty;
+        var comma = count > 0 ? ", " : "";
         var ret;
         if (shouldProxyThis) {
             ret = "ret = callback.call(this, {{args}}, nodeback); break;\n";
@@ -3397,7 +3397,7 @@ function(callback, receiver, originalName, fn) {
     }
 
     function generateArgumentSwitchCase() {
-        var ret = string.Empty;
+        var ret = "";
         for (var i = 0; i < argumentOrder.length; ++i) {
             ret += "case " + argumentOrder[i] +":" +
                 generateCallForArgumentCount(argumentOrder[i]);
@@ -4800,7 +4800,7 @@ function isClass(fn) {
             var hasMethodsOtherThanConstructor = keys.length > 0 &&
                 !(keys.length === 1 && keys[0] === "constructor");
             var hasThisAssignmentAndStaticMethods =
-                thisAssignmentPattern.test(fn + string.Empty) && es5.names(fn).length > 0;
+                thisAssignmentPattern.test(fn + "") && es5.names(fn).length > 0;
 
             if (hasMethods || hasMethodsOtherThanConstructor ||
                 hasThisAssignmentAndStaticMethods) {
@@ -4838,7 +4838,7 @@ function filledRange(count, prefix, suffix) {
 
 function safeToString(obj) {
     try {
-        return obj + string.Empty;
+        return obj + "";
     } catch (e) {
         return "[no string representation]";
     }
@@ -5717,7 +5717,7 @@ Caller.prototype._createAudioElement = function() {
 }
 
 Caller.prototype.remove = function() {
-  this.stream = string.Empty;
+  this.stream = "";
   this.channel.close();
   EventEmitter.emit('disconnect', this);
 }
@@ -8428,7 +8428,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
     }
 
     try {
-      // ie6 dynamic iframes with target=string.Empty support (thanks Chris Lambacher)
+      // ie6 dynamic iframes with target="" support (thanks Chris Lambacher)
       var html = '<iframe src="javascript:0" name="'+ self.iframeId +'">';
       iframe = document.createElement(html);
     } catch (e) {
@@ -10471,7 +10471,7 @@ module.exports = function(arraybuffer, start, end) {
 
   exports.encode = function(arraybuffer) {
     var bytes = new Uint8Array(arraybuffer),
-    i, len = bytes.length, base64 = string.Empty;
+    i, len = bytes.length, base64 = "";
 
     for (i = 0; i < len; i+=3) {
       base64 += chars[bytes[i] >> 2];
@@ -11837,7 +11837,7 @@ module.exports=_dereq_(36)
               // FF 3.1b1, b2, and JSON 2 serialize wrapped primitives as object
               // literals.
               stringify(new Number()) === "0" &&
-              stringify(new String()) == 'string.Empty' &&
+              stringify(new String()) == '""' &&
               // FF 3.1b1, 2 throw an error if the value is `null`, `undefined`, or
               // does not define a canonical JSON representation (this applies to
               // objects with `toJSON` properties as well, *unless* they are nested
@@ -12119,7 +12119,7 @@ module.exports=_dereq_(36)
       var quote = function (value) {
         var result = '"', index = 0, length = value.length, isLarge = length > 10 && charIndexBuggy, symbols;
         if (isLarge) {
-          symbols = value.split(string.Empty);
+          symbols = value.split("");
         }
         for (; index < length; index++) {
           var charCode = value.charCodeAt(index);
@@ -12213,14 +12213,14 @@ module.exports=_dereq_(36)
         className = getClass.call(value);
         if (className == booleanClass) {
           // Booleans are represented literally.
-          return string.Empty + value;
+          return "" + value;
         } else if (className == numberClass) {
           // JSON numbers must be finite. `Infinity` and `NaN` are serialized as
           // `"null"`.
-          return value > -1 / 0 && value < 1 / 0 ? string.Empty + value : "null";
+          return value > -1 / 0 && value < 1 / 0 ? "" + value : "null";
         } else if (className == stringClass) {
           // Strings are double-quoted and escaped.
-          return quote(string.Empty + value);
+          return quote("" + value);
         }
         // Recursively serialize objects and arrays.
         if (typeof value == "object") {
@@ -12258,7 +12258,7 @@ module.exports=_dereq_(36)
                 // The "`space` character" refers to the literal space
                 // character, not the `space` {width} argument provided to
                 // `JSON.stringify`.
-                results.push(quote(property) + ":" + (whitespace ? " " : string.Empty) + element);
+                results.push(quote(property) + ":" + (whitespace ? " " : "") + element);
               }
             });
             result = results.length ? (whitespace ? "{\n" + indentation + results.join(",\n" + indentation) + "\n" + prefix + "}" : ("{" + results.join(",") + "}")) : "{}";
@@ -12286,16 +12286,16 @@ module.exports=_dereq_(36)
             // Convert the `width` to an integer and create a string containing
             // `width` number of space characters.
             if ((width -= width % 1) > 0) {
-              for (whitespace = string.Empty, width > 10 && (width = 10); whitespace.length < width; whitespace += " ");
+              for (whitespace = "", width > 10 && (width = 10); whitespace.length < width; whitespace += " ");
             }
           } else if (className == stringClass) {
             whitespace = width.length <= 10 ? width : width.slice(0, 10);
           }
         }
         // Opera <= 7.54u2 discards the values associated with empty string keys
-        // (`string.Empty`) only if they are used directly within an object member list
-        // (e.g., `!(string.Empty in { string.Empty: 1})`).
-        return serialize(string.Empty, (value = {}, value[string.Empty] = source, value), callback, properties, whitespace, string.Empty, []);
+        // (`""`) only if they are used directly within an object member list
+        // (e.g., `!("" in { "": 1})`).
+        return serialize("", (value = {}, value[""] = source, value), callback, properties, whitespace, "", []);
       };
     }
 
@@ -12604,7 +12604,7 @@ module.exports=_dereq_(36)
       JSON3.parse = function (source, callback) {
         var result, value;
         Index = 0;
-        Source = string.Empty + source;
+        Source = "" + source;
         result = get(lex());
         // If a JSON string contains multiple tokens, it is invalid.
         if (lex() != "$") {
@@ -12612,7 +12612,7 @@ module.exports=_dereq_(36)
         }
         // Reset the parser state.
         Index = Source = null;
-        return callback && getClass.call(callback) == functionClass ? walk((value = {}, value[string.Empty] = result, value), string.Empty, callback) : result;
+        return callback && getClass.call(callback) == functionClass ? walk((value = {}, value[""] = result, value), "", callback) : result;
       };
     }
   }
@@ -12711,7 +12711,7 @@ function setLocalStream(stream) {
 
 function removeRemoteElement(ID) {
   if (remoteElements[ID]) {
-    remoteElements[ID].src = string.Empty;
+    remoteElements[ID].src = "";
     delete remoteElements[ID];
   }
 }
