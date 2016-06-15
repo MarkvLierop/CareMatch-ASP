@@ -131,7 +131,7 @@ namespace CareMatch.Models
         {
             List<Hulpvraag> hulpvraagList = new List<Hulpvraag>();
             con.Open();
-            if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Alle hulpvragen" || filter == string.Empty) && gebruiker.Rol.ToLower() == "vrijwilliger")
+            if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Alle hulpvragen" || filter == "") && gebruiker.Rol.ToLower() == "vrijwilliger")
             {
                 //Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER FROM Hulpvraag WHERE Flagged != 'Y'", con);
@@ -562,7 +562,7 @@ namespace CareMatch.Models
             vrijwilligerlijst = new List<string>();
 
             try { con.Open(); } catch { };
-            command = new OracleCommand("SELECT Gebruikersnaam FROM gebruiker WHERE rol = 'Vrijwilliger' AND (GEBRUIKERID IN (SELECT ONTVANGERID FROM CHAT WHERE VERZENDERID = :id OR ONTVANGERID = :id) OR GEBRUIKERID IN (SELECT VERZENDERID FROM CHAT WHERE VERZENDERID = :id OR ONTVANGERID = :id)) ORDER BY Gebruikersnaam ASC ", con);
+            command = new OracleCommand("SELECT Gebruikersnaam FROM gebruiker WHERE rol = 'vrijwilliger' AND (GEBRUIKERID IN (SELECT ONTVANGERID FROM CHAT WHERE VERZENDERID = :id OR ONTVANGERID = :id) OR GEBRUIKERID IN (SELECT VERZENDERID FROM CHAT WHERE VERZENDERID = :id OR ONTVANGERID = :id)) ORDER BY Gebruikersnaam ASC ", con);
             command.Parameters.Add(new OracleParameter("id", OracleDbType.Int32)).Value = id;
             reader = command.ExecuteReader();
 
