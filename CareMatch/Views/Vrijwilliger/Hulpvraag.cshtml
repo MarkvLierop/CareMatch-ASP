@@ -37,6 +37,22 @@
                 </tr>
             </tbody>
         </table>
-        <a type="button" class="btn btn-info" href='@Url.Action("ChatStarten", new { id = @h.Hulpbehoevende})'>Chat Starten</a>                                  <a type="button" class="btn btn-info" href='@Url.Action("HulpvraagAannemen", new { id = @h.HulpvraagID})'>Aannemen</a>
+        @{ if (h.Vrijwilliger == "")
+            {
+                <div class="progress progress-striped active">
+                    <div class="progress-bar" style="width: 30%">Ingediend</div>
+                </div>
+                <a type="button" class="btn btn-info" href='@Url.Action("ChatStarten", new { id = @h.Hulpbehoevende})'>Chat Starten</a>                                  <a type="button" class="btn btn-info" href='@Url.Action("HulpvraagAannemen", new { id = @h.HulpvraagID})'>Aannemen</a>
+            }
+            else
+            {
+                <div class="progress progress-striped active">
+                    <div class="progress-bar" style="width: 33%">Ingediend</div>
+                    <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
+                </div>
+                    <h4>Deze hulpvraag is aangenomen door: <strong>@h.Vrijwilliger</strong>.</h4>
+            }
+        }
+        
     </div>
 </div>
