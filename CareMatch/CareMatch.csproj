@@ -135,6 +135,8 @@
     <Content Include="Content\CAREMATCHLOGO.png" />
     <Content Include="Content\icecomm.js" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\star-off.svg" />
+    <Content Include="Content\star-on.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
