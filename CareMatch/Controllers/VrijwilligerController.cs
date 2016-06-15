@@ -17,6 +17,10 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        public ActionResult ChatBarcode()
+        {
+            return View();
+        }
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -43,11 +47,13 @@ namespace CareMatch.Controllers
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
                 carematch.database.HulpvraagAannemen(id, gebruiker.GebruikersID);
                 return RedirectToAction("HulpvragenOverzicht", "Vrijwilliger");
-            }
-        public ActionResult ChatStarten(string id)
+        }
+
+        [HttpPost]
+        public ActionResult ChatBarcode(string partner)
         {
-            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            return RedirectToAction("ChatBekijken", "Chat", new { partner = id});
+            return RedirectToAction("ChatBekijken", "Chat", new { partner = partner});
         }
     }
 }
+

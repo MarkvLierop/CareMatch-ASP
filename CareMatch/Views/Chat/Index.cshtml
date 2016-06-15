@@ -1,39 +1,55 @@
 ﻿@model CareMatch.Models.Chatbericht
 @{
     var room = "";
+    var functie = "";
     ViewBag.Title = "CareMatch - Chat";
     Layout = "~/Views/Shared/_Layout.cshtml";
     if((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol == "hulpbehoevende")
     {
         room = @ViewBag.Partner + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam;
+        functie = "Hulpbehoevende";
     }
     else
     {
         room = (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam + @ViewBag.Partner;
+        functie = "Vrijwilliger";
     }
 
 }
 
-<h2>Chat</h2>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
-		$(document).ready(function() {
-			var height = 0;
-			$("ul.list-unstyled.media-block").each(function() {
-				height += parseInt($(this).height());
-			});
-
-			height += 0;
-
-			$("#messagewindow").animate({ scrollTop: height });
+	$(document).ready(function() {
+		var height = 0;
+		$("ul.list-unstyled.media-block").each(function() {
+			height += parseInt($(this).height());
 		});
-        //Post request op de achtergrond uitvoeren. Pagina - Functienaam - parameters.
-		$.post("Index.cshtml", { Index }, function (data) {
-		    console.log(data.name); // John
-		    console.log(data.time); // 2pm
-		}, "json");
-</script>
 
+		height += 0;
+
+		$("#messagewindow").animate({ scrollTop: height });
+	});
+    //Post request op de achtergrond uitvoeren. Pagina - Functienaam - parameters.
+	$.post("Index.cshtml", { Index }, function (data) {
+		console.log(data.name); // John
+		console.log(data.time); // 2pm
+	}, "json");
+
+    //Kijken of de chat veranderd moet worden.
+	$(document).ready(function () {
+		function RefreshChat() {
+		    @Url.Action("Action", "Controller");
+		}
+
+		//set an interval
+	    setInterval(RefreshChat, 10000); // 10 seconden.
+
+		//Call the function
+		hi();
+	});
+</script>
+<a href="@Url.Action("Index", functie)" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
+<h2>Chat</h2>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
     <div class="col-md-12 col-lg-6">
@@ -173,7 +189,7 @@
                                 document.getElementById(peer.ID).remove();
                             });
                         </script>
-                        <video id="localVideo" autoplay></video>
+
                     }
                     else
                     {

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "ChatBarcode";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a href="@Url.Action("Index", "Hulpbehoevende")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a>
+<h2>Barcode Chat</h2>
+<br /><br />
+<h4 class="text-center">Scan een "Chat met mij!" Barcode om te beginnen!</h4>
+<form method="post" name="StartChat">
+    <fieldset>
+        <div class="col-xs-9">
+            <input type="text" autofocus  name="partner" selected class="form-control chat-input">
+        </div>
+    </fieldset>
+</form>

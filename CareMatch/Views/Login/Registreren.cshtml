@@ -4,7 +4,21 @@
     Layout = "~/Views/Shared/_LoginRegister.cshtml";
 }
 
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function () {
+				$('input[name="optionsRadios"]').on('change', function(){
+				    if ($(this).val() == 'Vrijwilliger') {
+				        //change to "show update"
+				        $("#cont").append('<label for="VOG" class="col-lg-2 control-label">VOG</label><div class="col-lg-10"><input type="file" class="form-control" id="VOG" placeholder="VOG" name="VOG"></div>');
+				    }
+				    else {
+				        $("#cont").text(" ");
+			        }
+		        });
+		});
 
+</script>
 <div class="registerform">
     <h2>Registreren</h2>
     <form action="~/Login">
@@ -21,87 +35,72 @@
                 <div class="col-lg-10">
                     <div class="radio">
                         <label>
-                            <input name="optionsRadios" required id="optionsRadios1" value="vrijwilliger" checked=string.Empty type="radio">
+                            <input name="optionsRadios" value="Hulpbehoevende" required id="optionsRadios2" type="radio" class="rol" checked>
+                            Hulpbehoevende
+                        </label>
+                        <label>
+                            <input name="optionsRadios" value="Vrijwilliger" required id="optionsRadios1" type="radio" class="rol" >
                             Vrijwilliger
                         </label>
                     </div>
-                    <div class="radio">
-                        <label>
-                            <input name="optionsRadios" required id="optionsRadios2" value="hulpbehoevende" type="radio">
-                            Hulpbehoevende
-                        </label>
-                    </div>
                 </div>
-            </div>
-            <div class="form-group">
                 <label for="Gebruikersnaam" class="col-lg-2 control-label">Gebruikersnaam</label>
                 <div class="col-lg-10">
                     <input type="text" required class="form-control" id="Gebruikersnaam" placeholder="Gebruikersnaam" name="Gebruikersnaam">
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label for="Wachtwoord" class="col-lg-2 control-label">Wachtwoord</label>
                 <div class="col-lg-10">
                     <input type="password" required class="form-control" id="Wachtwoord" placeholder="Wachtwoord" name="Wachtwoord">
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label for="Voornaam" class="col-lg-2 control-label">Voornaam</label>
                 <div class="col-lg-10">
                     <input type="text" required class="form-control" id="Voornaam" placeholder="Voornaam" name="Voornaam">
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label for="Tussenvoegsel" class="col-lg-2 control-label">Tussenvoegsel</label>
                 <div class="col-lg-10">
-                    <input type="text" required class="form-control" id="Tussenvoegsel" placeholder="Tussenvoegsel" name="Tussenvoegsel">
+                    <input type="text" class="form-control" id="Tussenvoegsel" placeholder="Tussenvoegsel" name="Tussenvoegsel">
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label for="Achternaam" class="col-lg-2 control-label">Achternaam</label>
                 <div class="col-lg-10">
                     <input type="text" required class="form-control" id="Achternaam" placeholder="Achternaam" name="Achternaam">
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label class="col-lg-2 control-label">Geslacht</label>
                 <div class="col-lg-10">
                     <div class="radio">
                         <label>
-                            <input required name="Geslacht" id="optionsRadios1" value="Vrouw" checked=string.Empty type="radio">
+                            <input name="Geslacht" id="optionsRadios1" value="Man" checked type="radio">
                             Man
                         </label>
-                    </div>
-                    <div class="radio">
                         <label>
-                            <input required name="Geslacht" id="optionsRadios2" value="Vrouw" type="radio">
+                            <input name="Geslacht" id="optionsRadios2" value="Vrouw" type="radio">
                             Vrouw
                         </label>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label class="col-lg-2 control-label">Geboortedatum</label>
-                <input type="date" required class="form-control" id="Geboortedatum" placeholder="Geboortedatum" name="Geboortedatum">
-            </div>
-            <div class="form-group">
+                <div class="col-lg-10">
+                    <input type="date" class="form-control" id="Geboortedatum" placeholder="Geboortedatum" name="Geboortedatum">
+                </div>
+
                 <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
                 <div class="col-lg-10">
-                    <input type="text" required class="form-control" id="Pasfoto" placeholder="Pasfoto" name="Pasfoto">
+                    <input type="file" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="Pasfoto">
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="VOG" class="col-lg-2 control-label">VOG</label>
-                <div class="col-lg-10">
-                    <input type="text" class="form-control" id="VOG" placeholder="VOG" name="VOG">
+                <div class="vog-wrapper" id="cont">
+                    <!-----   Hier komt de VOG input box na het klikken op vrijwilliger.-------->
                 </div>
-            </div>
-            <div class="form-group">
                 <div class="col-lg-10 col-lg-offset-2">
+                    <br />
                     <button type="reset" class="btn btn-default">Reset</button>
-                    <button type="submit" class="btn btn-primary">Aanmelden</button>
+                    <button type="submit" class="btn btn-primary">Registreer</button>
                 </div>
-            </div>
+                </div>
         </fieldset>
     </form>
 </div>
