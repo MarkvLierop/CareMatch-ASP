@@ -3,6 +3,20 @@
     ViewBag.Title = "AccountOverzicht";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function () {
+		    $('input[name="knopjes"]').on('click', function () {
+		        if (this.value == "Reset") {
+				    $("#cont").append('<input type="text" class="form-control" /><span class="input-group-addon" ><input type="button" class="btn btn-default" value="OK" name="knopjes" style="padding-right: 3px;padding-left: 3px;padding-bottom: 3px;padding-top: 3px;height: 22px;"></button></span>');
+				}
+		        else if (this.value == "OK") {
+		            $("#cont").append('<form action="" method="post"> <input type="hidden" class="btn btn-default" name="gebruikerid"><input type="submit" class="btn btn-default" value="Reset" name="knopjes"></form>')
+			    }
+		    });
+		});
+
+</script>
 <a href="@Url.Action("Index", "Beheerder")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
 <br />
 <div class="overzichtTitle">
@@ -37,6 +51,7 @@
                 <th>Achternaam</th>
                 <th>Rol</th>
                 <th>VOG</th>
+                <th>Wachtwoord</th>
                 <th>Approved</th>
             </tr>
             @foreach (CareMatch.Models.Gebruiker gebruiker in ViewBag.GebruikerList)
@@ -45,12 +60,20 @@
                     <td>@gebruiker.Gebruikersnaam</td>
                     <td>@gebruiker.Voornaam</td>
                     <td>@gebruiker.Achternaam</td>
-                    <td><a href="@gebruiker.Rol" target="_blank">@gebruiker.Rol</a></td>
+                    <td>@gebruiker.Rol</td>
                     <td>
                         @if (!string.IsNullOrEmpty(gebruiker.VOG))
                         {
                             <a href="@Url.Action("DownloadFile", "Beheerder", new { gebruiker = gebruiker.Gebruikersnaam, file = gebruiker.VOG })">@gebruiker.VOG</a>
                         }
+                    </td>
+                    <td>
+                        <div class="input-group" id="cont">
+                            <form action="" method="post"> 
+                                <input type="hidden" class="btn btn-default" value="" name="gebruikerid">
+                                <input type="submit" class="btn btn-default" value="Reset" name="knopjes">
+                            </form>    
+                        </div>
                     </td>
                     @if (gebruiker.Approved)
                     {
