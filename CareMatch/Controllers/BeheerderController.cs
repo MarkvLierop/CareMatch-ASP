@@ -17,8 +17,8 @@ namespace CareMatch.Controllers
             return View();
         }
 
-        public ActionResult HulpvragenOverzicht()
         // laat een lijst met alle ongepaste hulpvragen zien
+        public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
@@ -46,30 +46,35 @@ namespace CareMatch.Controllers
 
         public ActionResult AccountOverzicht(int id = 0)
         {
+            List<Gebruiker> gebruikerslist = new List<Gebruiker>();
             switch (id)
             {
                 case 3:
-                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Niet goedgekeurde gebruikers");
-                    ViewBag.filter = "Niet goedgekeurde gebruikers";
+                    gebruikerslist = carematch.database.GebruikerBeheer("Niet goedgekeurde gebruikers");
+                    ViewBag.GebruikerList = gebruikerslist;
+                    ViewBag.filter = "Niet goedgekeurde vrijwilligers";
                     break;
                 case 4:
-                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Vrijwilligers zonder VOG");
+                    gebruikerslist = carematch.database.GebruikerBeheer("Vrijwilligers zonder VOG");
+                    ViewBag.GebruikerList = gebruikerslist;
                     ViewBag.filter = "Vrijwilligers zonder VOG";
                     break;
                 case 1:
-                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Vrijwilligers");
+                    gebruikerslist = carematch.database.GebruikerBeheer("Vrijwilligers");
+                    ViewBag.GebruikerList = gebruikerslist;
                     ViewBag.filter = "Vrijwilligers";
                     break;
                 case 2:
-                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Hulpbehoevenden");
-                    ViewBag.filter = "Hulpbehoevenden";
+                    gebruikerslist = carematch.database.GebruikerBeheer("Hulpbehoevenden");
+                    ViewBag.GebruikerList = gebruikerslist;
+                    ViewBag.filter = "Hulpbehoevende";
                     break;
                 default:
-                    ViewBag.GebruikerList = carematch.database.GebruikerBeheer("Alles");
-                    ViewBag.filter = "Alles";
+                    gebruikerslist = carematch.database.GebruikerBeheer("Alles");
+                    ViewBag.GebruikerList = gebruikerslist;
+                    ViewBag.filter = "Alle gebruikers";
                     break;
             }
-
             return View();
         }
 
@@ -108,12 +113,12 @@ namespace CareMatch.Controllers
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
 
-        public ActionResult GebruikerAccepteren(int accountID)
+        public ActionResult GebruikerAccepteren(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             if (gebruiker.Rol.ToLower() == "beheerder")
             {
-                carematch.database.DataUpdateBeheerApproved(accountID);
+                carematch.database.DataUpdateBeheerApproved(id);
             }
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
@@ -139,6 +144,15 @@ namespace CareMatch.Controllers
             }
 
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
+        }
+        public void DownloadFile(string gebruiker, string file)
+        {
+            Response.ContentType = "APPLICATION/OCTET-STREAM";
+            System.IO.FileInfo Dfile = new System.IO.FileInfo(@"C:\"+gebruiker+@"\"+file);
+            String Header = "Attachment; Filename="+Dfile.FullName;
+            Response.AppendHeader("Content-Disposition", Header);
+            Response.WriteFile(Dfile.FullName);
+            Response.End();
         }
     }
 }
