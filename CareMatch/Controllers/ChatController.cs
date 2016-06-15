@@ -16,7 +16,7 @@ namespace CareMatch.Controllers
         {
             if (Session["Gebruiker"] == null)
             {
-                return RedirectToAction("Index", "Login", new { area = string.Empty });
+                return RedirectToAction("Index", "Login", new { area = "" });
             }
 
                 database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
@@ -24,11 +24,13 @@ namespace CareMatch.Controllers
                 if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
                 {
                     ViewBag.Gebruikers = database.HulpbehoevendeLijst();
+                    ViewBag.Bestaand = database.BestaandeChatlijstHulpbehoevende((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
                 }
                 else
                 {
                     ViewBag.Gebruikers = database.VrijwilligersLijst();
-                }
+                ViewBag.Bestaand = database.BestaandeChatlijstVrijwilligers((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
+            }
 
                 if (!string.IsNullOrEmpty(id))
                 {
@@ -38,9 +40,14 @@ namespace CareMatch.Controllers
                 else
                 {
                     ViewBag.Chat = new List<Models.Chatbericht>();
-                    ViewBag.Partner = string.Empty;            
+                    ViewBag.Partner = "";            
                 }
 
+            return View();
+        }
+
+        public ActionResult videotest()
+        {
             return View();
         }
 
@@ -76,7 +83,7 @@ namespace CareMatch.Controllers
             else
             {
                 ViewBag.Chat = new List<Models.Chatbericht>();
-                ViewBag.Partner = string.Empty;
+                ViewBag.Partner = "";
             }
 
             return RedirectToAction("ChatBekijken", new { partner = id });

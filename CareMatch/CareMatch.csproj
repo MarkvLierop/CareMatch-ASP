@@ -196,6 +196,7 @@
     <Content Include="Views\Beheerder\AccountOverzicht.cshtml" />
     <Content Include="Views\Vrijwilliger\ChatBarcode.cshtml" />
     <Content Include="Views\Hulpbehoevende\ChatBarcode.cshtml" />
+    <Content Include="Views\Chat\videotest.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
