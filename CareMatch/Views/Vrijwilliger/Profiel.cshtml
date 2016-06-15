@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Profiel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Profiel</h2>
+<a href="@Url.Action("Index", "Vrijwilliger")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
+<br />
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Uw Profiel</h3>
+    </div>
+    <div class="panel-body">
+        <form action="" method="post">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="auto">  In het bezit van een Auto
+                </label>
+            </div>
+            <fieldset class="form-group">
+                <label for="formGroupExampleInput">Nieuw Wachtwoord:</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Wachtwoord">
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="formGroupExampleInput">Herhaal Wachtwoord:</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Herhaal Wachtwoord">
+            </fieldset>
+            <fieldset class="form-group">
+                <label for="exampleTextarea">Vertel over uzelf:</label>
+                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+            </fieldset>
+            <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
+            <div class="col-lg-10">
+                <input type="file" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="Pasfoto">
+            </div>
+        </form>
+  </div>
+</div>
