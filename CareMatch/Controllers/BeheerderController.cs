@@ -18,7 +18,6 @@ namespace CareMatch.Controllers
         }
 
         public ActionResult HulpvragenOverzicht()
-
         // laat een lijst met alle ongepaste hulpvragen zien
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;

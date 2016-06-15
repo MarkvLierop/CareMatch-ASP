@@ -733,7 +733,10 @@ namespace CareMatch.Models
             con.Close();
             return gebruikerlist;
         }
-
+        /// <summary>
+        /// deletes the user based on user ID
+        /// </summary>
+        /// <param name="id"></param>
         public void VerwijderGebruiker(int id)
         {
             con.Open();
@@ -875,8 +878,8 @@ namespace CareMatch.Models
                 //Hulpbehoevende hoeft geen VOG te inserten.
                 if (Rol.ToLower() == "hulpbehoevende")
                 {
-                    command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, FOTO, APPROVED, ROL, GEBOORTEDATUM)" +
-                                                      "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :tussenvoegsel, :achternaam, :filenamefoto, :Approved, :Rol, :Geboortedatum)", con);
+                    command = new OracleCommand(@"INSERT INTO GEBRUIKER(GEBRUIKERSNAAM, WACHTWOORD, VOORNAAM, TUSSENVOEGSEL, ACHTERNAAM, FOTO, APPROVED, ROL, GEBOORTEDATUM, FLAGGED)" +
+                                                      "VALUES(:gebruikersnaam, :wachtwoord, :voornaam, :tussenvoegsel, :achternaam, :filenamefoto, :Approved, :Rol, :Geboortedatum, 'N' )", con);
                     command.Parameters.Add(new OracleParameter(":gebruikersnaam", OracleDbType.Varchar2)).Value = Gebruikersnaam;
                     command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString(Wachtwoord);
                     command.Parameters.Add(new OracleParameter(":voornaam", OracleDbType.Varchar2)).Value = voornaam;
