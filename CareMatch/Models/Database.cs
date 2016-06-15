@@ -720,6 +720,7 @@ namespace CareMatch.Models
                 tempGebruiker.GebruikersID = Convert.ToInt32(reader["GebruikerID"]);
                 tempGebruiker.Voornaam = Convert.ToString(reader["Voornaam"]);
                 tempGebruiker.Achternaam = Convert.ToString(reader["Achternaam"]);
+                tempGebruiker.Rol = reader["Rol"].ToString();
                 tempGebruiker.VOG = Convert.ToString(reader["VOG"]);
                 if (Convert.ToString(reader["Approved"]) == "Y")
                 {

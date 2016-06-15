@@ -2,15 +2,17 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LoginRegister.cshtml";
 }
+<script type="text/javascript">
+    
+</script>
+@{if (ViewBag.foutmelding != null)
+{
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oeps!</strong> @ViewBag.foutmelding
+    </div>
 
-@{if (ViewBag.foutmelding != string.Empty)
-    {
-        <div class="alert alert-dismissible alert-danger">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Oeps!</strong> @ViewBag.foutmelding
-        </div>
-
-    }}
+}}
 <div class="loginform">
     <h1>Login</h1>
     <form method="post" name="Login">
