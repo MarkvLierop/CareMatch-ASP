@@ -5,17 +5,19 @@
 }
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript">
-		$(document).ready(function () {
-		    $('input[name="knopjes"]').on('click', function () {
-		        if (this.value == "Reset") {
-				    $("#cont").append('<input type="text" class="form-control" /><span class="input-group-addon" ><input type="button" class="btn btn-default" value="OK" name="knopjes" style="padding-right: 3px;padding-left: 3px;padding-bottom: 3px;padding-top: 3px;height: 22px;"></button></span>');
-				}
-		        else if (this.value == "OK") {
-		            $("#cont").append('<form action="" method="post"> <input type="hidden" class="btn btn-default" name="gebruikerid"><input type="submit" class="btn btn-default" value="Reset" name="knopjes"></form>')
-			    }
-		    });
-		});
-
+    $(document).ready(function () {
+        document.getElementById('a').onclick = function() {
+            if ($(this).val() == 'Reset') {
+                $("#cont").text(" ");
+                $("#cont").append('<input type="text" class="form-control" /><span class="input-group-addon" ><input type="button" class="btn btn-default" value="OK" id="a" style="padding-right: 3px;padding-left: 3px;padding-bottom: 3px;padding-top: 3px;height: 22px;"/></span>');
+            }
+            else if ($(this).val() == 'OK'){
+                $("#cont").text(" ");
+                $("#cont").append('<input type="hidden" class="btn btn-default" value="" name="gebruikerid"> <input type="button" id="a" class="btn btn-default" value="Reset" name="knopjes">');
+            }
+        };
+        });
+		   
 </script>
 <a href="@Url.Action("Index", "Beheerder")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
 <br />
@@ -69,10 +71,9 @@
                     </td>
                     <td>
                         <div class="input-group" id="cont">
-                            <form action="" method="post"> 
-                                <input type="hidden" class="btn btn-default" value="" name="gebruikerid">
-                                <input type="submit" class="btn btn-default" value="Reset" name="knopjes">
-                            </form>    
+                            <input type="hidden" class="btn btn-default" value="" name="gebruikerid">
+                            <input type="button" id="a" class="btn btn-default" value="Reset" name="knopjes">
+                            
                         </div>
                     </td>
                     @if (gebruiker.Approved)

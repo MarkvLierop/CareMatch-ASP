@@ -21,6 +21,10 @@ namespace CareMatch.Controllers
         {
             return View();
         }
+        public ActionResult Profiel()
+        {
+            return View();
+        }
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
