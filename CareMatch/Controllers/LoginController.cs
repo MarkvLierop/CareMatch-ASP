@@ -15,33 +15,36 @@ namespace CareMatch.Controllers
         {
             Gebruiker gebruiker = new Gebruiker();
             gebruiker = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
-
-            if (gebruiker == null)
+            //Kijken of het form gesubmit is.
+            if (Request.Form.Count > 0)
             {
-                ViewBag.foutmelding = "Gebruikersnaam of Wachtwoord is incorrect";
-            }
-            else if (gebruiker.Rol.ToLower() == "beheerder")
-            {
-                return RedirectToAction("Index", "Beheerder", new { area = string.Empty });
-            }
-            else if (gebruiker.Rol.ToLower() == "vrijwilliger")
-            {
-                if (gebruiker.Approved)
+                if (gebruiker == null)
+                {
+                    ViewBag.foutmelding = "Gebruikersnaam of Wachtwoord is incorrect";
+                }
+                else if (gebruiker.Rol.ToLower() == "beheerder")
                 {
                     Session["Gebruiker"] = gebruiker;
-                    return RedirectToAction("Index", "Vrijwilliger", new { area = string.Empty });
+                    return RedirectToAction("Index", "Beheerder", new { area = string.Empty });
                 }
-                else
+                else if (gebruiker.Rol.ToLower() == "vrijwilliger")
                 {
-                    ViewBag.foutmelding = "Account is nog niet goedgekeurd";
+                    if (gebruiker.Approved)
+                    {
+                        Session["Gebruiker"] = gebruiker;
+                        return RedirectToAction("Index", "Vrijwilliger", new { area = string.Empty });
+                    }
+                    else
+                    {
+                        ViewBag.foutmelding = "Account is nog niet goedgekeurd";
+                    }
+                }
+                else if (gebruiker.Rol.ToLower() == "hulpbehoevende")
+                {
+                    Session["Gebruiker"] = gebruiker;
+                    return RedirectToAction("Index", "Hulpbehoevende", new { area = string.Empty });
                 }
             }
-            else if (gebruiker.Rol.ToLower() == "hulpbehoevende")
-            {
-                Session["Gebruiker"] = gebruiker;
-                return RedirectToAction("Index", "Hulpbehoevende", new { area = string.Empty });
-            }
-
             return View();
         }
 

@@ -115,11 +115,7 @@ namespace CareMatch.Controllers
 
         public ActionResult GebruikerAccepteren(int id)
         {
-            Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            if (gebruiker.Rol.ToLower() == "beheerder")
-            {
-                carematch.database.DataUpdateBeheerApproved(id);
-            }
+            carematch.database.DataUpdateBeheerApproved(id);
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
@@ -134,7 +130,10 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
-
+        public ActionResult ResetWachtwoord(int gebruikerid)
+        {
+            return RedirectToAction("AccountOverzicht", "Beheerder");
+        }
         public ActionResult HulpvraagVerwijderen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
