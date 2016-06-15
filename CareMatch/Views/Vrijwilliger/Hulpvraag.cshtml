@@ -37,6 +37,8 @@
                 </tr>
             </tbody>
         </table>
+        <hr id="hr" />
+        <h4>Status:</h4>
         @{ if (h.Vrijwilliger == "")
             {
                 <div class="progress progress-striped active">
@@ -44,13 +46,27 @@
                 </div>
                 <a type="button" class="btn btn-info" href='@Url.Action("ChatStarten", new { id = @h.Hulpbehoevende})'>Chat Starten</a>                                  <a type="button" class="btn btn-info" href='@Url.Action("HulpvraagAannemen", new { id = @h.HulpvraagID})'>Aannemen</a>
             }
-            else
+            else if(h.Vrijwilliger !="" && h.Beoordeling == "")
             {
                 <div class="progress progress-striped active">
                     <div class="progress-bar" style="width: 33%">Ingediend</div>
                     <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
                 </div>
                     <h4>Deze hulpvraag is aangenomen door: <strong>@h.Vrijwilliger</strong>.</h4>
+            }
+            else if (h.Beoordeling != "")
+            {
+                <div class="progress progress-striped active">
+                    <div class="progress-bar" style="width: 33%">Ingediend</div>
+                    <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
+                    <div class="progress-bar progress-bar-success" style="width: 34%">Beoordeeld</div>
+                </div>
+                <h4>De vrijwilliger: <strong>@h.Vrijwilliger</strong> heeft deze hulpvraag uitgevoerd. Hieronder vindt u de beoordeling.</h4>
+                <hr id="hr" />
+                <p>
+                    <strong>Cijfer</strong>: @h.Cijfer <br />
+                    <strong>Beoordeling</strong>: @h.Beoordeling
+                </p>
             }
         }
         

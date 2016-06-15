@@ -66,6 +66,7 @@
                 <textarea class="form-control" id="Omschrijving" name="Omschrijving">@h.HulpvraagInhoud</textarea>
             </div>
             <br />
+            <hr id="hr" />
             <h4>Status:</h4>
             @{ if (h.Vrijwilliger == "")
                 {
@@ -76,7 +77,7 @@
                         <input type="submit" value="Opslaan" class="btn btn-sq-lg btn-warning" onclick="Succes()" />
                     </div>
                 }
-                else
+                else if(h.Beoordeling == "")
                 {
                     <div class="progress progress-striped active">
                         <div class="progress-bar" style="width: 33%">Ingediend</div>
@@ -84,8 +85,50 @@
                     </div>
                     <h4>Deze hulpvraag is aangenomen door: <strong>@h.Vrijwilliger</strong>. Hieronder kunt u <strong>@h.Vrijwilliger</strong> beoordelen.</h4>
                 }
+                else if (h.Beoordeling != "")
+                {
+                    <div class="progress progress-striped active">
+                        <div class="progress-bar" style="width: 33%">Ingediend</div>
+                        <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
+                        <div class="progress-bar progress-bar-success" style="width: 34%">Beoordeeld</div>
+                    </div>
+                    <h4>Deze hulpvraag is uitgevoerd door: <strong>@h.Vrijwilliger</strong>. Hieronder kunt u uw beoordeling vinden.</h4>
                 }
-        </form>        
+            }
+        </form>      
+        @{
+            if (h.Beoordeling == "" && h.Vrijwilliger != "")
+            {
+                <form method="post" name="beoordeling" action="@Url.Action("HulpvraagBeoordelen", "Hulpbehoevende")">
+                    <fieldset>
+                        <input type="hidden" value="@h.HulpvraagID" name="id" />
+                        <label>Cijfer:</label><br />
+                        <span class="starRating">
+                            <input id="rating5" type="radio" name="Cijfer" value="5">
+                            <label for="rating5">5</label>
+                            <input id="rating4" type="radio" name="Cijfer" value="4">
+                            <label for="rating4">4</label>
+                            <input id="rating3" type="radio" name="Cijfer" value="3" checked>
+                            <label for="rating3">3</label>
+                            <input id="rating2" type="radio" name="Cijfer" value="2">
+                            <label for="rating2">2</label>
+                            <input id="rating1" type="radio" name="Cijfer" value="1">
+                            <label for="rating1">1</label>
+                        </span>
+                        <br />
+                        <label>Beoordeling:</label><br />
+                        <textarea class="form-control" id="Omschrijving" name="Beoordeling"></textarea>
+                        <input type="submit" value="Indienen" class="btn btn-sq-lg btn-warning" onclick="Succes()" />
+                    </fieldset>
+                </form>
+            }
+            else if(h.Beoordeling != "")
+            {
+                <p><strong>Cijfer</strong>: @h.Cijfer <br />
+                   <strong>Beoordeling</strong>: @h.Beoordeling</p>
+                
+            }
+        }
     </div>
 </div>
 
