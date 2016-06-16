@@ -95,7 +95,8 @@ namespace CareMatch.Models
             reader = command.ExecuteReader();
             con.Close();
         }
-        //Mee bezig.
+
+        // Mee bezig.
         public void HulpvraagVerwijderen(int hulpvraagID)
         {
             con.Open();
