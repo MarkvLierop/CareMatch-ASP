@@ -202,7 +202,7 @@ namespace CareMatch.Models
             {
                 // throw new NotImplementedException();
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Hulpvraag.Flagged = 'Y'", con);
-                
+
                 // parameters erbij?
 
                 // misschien niet nodig omdat je deze nergens kunt invullen?
@@ -316,8 +316,9 @@ namespace CareMatch.Models
         }
         #endregion
         #region Agenda Queries        
-        public void AgendaOverzicht(Gebruiker gebruiker, string filter, string datum)
+        public List<Agenda.AgendaPunt> AgendaOverzicht(Gebruiker gebruiker)
         {
+            List<Agenda.AgendaPunt> agendaPuntList = new List<Agenda.AgendaPunt>();
             try
             {
                 con.Open();
@@ -327,43 +328,39 @@ namespace CareMatch.Models
                 // Soms is de connectie niet goed afgesloten en komt er een foutmelding: CON already Open. 
                 // Als dat zo is, gewoon doorgaan met code. dus hoeft niet afgevangen te worden.
             }
-
-            command = new OracleCommand("SELECT * FROM Agenda WHERE EigenaarID =(SELECT GebruikerID FROM Gebruiker WHERE Gebruikersnaam =:filter) AND AfspraakDatum =:datum", con);
-            command.Parameters.Add(new OracleParameter(":filter", OracleDbType.Varchar2)).Value = filter;
-            command.Parameters.Add(new OracleParameter(":datum", OracleDbType.Varchar2)).Value = datum;
+            command = new OracleCommand("SELECT * FROM Agenda WHERE VrijwilligerID =(SELECT GebruikerID FROM Gebruiker WHERE GebruikerID = :gebruikerid)", con);
+            command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Varchar2)).Value = gebruiker.GebruikersID;
             reader = command.ExecuteReader();
 
             while (reader.Read())
             {
                 agendaPunt = new Agenda.AgendaPunt();
 
-                agendaPunt.AfspraakID = Convert.ToInt32(reader["AFSPRAAKID"]);
                 agendaPunt.Titel = reader["Titel"].ToString();
-                agendaPunt.AfspraakMet = reader["AfspraakMet"].ToString();
-                agendaPunt.Beschrijving = reader["Omschrijving"].ToString();
-                agendaPunt.AgendaEigenaar = Convert.ToInt32(reader["EigenaarID"]);
+                agendaPunt.Beschrijving = reader["Inhoud"].ToString();
+                agendaPunt.AgendaEigenaar = Convert.ToInt32(reader["VrijwilligerID"]);
                 agendaPunt.DatumTijdStart = Convert.ToDateTime(reader["StartTijd"]);
                 agendaPunt.DatumTijdEind = Convert.ToDateTime(reader["EindTijd"]);
                 agendaPunt.AfspraakDatum = Convert.ToDateTime(reader["AfspraakDatum"]);
 
-                gebruiker.AgendaPuntToevoegen(agendaPunt);
+                agendaPuntList.Add(agendaPunt);
             }
 
             con.Close();
+            return agendaPuntList;
         }
-
-        public void AgendaPuntToevoegen(Agenda.AgendaPunt agendaPunt, Gebruiker gebruiker, string datum)
+        public void AgendaPuntToevoegen(Agenda.AgendaPunt agendaPunt, Gebruiker gebruiker)
         {
             con.Open();
-            command = new OracleCommand("INSERT INTO Agenda(EigenaarID, Omschrijving, StartTijd, EindTijd, Titel, AfspraakMet, AfspraakDatum)" + "VALUES(:gebruikersid,:beschrijving ,:starttijd ,:eindtijd ,:titel ,:afspraakmet, :datum)", con);
+            command = new OracleCommand("INSERT INTO Agenda(VrijwilligerID, Inhoud, StartTijd, EindTijd, Titel, AfspraakDatum)" +
+                                                "VALUES(:gebruikersid,:beschrijving ,:starttijd ,:eindtijd ,:titel , :datum)", con);
 
             command.Parameters.Add(new OracleParameter(":gebruikersid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
             command.Parameters.Add(new OracleParameter(":beschrijving", OracleDbType.Varchar2)).Value = agendaPunt.Beschrijving;
             command.Parameters.Add(new OracleParameter(":starttijd", OracleDbType.Varchar2)).Value = agendaPunt.DatumTijdStart;
             command.Parameters.Add(new OracleParameter(":eindtijd", OracleDbType.Varchar2)).Value = agendaPunt.DatumTijdEind;
             command.Parameters.Add(new OracleParameter(":titel", OracleDbType.Varchar2)).Value = agendaPunt.Titel;
-            command.Parameters.Add(new OracleParameter(":afspraakmet", OracleDbType.Varchar2)).Value = agendaPunt.AfspraakMet;
-            command.Parameters.Add(new OracleParameter(":datum", OracleDbType.Varchar2)).Value = datum;
+            command.Parameters.Add(new OracleParameter(":datum", OracleDbType.Varchar2)).Value = agendaPunt.AfspraakDatum;
             command.ExecuteNonQuery();
             con.Close();
         }
@@ -852,8 +849,7 @@ namespace CareMatch.Models
             cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();
         }
-
-        public void UpdateWachtwoord(int gebruikerID, string wachtwoord)
+        public void ResetWachtwoord(int gebruikerID, string wachtwoord)
         {
             con.Open();
             OracleCommand cmd = con.CreateCommand();
@@ -968,7 +964,7 @@ namespace CareMatch.Models
                     command.Parameters.Add(new OracleParameter(":Approved", OracleDbType.Varchar2)).Value = "Y";
                     command.Parameters.Add(new OracleParameter(":Rol", OracleDbType.Varchar2)).Value = Rol;
                     command.Parameters.Add(new OracleParameter(":Geboortedatum", OracleDbType.Date)).Value = geboortedatum;
-                }      
+                }
                 else
                 {
                     // Vrijwilliger wel.
