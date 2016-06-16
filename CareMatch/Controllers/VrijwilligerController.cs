@@ -21,8 +21,31 @@ namespace CareMatch.Controllers
         {
             return View();
         }
-        public ActionResult Profiel()
+        public ActionResult Profiel(string wachtwoord, string pasfoto, string info, bool? auto)
         {
+            if (Request.Form.Count >0)
+            {
+                if (!string.IsNullOrEmpty(wachtwoord))
+                {
+                    ((Gebruiker)Session["Gebruiker"]).Wachtwoord = wachtwoord;
+                    ((Gebruiker)Session["Gebruiker"]).Auto = auto;
+                    ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
+                    carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, true, false);
+                }
+                if (!string.IsNullOrEmpty(pasfoto))
+                {
+                    ((Gebruiker)Session["Gebruiker"]).Pasfoto = pasfoto;
+                    ((Gebruiker)Session["Gebruiker"]).Auto = auto;
+                    ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
+                    carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, true);
+                }
+                else if (!string.IsNullOrEmpty(info))
+                {
+                    ((Gebruiker)Session["Gebruiker"]).Auto = auto;
+                    ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
+                    carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, false);
+                }
+            }
             return View();
         }
         public ActionResult HulpvragenOverzicht()

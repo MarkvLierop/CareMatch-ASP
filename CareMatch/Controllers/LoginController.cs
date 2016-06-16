@@ -59,7 +59,7 @@ namespace CareMatch.Controllers
         {
             DateTime geboortedatum1 = Convert.ToDateTime(Geboortedatum);
             
-            if (!string.IsNullOrEmpty(Voornaam))
+            if (Request.Form.Count > 0)
             {
                 bool success = carematch.database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, optionsRadios, pasfoto, VOG, Voornaam, Tussenvoegsel, Achternaam, Geslacht, geboortedatum1);
                 if (success)

@@ -27,7 +27,7 @@ namespace CareMatch.Models
         public string Rol { get; set; }
         public string VOG { get; set; }
         public DateTime GeboorteDatum { get; set; }
-        public bool Auto { get; set; }
+        public bool? Auto { get; set; }
         public bool Approved { get; set; }
         
         //Constructor
