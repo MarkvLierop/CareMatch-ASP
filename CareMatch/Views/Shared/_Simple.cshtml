@@ -9,7 +9,11 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    
+    @if (Session["Gebruiker"] == null)
+    {
+        Response.Redirect("~/Login/Index");
+    }
+
     <div class="container body-content">
         @RenderBody()
         <hr />
