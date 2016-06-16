@@ -859,7 +859,7 @@ namespace CareMatch.Models
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE GEBRUIKER SET Wachtwoord = :wachtwoord WHERE GebruikerID = :gebruikerID ";
+            cmd.CommandText = "UPDATE GEBRUIKER SET Wachtwoord = :wachtwoord WHERE GebruikerID = :gebruikerID";
             command.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString("wachtwoord");
             cmd.ExecuteNonQuery();

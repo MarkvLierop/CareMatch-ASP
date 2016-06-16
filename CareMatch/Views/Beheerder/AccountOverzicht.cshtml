@@ -58,10 +58,7 @@
                         }
                     </td>
                     <td>
-
-                        <form method="post" action="">
-                            <button type="button" class="btn btn-primary" data-toggle="modal">Reset</button>
-                        </form>
+                        <a href="@Url.Action("ResetWatchtwoord", "Beheerder", new { id = gebruiker.GebruikersID })" class="btn btn-primary">Reset</a>
                     </td>
                     @if (gebruiker.Approved)
                     {

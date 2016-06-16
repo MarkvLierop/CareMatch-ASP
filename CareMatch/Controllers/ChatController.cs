@@ -43,12 +43,6 @@ namespace CareMatch.Controllers
             return View();
         }
 
-        // nutteloos?
-        public ActionResult videotest()
-        {
-            return View();
-        }
-
         // laat de chat zien
         public ActionResult ChatBekijken(string partner)
         {
