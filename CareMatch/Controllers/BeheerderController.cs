@@ -100,14 +100,18 @@ namespace CareMatch.Controllers
             ViewBag.gebruikerBool = false;
             return View();
         }
-
-        public ActionResult GebruikerSetBeheerder(int accountID)
+        /// <summary>
+        /// roept de query in de database aan die een gebruiker in een vrijwilliger veranderd
+        /// </summary>
+        /// <param name="id">de id die bij de gebruiker hoort</param>
+        /// <returns></returns>
+        public ActionResult GebruikerSetBeheerder(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             if (gebruiker.Rol.ToLower() == "beheerder")
             {   
 
-                carematch.database.DataUpdateBeheerRol(accountID);
+                carematch.database.DataUpdateBeheerRol(id);
             }
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
@@ -153,5 +157,6 @@ namespace CareMatch.Controllers
             Response.WriteFile(Dfile.FullName);
             Response.End();
         }
+        //public void
     }
 }
