@@ -21,14 +21,14 @@ namespace CareMatch.Controllers
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, string.Empty);
             return View();
         }
 
         public ActionResult Hulpvraag(int id)
         {
             Hulpvraag gekozenHulpvraag = null;
-            foreach (Hulpvraag hulpvraag in carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, ""))
+            foreach (Hulpvraag hulpvraag in carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, string.Empty))
             {
                 if (hulpvraag.HulpvraagID == id)
                 {
@@ -75,6 +75,7 @@ namespace CareMatch.Controllers
                     ViewBag.filter = "Alle gebruikers";
                     break;
             }
+
             return View();
         }
 
@@ -101,13 +102,17 @@ namespace CareMatch.Controllers
             return View();
         }
 
-        public ActionResult GebruikerSetBeheerder(int accountID)
+        /// <summary>
+        /// roept de query in de database aan die een gebruiker in een vrijwilliger veranderd
+        /// </summary>
+        /// <param name="id">de id die bij de gebruiker hoort</param>
+        /// <returns></returns>
+        public ActionResult GebruikerSetBeheerder(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             if (gebruiker.Rol.ToLower() == "beheerder")
             {   
-
-                carematch.database.DataUpdateBeheerRol(accountID);
+                carematch.database.DataUpdateBeheerRol(id);
             }
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
@@ -137,6 +142,7 @@ namespace CareMatch.Controllers
             carematch.database.ResetWachtwoord(gebruikerid, wachtwoord);
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
+
         public ActionResult HulpvraagVerwijderen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -147,14 +153,34 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
+
         public void DownloadFile(string gebruiker, string file)
         {
             Response.ContentType = "APPLICATION/OCTET-STREAM";
-            System.IO.FileInfo Dfile = new System.IO.FileInfo(@"C:\"+gebruiker+@"\"+file);
-            String Header = "Attachment; Filename="+Dfile.FullName;
+            System.IO.FileInfo Dfile = new System.IO.FileInfo(@"C:\" + gebruiker + @"\" + file);
+            string Header = "Attachment; Filename=" + Dfile.FullName;
             Response.AppendHeader("Content-Disposition", Header);
             Response.WriteFile(Dfile.FullName);
             Response.End();
+        }
+
+        public ActionResult BeoordelingVerwijderen(int id)
+        {
+            Hulpvraag hulpvraag = new Models.Hulpvraag();
+            hulpvraag.HulpvraagID = id;
+
+            carematch.database.BeoordelingVerwijderen(hulpvraag);
+            return RedirectToAction("HulpvraagDeRapporteren", "Beheerder", new { id = id });
+        }
+
+        public ActionResult HulpvraagDerapporteren(int id)
+        {
+            Hulpvraag hulpvraag = new Models.Hulpvraag();
+            hulpvraag.HulpvraagID = id;
+
+            carematch.database.HulpvraagDerapporteer(hulpvraag);
+
+            return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
     }
 }

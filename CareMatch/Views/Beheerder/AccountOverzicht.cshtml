@@ -39,9 +39,13 @@
                 <th>VOG</th>
                 <th>Wachtwoord</th>
                 <th>Approved</th>
+                <th>Set beheerder</th>
             </tr>
             @foreach (CareMatch.Models.Gebruiker gebruiker in ViewBag.GebruikerList)
             {
+            
+                
+                
                 <tr>
                     <td>@gebruiker.Gebruikersnaam</td>
                     <td>@gebruiker.Voornaam</td>
@@ -90,6 +94,24 @@
                     {
                         <td>
                             <a href="@Url.Action("GebruikerAccepteren", "Beheerder", new { id = gebruiker.GebruikersID })" class="btn btn-primary">Approve</a>
+                        </td>
+                    }
+                    @if (gebruiker.Rol.ToLower() == "vrijwilliger")
+                    {
+                        <td>
+                            <a href="@Url.Action("GebruikerSetBeheerder", "Beheerder", new {id = gebruiker.GebruikersID})" class="btn btn-primary">SetBeheerder</a>
+                        </td>
+                    }
+                    else if (gebruiker.Rol.ToLower() == "beheerder")
+                    {
+                        <td>
+                            <h4>✔</h4>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <h4>&#10008</h4>
                         </td>
                     }
                 </tr>

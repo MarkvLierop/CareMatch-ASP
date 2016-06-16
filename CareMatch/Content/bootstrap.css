@@ -4,6 +4,19 @@
 #wwopslaan{
     float:right;
 }
+#localVideo {
+  position: relative;
+  right: 205px;
+  bottom: -793px;
+  width: 200px;
+}
+
+video:nth-of-type(1) {
+  position: relative; right: -1150px; bottom: 605px;
+  min-width: 10%; min-height: 10%;
+  width: auto; height: auto; z-index: 100;
+  background-size: cover;
+}
 .nano {
 position: relative;
 width: 100%;
@@ -322,10 +335,10 @@ summary {
 audio,
 canvas,
 progress,
-video {
+/*video {
   display: inline-block;
   vertical-align: baseline;
-}
+}*/
 audio:not([controls]) {
   display: none;
   height: 0;
@@ -3728,6 +3741,7 @@ fieldset[disabled] .btn-link:focus {
   font-size: 20px;
   line-height: 1.3333333;
   border-radius: 6px;
+  margin-right: 20px;
 }
 .btn-sm,
 .btn-group-sm > .btn {
@@ -7158,10 +7172,10 @@ legend {
   color: #333333;
 }
 
-video {
+/*video {
     height: 200px;
     width: 200px;
-}
+}*/
 
 .starRating:not(old){
   display        : inline-block;

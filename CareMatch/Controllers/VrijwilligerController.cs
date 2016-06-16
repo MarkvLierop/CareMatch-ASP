@@ -34,6 +34,7 @@ namespace CareMatch.Controllers
                 agenda.Titel = titel;
                 carematch.database.AgendaPuntToevoegen(agenda,Session["Gebruiker"] as Gebruiker);
             }
+
             return View();
         }
 
@@ -42,9 +43,10 @@ namespace CareMatch.Controllers
             ViewData["AgendaList"] = carematch.database.AgendaOverzicht(Session["Gebruiker"] as Gebruiker);
             return View();
         }
+
         public ActionResult Profiel(string wachtwoord, string pasfoto, string info, bool? auto)
         {
-            if (Request.Form.Count >0)
+            if (Request.Form.Count > 0)
             {
                 if (!string.IsNullOrEmpty(wachtwoord))
                 {
@@ -53,6 +55,7 @@ namespace CareMatch.Controllers
                     ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
                     carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, true, false);
                 }
+            
                 if (!string.IsNullOrEmpty(pasfoto))
                 {
                     ((Gebruiker)Session["Gebruiker"]).Pasfoto = pasfoto;
@@ -67,19 +70,22 @@ namespace CareMatch.Controllers
                     carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, false);
                 }
             }
+
             return View();
         }
+
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, Request.QueryString["filter"]);
             return View();
         }
+
         public ActionResult Hulpvraag(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             Hulpvraag selectedhulpvraag = null;
-            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, string.Empty);
             foreach (Hulpvraag hulpvraag in hulpvragen)
             {
                 if (hulpvraag.HulpvraagID == id)
@@ -87,9 +93,11 @@ namespace CareMatch.Controllers
                     selectedhulpvraag = hulpvraag;
                 }
             }
+
             ViewData["Hulpvraag"] = selectedhulpvraag;
             return View();
         }
+
         public ActionResult HulpvraagAannemen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -113,11 +121,19 @@ namespace CareMatch.Controllers
                 return View();
             }
         }
+
+        public ActionResult Rapporteer(int id)
+        {
+            Hulpvraag hulpvraag = new Hulpvraag();
+            hulpvraag.HulpvraagID = id;
+            carematch.database.HulpvraagRapporteer(hulpvraag);
+            return RedirectToAction("HulpvragenOverzicht");
+        }
+
         [HttpPost]
         public ActionResult ChatBarcode(string partner)
         {
-            return RedirectToAction("ChatBekijken", "Chat", new { partner = partner});
+            return RedirectToAction("ChatBekijken", "Chat", new { partner = partner });
         }
     }
 }
-
