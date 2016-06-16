@@ -310,8 +310,8 @@ namespace CareMatch.Models
                 agendaPunt.AfspraakMet = reader["AfspraakMet"].ToString();
                 agendaPunt.Beschrijving = reader["Omschrijving"].ToString();
                 agendaPunt.AgendaEigenaar = Convert.ToInt32(reader["EigenaarID"]);
-                agendaPunt.DatumTijdStart = Convert.ToInt32(reader["StartTijd"]);
-                agendaPunt.DatumTijdEind = Convert.ToInt32(reader["EindTijd"]);
+                agendaPunt.DatumTijdStart = Convert.ToDateTime(reader["StartTijd"]);
+                agendaPunt.DatumTijdEind = Convert.ToDateTime(reader["EindTijd"]);
                 agendaPunt.AfspraakDatum = Convert.ToDateTime(reader["AfspraakDatum"]);
 
                 gebruiker.AgendaPuntToevoegen(agendaPunt);
@@ -781,6 +781,7 @@ namespace CareMatch.Models
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "UPDATE GEBRUIKER SET APPROVED = 'Y' WHERE GebruikerID = :gebruikerID";
             cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();            
         }
@@ -791,8 +792,8 @@ namespace CareMatch.Models
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE GEBRUIKER SET ROL = \"Beheerder\" WHERE GebruikerID = :gebruikerID ";
-            command.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
+            cmd.CommandText = "UPDATE GEBRUIKER SET ROL = \"Beheerder\" WHERE GebruikerID = :gebruikerID";
+            cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();
         }
         public void UpdateWachtwoord(int gebruikerID, string wachtwoord)

@@ -11,11 +11,13 @@ namespace CareMatch.Controllers
     {
         // GET: Login
         CareMatch1 carematch = new CareMatch1();
+
         public ActionResult Index(string gebruikersnaam, string wachtwoord)
         {
             Gebruiker gebruiker = new Gebruiker();
             gebruiker = carematch.database.GebruikerLogin(gebruikersnaam, wachtwoord);
-            //Kijken of het form gesubmit is.
+
+            // Kijken of het form gesubmit is.
             if (Request.Form.Count > 0)
             {
                 if (gebruiker == null)
@@ -25,14 +27,14 @@ namespace CareMatch.Controllers
                 else if (gebruiker.Rol.ToLower() == "beheerder")
                 {
                     Session["Gebruiker"] = gebruiker;
-                    return RedirectToAction("Index", "Beheerder", new { area = "" });
+                    return RedirectToAction("Index", "Beheerder", new { area = string.Empty });
                 }
                 else if (gebruiker.Rol.ToLower() == "vrijwilliger")
                 {
                     if (gebruiker.Approved)
                     {
                         Session["Gebruiker"] = gebruiker;
-                        return RedirectToAction("Index", "Vrijwilliger", new { area = "" });
+                        return RedirectToAction("Index", "Vrijwilliger", new { area = string.Empty });
                     }
                     else
                     {
@@ -42,13 +44,14 @@ namespace CareMatch.Controllers
                 else if (gebruiker.Rol.ToLower() == "hulpbehoevende")
                 {
                     Session["Gebruiker"] = gebruiker;
-                    return RedirectToAction("Index", "Hulpbehoevende", new { area = "" });
+                    return RedirectToAction("Index", "Hulpbehoevende", new { area = string.Empty });
                 }
             }
+
             return View();
         }
 
-        //commit
+        // commit
         public ActionResult Registreren()
         {
             return View();

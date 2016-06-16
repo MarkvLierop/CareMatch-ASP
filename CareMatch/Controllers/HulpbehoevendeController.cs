@@ -28,7 +28,7 @@ namespace CareMatch.Controllers
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             Hulpvraag selectedhulpvraag = null;
-            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            List<Hulpvraag> hulpvragen = carematch.database.HulpvragenOverzicht(gebruiker, string.Empty);
             foreach (Hulpvraag hulpvraag in hulpvragen)
             {
                 if (hulpvraag.HulpvraagID == id)
@@ -75,7 +75,7 @@ namespace CareMatch.Controllers
                 hulpvraag.HulpvraagInhoud = Omschrijving;
                 hulpvraag.Hulpbehoevende = (Session["Gebruiker"] as Gebruiker).Gebruikersnaam;
                 hulpvraag.Plaatsnaam = Plaatsnaam;
-                carematch.database.HulpvraagAanpassen((Session["Gebruiker"] as Gebruiker), hulpvraag);
+                carematch.database.HulpvraagAanpassen(Session["Gebruiker"] as Gebruiker, hulpvraag);
 
                 return RedirectToAction("HulpvragenOverzicht");
             }
@@ -99,11 +99,12 @@ namespace CareMatch.Controllers
             {
                 return View();
             }
-            
         }
+
         public ActionResult HulpvraagIndienen(string Urgent, string Auto, DateTime? Datum, TimeSpan? Duur, TimeSpan? Tijd, string Plaatsnaam, string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
         {
             Hulpvraag hulpvraag = new Hulpvraag();
+
             if (!string.IsNullOrEmpty(Omschrijving))
             {
                 if (!string.IsNullOrEmpty(Urgent))
@@ -139,6 +140,7 @@ namespace CareMatch.Controllers
 
             return View();
         }
+
         public ActionResult ChatBarcode()
         {
             return View();

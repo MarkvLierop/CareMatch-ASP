@@ -198,6 +198,8 @@
     <Content Include="Views\Hulpbehoevende\ChatBarcode.cshtml" />
     <Content Include="Views\Chat\videotest.cshtml" />
     <Content Include="Views\Vrijwilliger\Profiel.cshtml" />
+    <Content Include="Views\Vrijwilliger\AgendaPuntToevoegen.cshtml" />
+    <Content Include="Views\Vrijwilliger\AgendaOverzicht.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

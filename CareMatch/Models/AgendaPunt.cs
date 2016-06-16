@@ -9,18 +9,26 @@ namespace CareMatch.Agenda
 {
     public class AgendaPunt
     {
-        //Properties
+        // Properties
         public int AfspraakID { get; set; }
+
         public int AgendaEigenaar { get; set; }
-        public int DatumTijdStart { get; set; }
-        public int DatumTijdEind { get; set; }
+
+        public DateTime? DatumTijdStart { get; set; }
+
+        public DateTime? DatumTijdEind { get; set; }
+
         public string AfspraakMet { get; set; }
+
         public string Titel { get; set; }
+
         public string Beschrijving { get; set; }
+
         public Point Locatie { get; set; }
-        public DateTime AfspraakDatum { get; set; }
+
+        public DateTime? AfspraakDatum { get; set; }
         
-        //Constructor
+        // Constructor
         public AgendaPunt()
         { 
         }
