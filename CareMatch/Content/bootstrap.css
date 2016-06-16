@@ -1,3 +1,9 @@
+#wwclose{
+    float:left;
+}
+#wwopslaan{
+    float:right;
+}
 .nano {
 position: relative;
 width: 100%;

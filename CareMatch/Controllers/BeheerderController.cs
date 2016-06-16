@@ -130,8 +130,11 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
-        public ActionResult ResetWachtwoord(int gebruikerid)
+
+        [HttpPost]
+        public ActionResult AccountOverzicht(int gebruikerid, string wachtwoord)
         {
+            carematch.database.ResetWachtwoord(gebruikerid, wachtwoord);
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
         public ActionResult HulpvraagVerwijderen(int id)
