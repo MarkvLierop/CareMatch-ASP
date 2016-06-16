@@ -94,6 +94,22 @@ namespace CareMatch.Controllers
                 return RedirectToAction("HulpvragenOverzicht", "Vrijwilliger");
         }
 
+        public ActionResult Beoordelingreactie(int id, string Beoordeling)
+        {
+            if (!string.IsNullOrEmpty(Beoordeling))
+            {
+                Hulpvraag hulpvraag = new Hulpvraag();
+                hulpvraag.HulpvraagID = id;
+                hulpvraag.ReactieBeoordeling = Beoordeling;
+
+                carematch.database.HulpvraagReactieBeoordelingToevoegen(hulpvraag);
+                return RedirectToAction("HulpvragenOverzicht");
+            }
+            else
+            {
+                return View();
+            }
+        }
         [HttpPost]
         public ActionResult ChatBarcode(string partner)
         {
