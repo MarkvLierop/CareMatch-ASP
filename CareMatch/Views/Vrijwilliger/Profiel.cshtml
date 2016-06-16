@@ -1,33 +1,53 @@
 ﻿@{
+    @model CareMatch.Models.Gebruiker 
     ViewBag.Title = "Profiel";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    CareMatch.Models.Gebruiker gebruiker = (CareMatch.Models.Gebruiker)Session["Gebruiker"];
 }
 
 <h2>Profiel</h2>
-<a href="@Url.Action(" Index", "Vrijwilliger" )" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
-<br />
-<divJJ class="panel panel-danger">
+<a href="@Url.Action("Index", "Vrijwilliger" )" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
+<br /><br/>
+@{if (ViewBag.foutmelding != null)
+{
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Oeps!</strong> @ViewBag.foutmelding
+    </div>
+
+}}
+<br/>
+<div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Uw Profiel</h3>
     </div>
     <div class="panel-body">
         <form action="" method="post">
             <div class="checkbox">
-                <label>
-                    @Html.CheckBox("auto", ((CareMatch.Models.Gebruiker)Session["Gebruiker"]).Auto) In het bezit van een Auto
-                </label>
+                @if (gebruiker.Auto == true)
+                {
+                    <label>
+                        <input type="checkbox" name="auto" checked> In bezit van auto en rijbewijs
+                    </label>
+                }
+                else
+                {
+                    <label>
+                        <input type="checkbox" name="auto"> In bezit van auto en rijbewijs
+                    </label>
+                }
             </div>
             <fieldset class="form-group">
                 <label for="formGroupExampleInput">Nieuw Wachtwoord:</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" name="wachtwoord" placeholder="Wachtwoord">
+                <input type="password" class="form-control" id="formGroupExampleInput" name="wachtwoord" placeholder="Wachtwoord">
             </fieldset>
             <fieldset class="form-group">
                 <label for="formGroupExampleInput">Herhaal Wachtwoord:</label>
-                <input type="text" class="form-control" id="formGroupExampleInput"  name="hwachtwoord" placeholder="Herhaal Wachtwoord">
+                <input type="password" class="form-control" id="formGroupExampleInput"  name="hwachtwoord" placeholder="Herhaal Wachtwoord">
             </fieldset>
             <fieldset class="form-group">
                 <label for="exampleTextarea">Vertel over uzelf:</label>
-                <textarea class="form-control" id="exampleTextarea" rows="3" name="info" ></textarea>
+                <textarea class="form-control" id="exampleTextarea" rows="3" name="info" >@(((CareMatch.Models.Gebruiker)Session["Gebruiker"]).GebruikerInfo)</textarea>
             </fieldset>
             <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
             <div class="col-lg-10">
@@ -36,3 +56,4 @@
             <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>
     </div>
+ </div>
