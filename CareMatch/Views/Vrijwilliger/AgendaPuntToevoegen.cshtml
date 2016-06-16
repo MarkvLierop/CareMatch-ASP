@@ -4,12 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<a href="@Url.Action("Index", "Vrijwilliger")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
+<br /><br/>
 <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Agenda Punt Toevoegen</h3>
     </div>
     <div class="panel-body">
-        <form method="post" name="Registreren" class="form-horizontal">
+        <form method="post" class="form-horizontal">
             <fieldset>
                 <div class="form-group">
                     <label for="titel" class="col-lg-2 control-label">Titel</label>
@@ -23,17 +25,19 @@
                     </div>
                     <label class="col-lg-2 control-label">Van:</label>
                     <div class="col-lg-10">
-                        <input type="date" class="form-control" id="van" placeholder="Van" name="Van">
+                        <input type="time" class="form-control" id="van" placeholder="Van" name="Van">
                     </div>
                     <label class="col-lg-2 control-label">Tot:</label>
                     <div class="col-lg-10">
-                        <input type="date" class="form-control" id="Tot" placeholder="Tot" name="tot">
+                        <input type="time" class="form-control" id="Tot" placeholder="Tot" name="tot">
                     </div>
                     <div class="col-lg-10">
                         <label>Inhoud:</label><br />
                         <textarea class="form-control" id="inhoud" name="inhoud"></textarea>
                     </div>
                 </div>
+
+                <input type="submit" value="Indienen" class="btn btn-sq-lg btn-warning" />
             </fieldset>
         </form>
     </div>

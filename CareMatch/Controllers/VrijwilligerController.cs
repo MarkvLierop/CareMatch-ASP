@@ -22,7 +22,7 @@ namespace CareMatch.Controllers
             return View();
         }
 
-        public ActionResult AgendaPuntToevoegen(DateTime datum, DateTime van, DateTime tot, string titel, string inhoud)
+        public ActionResult AgendaPuntToevoegen(DateTime? datum, DateTime? van, DateTime? tot, string titel, string inhoud)
         {
             if (Request.Form.Count > 0)
             {
@@ -30,8 +30,9 @@ namespace CareMatch.Controllers
                 agenda.AfspraakDatum = datum;
                 agenda.DatumTijdEind = tot;
                 agenda.DatumTijdStart = van;
-
-                // carematch.database.AgendaPuntToevoegen();
+                agenda.Beschrijving = inhoud;
+                agenda.Titel = titel;
+                carematch.database.AgendaPuntToevoegen(agenda,Session["Gebruiker"] as Gebruiker);
             }
 
             return View();
@@ -39,6 +40,7 @@ namespace CareMatch.Controllers
 
         public ActionResult AgendaOverzicht()
         {
+            ViewData["AgendaList"] = carematch.database.AgendaOverzicht(Session["Gebruiker"] as Gebruiker);
             return View();
         }
 
@@ -127,6 +129,7 @@ namespace CareMatch.Controllers
             carematch.database.HulpvraagRapporteer(hulpvraag);
             return RedirectToAction("HulpvragenOverzicht");
         }
+
         [HttpPost]
         public ActionResult ChatBarcode(string partner)
         {

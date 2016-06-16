@@ -135,9 +135,11 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
-
-        public ActionResult ResetWachtwoord(int gebruikerid)
+        
+        [HttpPost]
+        public ActionResult AccountOverzicht(int gebruikerid, string wachtwoord)
         {
+            carematch.database.ResetWachtwoord(gebruikerid, wachtwoord);
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
 
@@ -160,6 +162,25 @@ namespace CareMatch.Controllers
             Response.AppendHeader("Content-Disposition", Header);
             Response.WriteFile(Dfile.FullName);
             Response.End();
+        }
+
+        public ActionResult BeoordelingVerwijderen(int id)
+        {
+            Hulpvraag hulpvraag = new Models.Hulpvraag();
+            hulpvraag.HulpvraagID = id;
+
+            carematch.database.BeoordelingVerwijderen(hulpvraag);
+            return RedirectToAction("HulpvraagDeRapporteren", "Beheerder", new { id = id });
+        }
+
+        public ActionResult HulpvraagDerapporteren(int id)
+        {
+            Hulpvraag hulpvraag = new Models.Hulpvraag();
+            hulpvraag.HulpvraagID = id;
+
+            carematch.database.HulpvraagDerapporteer(hulpvraag);
+
+            return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
     }
 }
