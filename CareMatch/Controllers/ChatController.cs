@@ -14,11 +14,6 @@ namespace CareMatch.Controllers
         // GET: Chat
         public ActionResult Index(string id, string ingelogd)
         {
-            if (Session["Gebruiker"] == null)
-            {
-                return RedirectToAction("Index", "Login", new { area = string.Empty });
-            }
-
                 database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
                 ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
                 if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
