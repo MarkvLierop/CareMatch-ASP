@@ -16,7 +16,7 @@ namespace CareMatch.Controllers
         {
             if (Session["Gebruiker"] == null)
             {
-                return RedirectToAction("Index", "Login", new { area = "" });
+                return RedirectToAction("Index", "Login", new { area = string.Empty });
             }
 
                 database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
@@ -40,7 +40,7 @@ namespace CareMatch.Controllers
                 else
                 {
                     ViewBag.Chat = new List<Models.Chatbericht>();
-                    ViewBag.Partner = "";            
+                    ViewBag.Partner = string.Empty;            
                 }
 
             return View();
@@ -83,7 +83,7 @@ namespace CareMatch.Controllers
             else
             {
                 ViewBag.Chat = new List<Models.Chatbericht>();
-                ViewBag.Partner = "";
+                ViewBag.Partner = string.Empty;
             }
 
             return RedirectToAction("ChatBekijken", new { partner = id });

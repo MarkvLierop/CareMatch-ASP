@@ -21,14 +21,14 @@ namespace CareMatch.Controllers
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, "");
+            ViewData["hulpvragen"] = carematch.database.HulpvragenOverzicht(gebruiker, string.Empty);
             return View();
         }
 
         public ActionResult Hulpvraag(int id)
         {
             Hulpvraag gekozenHulpvraag = null;
-            foreach (Hulpvraag hulpvraag in carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, ""))
+            foreach (Hulpvraag hulpvraag in carematch.database.HulpvragenOverzicht(Session["gebruiker"] as Gebruiker, string.Empty))
             {
                 if (hulpvraag.HulpvraagID == id)
                 {
@@ -75,6 +75,7 @@ namespace CareMatch.Controllers
                     ViewBag.filter = "Alle gebruikers";
                     break;
             }
+
             return View();
         }
 
@@ -100,6 +101,7 @@ namespace CareMatch.Controllers
             ViewBag.gebruikerBool = false;
             return View();
         }
+
         /// <summary>
         /// roept de query in de database aan die een gebruiker in een vrijwilliger veranderd
         /// </summary>
@@ -110,7 +112,6 @@ namespace CareMatch.Controllers
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
             if (gebruiker.Rol.ToLower() == "beheerder")
             {   
-
                 carematch.database.DataUpdateBeheerRol(id);
             }
 
@@ -134,10 +135,12 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
+
         public ActionResult ResetWachtwoord(int gebruikerid)
         {
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
+
         public ActionResult HulpvraagVerwijderen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -148,11 +151,12 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
+
         public void DownloadFile(string gebruiker, string file)
         {
             Response.ContentType = "APPLICATION/OCTET-STREAM";
-            System.IO.FileInfo Dfile = new System.IO.FileInfo(@"C:\"+gebruiker+@"\"+file);
-            String Header = "Attachment; Filename="+Dfile.FullName;
+            System.IO.FileInfo Dfile = new System.IO.FileInfo(@"C:\" + gebruiker + @"\" + file);
+            string Header = "Attachment; Filename=" + Dfile.FullName;
             Response.AppendHeader("Content-Disposition", Header);
             Response.WriteFile(Dfile.FullName);
             Response.End();

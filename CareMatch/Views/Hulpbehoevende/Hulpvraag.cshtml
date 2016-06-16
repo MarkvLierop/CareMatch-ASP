@@ -127,7 +127,7 @@
             else if(h.Beoordeling != "")
             {
                 <h5>Uw beoordeling:</h5>
-                <p><strong>Cijfer</strong>: @h.Cijfer <br />
+                <p><strong>Cijfer</strong>: @h.Cijfer/5<br />
                    <strong>Beoordeling</strong>: @h.Beoordeling</p>
 
             }
@@ -141,11 +141,6 @@
         }
     </div>
 </div>
-
-<a href='@Url.Action("Rapporteer", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning" id="rapporteer">
-    <i class="fa fa-user fa-5x"></i>
-    <b>Rapporteer hulpvraag</b><br>
-</a>
             <div id="Vrijwilliger" class="modal fade" role="dialog">
                 <div class="modal-dialog">
 
@@ -165,7 +160,3 @@
 
                 </div>
             </div>
-<a href='@Url.Action("Rapporteer", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning" id="rapporteer">
-    <i class="fa fa-user fa-5x"></i>
-    <b>Rapporteer hulpvraag / Beoordeling</b><br>
-</a>

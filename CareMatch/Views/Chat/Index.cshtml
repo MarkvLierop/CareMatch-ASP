@@ -104,7 +104,6 @@
                                     </div>
                                 </li>
                             }
-
                         }
                     </ul>
                 </div>
@@ -142,10 +141,10 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Video Chat</h3>
             </div>
-            <div class="panel-body" style="height:400px">
+            <div class="panel-body" style="height:500px; width:500px">
                 @{
                     if (!string.IsNullOrEmpty(ViewBag.Partner))
-                    {                      
+                    {
                         <video id="localVideo" autoplay></video>
                     }
                     else
@@ -157,13 +156,16 @@
         </div>
     </div>
 </div>
-@*@if (!string.IsNullOrEmpty(ViewBag.Partner))
-{
-    <script type="text/javascript" src="~/Content/icecomm.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 
-    <script>
-    var comm = new Icecomm('HhwjERa67BO6jFoZ9Sy4wQ86N2c64JjRc7NURHrnKocjY2em');
+    <script type="text/javascript" src="~/Content/icecomm.js"></script>
+@if (!string.IsNullOrEmpty(ViewBag.Partner))
+{
+      <script type = "text/javascript" src = "http://cdn.icecomm.io/icecomm.js" ></script>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+
+<script>
+var comm = new Icecomm('HhwjERa67BO6jFoZ9Sy4wQ86N2c64JjRc7NURHrnKocjY2em');
 
     comm.connect('custom room', { audio: false });
 
@@ -197,7 +199,7 @@
 		                console.log(data.time); // 2pm
 		                }, "json");
     </script>
-}*@
+}
 
 
                         
