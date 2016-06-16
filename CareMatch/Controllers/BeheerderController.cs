@@ -25,6 +25,11 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        /// <summary>
+        /// laat een hulpvraag zien
+        /// </summary>
+        /// <param name="id">de id van de te laten zien hulpvraag</param>
+        /// <returns></returns>
         public ActionResult Hulpvraag(int id)
         {
             Hulpvraag gekozenHulpvraag = null;
@@ -44,6 +49,11 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        /// <summary>
+        /// laat een overzicht van accounts zien met filter
+        /// </summary>
+        /// <param name="id">het filter: 0 = alles, 1 = alleen vrijwilligers, 2 = alleen hulpbehoevende, 3 = alleen ongekeurde gebruikers, 4 = vrijwilligers zonder VOG</param>
+        /// <returns></returns>
         public ActionResult AccountOverzicht(int id = 0)
         {
             List<Gebruiker> gebruikerslist = new List<Gebruiker>();
@@ -79,6 +89,11 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        /// <summary>
+        /// geeft een overzicht van een gebruikeraccount
+        /// </summary>
+        /// <param name="id">de id van de gebruiker</param>
+        /// <returns></returns>
         public ActionResult GebruikerAccount(int id)
         {
             List<Gebruiker> gebruikerList = carematch.database.GebruikerBeheer("Alles");
@@ -118,6 +133,11 @@ namespace CareMatch.Controllers
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
 
+        /// <summary>
+        /// accepteerd een ongeaccepteerde gebruiker op basis van id 
+        /// </summary>
+        /// <param name="id">de id van de te accepteren gebruiker</param>
+        /// <returns></returns>
         public ActionResult GebruikerAccepteren(int id)
         {
             carematch.database.DataUpdateBeheerApproved(id);
@@ -125,6 +145,11 @@ namespace CareMatch.Controllers
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
 
+        /// <summary>
+        /// verwijdert een gebruiker op basis van id
+        /// </summary>
+        /// <param name="id">id van de gebruiker</param>
+        /// <returns></returns>
         public ActionResult GebruikerVerwijderen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -136,6 +161,12 @@ namespace CareMatch.Controllers
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
         
+        /// <summary>
+        /// verandert het wachtwoord van de gebruiker en laat daarna het accountovezicht zien
+        /// </summary>
+        /// <param name="gebruikerid">het id van de gebruiker</param>
+        /// <param name="wachtwoord">het nieuwe wachtwoord voor de gebruiker</param>
+        /// <returns></returns>
         [HttpPost]
         //public ActionResult AccountOverzicht(int gebruikerid)
         //{
@@ -143,6 +174,11 @@ namespace CareMatch.Controllers
         //    return RedirectToAction("AccountOverzicht", "Beheerder");
         //}
 
+        /// <summary>
+        /// verwijdert een hulpvraag op basis van id
+        /// </summary>
+        /// <param name="id">de id van de hulpvraag</param>
+        /// <returns></returns>
         public ActionResult HulpvraagVerwijderen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -154,6 +190,11 @@ namespace CareMatch.Controllers
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
 
+        /// <summary>
+        /// een functie voor het downloaden van bestanden
+        /// </summary>
+        /// <param name="gebruiker">de gebruikerfolder waar het bestand in staat, is gelijk aan gebruikersnaam</param>
+        /// <param name="file">het specefieke bestand dat gedownload moet worden</param>
         public void DownloadFile(string gebruiker, string file)
         {
             Response.ContentType = "APPLICATION/OCTET-STREAM";
@@ -164,6 +205,11 @@ namespace CareMatch.Controllers
             Response.End();
         }
 
+        /// <summary>
+        /// verwijdert een beoordeling van een hulpvraag op basis van hulpvraag id
+        /// </summary>
+        /// <param name="id">de hulpvraag id</param>
+        /// <returns></returns>
         public ActionResult BeoordelingVerwijderen(int id)
         {
             Hulpvraag hulpvraag = new Models.Hulpvraag();
@@ -173,6 +219,11 @@ namespace CareMatch.Controllers
             return RedirectToAction("HulpvraagDeRapporteren", "Beheerder", new { id = id });
         }
 
+        /// <summary>
+        /// Als een hulpvraag gerapporteerd is derapporteer deze op basis van id
+        /// </summary>
+        /// <param name="id">de id van de hulpvraag</param>
+        /// <returns></returns>
         public ActionResult HulpvraagDerapporteren(int id)
         {
             Hulpvraag hulpvraag = new Models.Hulpvraag();

@@ -17,6 +17,7 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        // geeft een overzicht van alle eigen hulpvragen van de gebruiker
         public ActionResult HulpvragenOverzicht()
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -24,6 +25,7 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        // laat een hulpvraag in detail zien
         public ActionResult Hulpvraag(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
@@ -44,6 +46,7 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        // wijzigt een hulpvraag
         public ActionResult HulpvraagWijzigen(int id, string Urgent, string Auto, DateTime? Datum, TimeSpan? Duur, TimeSpan? Tijd, string Plaatsnaam, string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
         {
             if (!string.IsNullOrEmpty(Omschrijving))
@@ -83,6 +86,13 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        /// <summary>
+        /// voegt een beoordeling toe aan een hulpvraag
+        /// </summary>
+        /// <param name="id">hulpvraag id</param>
+        /// <param name="Cijfer">beoordeling cijfer</param>
+        /// <param name="Beoordeling">beoordeling bericht</param>
+        /// <returns></returns>
         public ActionResult HulpvraagBeoordelen(int id, int Cijfer, string Beoordeling)
         {
             if (!string.IsNullOrEmpty(Beoordeling))
@@ -101,6 +111,7 @@ namespace CareMatch.Controllers
             }
         }
 
+        // maakt een nieuwe hulpvraag aan
         public ActionResult HulpvraagIndienen(string Urgent, string Auto, DateTime? Datum, TimeSpan? Duur, TimeSpan? Tijd, string Plaatsnaam, string StraatEnHuisnummer, string KOmschrijving, string Omschrijving)
         {
             Hulpvraag hulpvraag = new Hulpvraag();
@@ -141,11 +152,13 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        // geeft de pagina van waar je je barcode kunt scannen
         public ActionResult ChatBarcode()
         {
             return View();
         }
 
+        // als de barcode is gescand begin een chat, in de chat controller.
         [HttpPost]
         public ActionResult ChatBarcode(string partner)
         {

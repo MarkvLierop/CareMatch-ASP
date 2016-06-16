@@ -19,6 +19,7 @@ namespace CareMatch.Models
 
         private string tempString;
 
+        //contructor
         public Database()
         {
             string constr = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=fhictora01.fhict.local)(PORT=1521)))"
@@ -30,6 +31,8 @@ namespace CareMatch.Models
 
 
         #region Hulpvragen Queries
+
+        // voegt een hulpvraag toe
         public void HulpvraagToevoegen(Hulpvraag hulpvraag, Gebruiker gebruiker)
         {
             string AutoBenodigd;
@@ -68,6 +71,7 @@ namespace CareMatch.Models
             con.Close();
         }
 
+        //
         public void HulpvraagAannemen(int id, int vrijwilliger)
         {
             con.Open();
