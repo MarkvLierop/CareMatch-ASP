@@ -792,7 +792,7 @@ namespace CareMatch.Models
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE GEBRUIKER SET ROL = \"Beheerder\" WHERE GebruikerID = :gebruikerID";
+            cmd.CommandText = "UPDATE GEBRUIKER SET ROL = 'Beheerder' WHERE GebruikerID = :gebruikerID";
             cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();
         }
