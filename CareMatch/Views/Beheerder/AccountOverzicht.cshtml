@@ -9,7 +9,7 @@
         document.getElementById('a').onclick = function() {
             if ($(this).val() == 'Reset') {
                 $("#cont").text(" ");
-                $("#cont").append('<input type="text" class="form-control" /><span class="input-group-addon" ><input type="button" class="btn btn-default" value="OK" id="a" style="padding-right: 3px;padding-left: 3px;padding-bottom: 3px;padding-top: 3px;height: 22px;"/></span>');
+                $("#cont").append('<form action="@Url.Action("ResetWachtwoord", "Beheerder", new { id = Request.QueryString["gebruikerid"]})"><input type="text" class="form-control" /><span class="input-group-addon" ><input type="button" class="btn btn-default" value="OK" id="a" style="padding-right: 3px;padding-left: 3px;padding-bottom: 3px;padding-top: 3px;height: 22px;"/></span></form>');
             }
             else if ($(this).val() == 'OK'){
                 $("#cont").text(" ");
@@ -71,9 +71,10 @@
                     </td>
                     <td>
                         <div class="input-group" id="cont">
-                            <input type="hidden" class="btn btn-default" value="" name="gebruikerid">
-                            <input type="button" id="a" class="btn btn-default" value="Reset" name="knopjes">
-                            
+                            <form method="get">
+                                <input type="hidden" class="btn btn-default" value="@gebruiker.GebruikersID" name="gebruikerid">
+                                <input type="button" id="a" class="btn btn-default" value="Reset" onclick="">
+                            </form>
                         </div>
                     </td>
                     @if (gebruiker.Approved)
