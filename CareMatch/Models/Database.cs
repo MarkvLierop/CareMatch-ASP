@@ -87,6 +87,15 @@ namespace CareMatch.Models
             con.Close();
         }
 
+        public void BeoordelingVerwijderen(Hulpvraag hulpvraag)
+        {
+            con.Open();
+            command = new OracleCommand(@"UPDATE Hulpvraag SET Cijfer IS null, Beoordeling IS NULL WHERE HulpvraagID = :hulpvraagid", con);
+            command.Parameters.Add(new OracleParameter(":hulpvraagid", OracleDbType.Int32)).Value = hulpvraag.HulpvraagID;
+            reader = command.ExecuteReader();
+            con.Close();
+        }
+        //Mee bezig.
         public void HulpvraagVerwijderen(int hulpvraagID)
         {
             con.Open();
@@ -830,7 +839,7 @@ namespace CareMatch.Models
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE GEBRUIKER SET ROL = \"Beheerder\" WHERE GebruikerID = :gebruikerID";
+            cmd.CommandText = "UPDATE GEBRUIKER SET ROL = 'Beheerder' WHERE GebruikerID = :gebruikerID";
             cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();
         }

@@ -161,5 +161,15 @@ namespace CareMatch.Controllers
             Response.WriteFile(Dfile.FullName);
             Response.End();
         }
+
+        public ActionResult BeoordelingVerwijderen(int id)
+        {
+            Hulpvraag hulpvraag = new Models.Hulpvraag();
+            hulpvraag.HulpvraagID = id;
+
+            carematch.database.BeoordelingVerwijderen(hulpvraag);
+
+            return RedirectToAction("HulpvragenOverzicht", "Beheerder");
+        }
     }
 }
