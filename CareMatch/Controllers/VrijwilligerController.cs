@@ -92,6 +92,14 @@ namespace CareMatch.Controllers
                 return View();
             }
         }
+
+        public ActionResult Rapporteer(int id)
+        {
+            Hulpvraag hulpvraag = new Hulpvraag();
+            hulpvraag.HulpvraagID = id;
+            carematch.database.HulpvraagRapporteer(hulpvraag);
+            return RedirectToAction("HulpvragenOverzicht");
+        }
         [HttpPost]
         public ActionResult ChatBarcode(string partner)
         {

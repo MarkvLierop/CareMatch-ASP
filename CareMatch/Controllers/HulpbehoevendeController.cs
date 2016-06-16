@@ -126,6 +126,7 @@ namespace CareMatch.Controllers
 
                 hulpvraag.StartDatum = Datum + Tijd;
                 hulpvraag.EindDatum = hulpvraag.StartDatum + Duur;
+                hulpvraag.Plaatsnaam = Plaatsnaam;
                 hulpvraag.Locatie = StraatEnHuisnummer;
                 hulpvraag.Titel = KOmschrijving;
                 hulpvraag.HulpvraagInhoud = Omschrijving;
