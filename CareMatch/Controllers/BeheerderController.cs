@@ -130,9 +130,9 @@ namespace CareMatch.Controllers
 
             return RedirectToAction("AccountOverzicht", "Beheerder");
         }
-        public void ResetWachtwoord(int gebruikerid)
+        public ActionResult ResetWachtwoord(int gebruikerid)
         {
-            //return RedirectToAction("AccountOverzicht", "Beheerder");
+            return RedirectToAction("AccountOverzicht", "Beheerder");
         }
         public ActionResult HulpvraagVerwijderen(int id)
         {

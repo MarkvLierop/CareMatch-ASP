@@ -770,7 +770,6 @@ namespace CareMatch.Models
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "UPDATE GEBRUIKER SET APPROVED = 'Y' WHERE GebruikerID = :gebruikerID ";
             cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();            
         }
@@ -785,7 +784,16 @@ namespace CareMatch.Models
             command.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();
         }
-
+        public void UpdateWachtwoord(int gebruikerID, string wachtwoord)
+        {
+            con.Open();
+            OracleCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "UPDATE GEBRUIKER SET Wachtwoord = :wachtwoord WHERE GebruikerID = :gebruikerID ";
+            command.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
+            command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString(wachtwoord);
+            cmd.ExecuteNonQuery();
+        }
 
 
 
@@ -857,7 +865,7 @@ namespace CareMatch.Models
                     }
                     if (reader["Foto"].ToString() != "")
                     {
-                        gebruiker.Pasfoto = gebruiker.GetLocalDropBox() + reader["Foto"].ToString();
+                        gebruiker.Pasfoto = reader["Foto"].ToString();
                     }
                     gebruiker.Rol = reader["Rol"].ToString();
                 }
@@ -955,41 +963,61 @@ namespace CareMatch.Models
         }
         public void GebruikerProfielAanpassen(Gebruiker gebruiker, bool wachtwoordChanged, bool fotoChanged)
         {
-            if (gebruiker.Auto)
-            {
-                tempString = "Y";
-            }
-            else
-            {
-                tempString = "N";
-            }
+            con.Open();
             //Verschil maken tussen welke info veranderd is. Anders wordt er een encryptie 
             //over encryptie van het wachtwoord gedaan elke keer dat je iets aan het profiel aanpast
             if (fotoChanged)
             {
-                command = new OracleCommand("UPDATE Gebruiker SET GebruikerInfo=:info, Foto=:pasfoto, Auto=:temp, Voornaam=:voornaam, Achternaam=:achternaam  WHERE GebruikerID =:gebruikerid", con);
+                command = new OracleCommand("UPDATE Gebruiker SET GebruikerInfo=:info, Foto=:pasfoto, HeeftAuto=:temp, Voornaam=:voornaam, Achternaam=:achternaam  WHERE GebruikerID =:gebruikerid", con);
                 command.Parameters.Add(new OracleParameter("info", OracleDbType.Varchar2)).Value = gebruiker.GebruikerInfo;
                 command.Parameters.Add(new OracleParameter("pasfoto", OracleDbType.Varchar2)).Value = gebruiker.Pasfoto;
-                command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = Convert.ToChar(tempString);
+                if (gebruiker.Auto != null)
+                {
+
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y";
+                }
+                else
+                {
+
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N";
+                }
                 command.Parameters.Add(new OracleParameter("voornaam", OracleDbType.Varchar2)).Value = gebruiker.Voornaam;
                 command.Parameters.Add(new OracleParameter("achternaam", OracleDbType.Varchar2)).Value = gebruiker.Achternaam;
                 command.Parameters.Add(new OracleParameter("gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
             }
             else if (wachtwoordChanged)
             {
-                command = new OracleCommand("UPDATE Gebruiker SET Wachtwoord =:password, GebruikerInfo=:info, Auto=:temp, Voornaam=:voornaam, Achternaam=:achternaam WHERE GebruikerID =:gebruikerid", con);
+                command = new OracleCommand("UPDATE Gebruiker SET Wachtwoord =:password, GebruikerInfo=:info, HeeftAuto=:temp, Voornaam=:voornaam, Achternaam=:achternaam WHERE GebruikerID =:gebruikerid", con);
                 command.Parameters.Add(new OracleParameter("password", OracleDbType.Varchar2)).Value = EncryptString(gebruiker.Wachtwoord);
                 command.Parameters.Add(new OracleParameter("info", OracleDbType.Varchar2)).Value = gebruiker.GebruikerInfo;
-                command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = Convert.ToChar(tempString);
+                if (gebruiker.Auto != null)
+                {
+
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y";
+                }
+                else
+                {
+
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N";
+                }
                 command.Parameters.Add(new OracleParameter("voornaam", OracleDbType.Varchar2)).Value = gebruiker.Voornaam;
                 command.Parameters.Add(new OracleParameter("achternaam", OracleDbType.Varchar2)).Value = gebruiker.Achternaam;
                 command.Parameters.Add(new OracleParameter("gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
             }
             else
             {
-                command = new OracleCommand("UPDATE Gebruiker SET GebruikerInfo=:info, Auto=:temp, Voornaam=:voornaam, Achternaam=:achternaam WHERE GebruikerID =:gebruikerid", con);
+                command = new OracleCommand("UPDATE Gebruiker SET GebruikerInfo=:info, HeeftAuto=:temp, Voornaam=:voornaam, Achternaam=:achternaam WHERE GebruikerID =:gebruikerid", con);
                 command.Parameters.Add(new OracleParameter("info", OracleDbType.Varchar2)).Value = gebruiker.GebruikerInfo;
-                command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = Convert.ToChar(tempString);
+                if (gebruiker.Auto != null)
+                {
+
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y";
+                }
+                else
+                {
+
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N";
+                }
                 command.Parameters.Add(new OracleParameter("voornaam", OracleDbType.Varchar2)).Value = gebruiker.Voornaam;
                 command.Parameters.Add(new OracleParameter("achternaam", OracleDbType.Varchar2)).Value = gebruiker.Achternaam;
                 command.Parameters.Add(new OracleParameter("gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
