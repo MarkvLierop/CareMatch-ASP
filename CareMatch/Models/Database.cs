@@ -52,10 +52,11 @@ namespace CareMatch.Models
                 AutoBenodigd = "N";
             }
 
-            using (command = new OracleCommand(@"INSERT INTO Hulpvraag(GebruikerID, Omschrijving, Urgent, Titel, Locatie, Auto, Flagged, StartDatum, EindDatum)" + "VALUES(:gebruikerid, :hulpvraaginhoud, :temp, :titel, :locatie, :auto, 'N', :startdatum, :einddatum)", con))
+            using (command = new OracleCommand(@"INSERT INTO Hulpvraag(GebruikerID, Plaatsnaam, Omschrijving, Urgent, Titel, Locatie, Auto, Flagged, StartDatum, EindDatum)" + "VALUES(:gebruikerid, :plaatsnaam, :hulpvraaginhoud, :temp, :titel, :locatie, :auto, 'N', :startdatum, :einddatum)", con))
             {
                 command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
                 command.Parameters.Add(new OracleParameter(":hulpvraaginhoud", OracleDbType.Varchar2)).Value = hulpvraag.HulpvraagInhoud;
+                command.Parameters.Add(new OracleParameter(":plaatsnaam", OracleDbType.Varchar2)).Value = hulpvraag.Plaatsnaam;
                 command.Parameters.Add(new OracleParameter(":temp", OracleDbType.Varchar2)).Value = tempString; // urgent
                 command.Parameters.Add(new OracleParameter(":titel", OracleDbType.Varchar2)).Value = hulpvraag.Titel;
                 command.Parameters.Add(new OracleParameter(":locatie", OracleDbType.Varchar2)).Value = hulpvraag.Locatie;
@@ -881,66 +882,56 @@ namespace CareMatch.Models
         #region Gebruiker Queries
         public Gebruiker GebruikerLogin(string naam, string wachtwoord)
         {
-            try
+            con.Open();
+
+            // Gebruikersnaam zoeken waar gebruikersnaam gelijk is aan de ingevoerde naam + w8woord
+            command = new OracleCommand("SELECT * FROM gebruiker WHERE gebruikersnaam = :naam AND wachtwoord = :pw", con);
+            command.Parameters.Add(new OracleParameter("naam", naam));
+            command.Parameters.Add(new OracleParameter("pw", EncryptString(wachtwoord)));
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
             {
-                con.Open();
+                // Nieuwe gebruiker aanmaken op basis van de rol
+                gebruiker = new Gebruiker();
 
-                // Gebruikersnaam zoeken waar gebruikersnaam gelijk is aan de ingevoerde naam + w8woord
-                command = new OracleCommand("SELECT * FROM gebruiker WHERE gebruikersnaam = :naam AND wachtwoord = :pw", con);
-                command.Parameters.Add(new OracleParameter("naam", naam));
-                command.Parameters.Add(new OracleParameter("pw", EncryptString(wachtwoord)));
-                reader = command.ExecuteReader();
-
-                while (reader.Read())
+                if (reader["ROL"].ToString().ToLower() == "vrijwilliger")
                 {
-                    // Nieuwe gebruiker aanmaken op basis van de rol
-                    gebruiker = new Gebruiker();
-
-                    if (reader["ROL"].ToString().ToLower() == "vrijwilliger")
+                    // Kan niet vergelijken met string &char.Database approved column moet naar varchar2.alle gebruikers eerst verwijderen.
+                    if (reader["Approved"].ToString() == "Y")
                     {
-                        // Kan niet vergelijken met string &char.Database approved column moet naar varchar2.alle gebruikers eerst verwijderen.
-                        if (reader["Approved"].ToString() == "Y")
-                        {
-                            gebruiker.Approved = true;
-                        }
-                        else
-                        {
-                            gebruiker.Approved = false;
-                        }
-                    }
-
-                    // Properties toekennen aan gebruiken.
-                    gebruiker.Achternaam = reader["Achternaam"].ToString();
-                    gebruiker.Voornaam = reader["Voornaam"].ToString();
-                    gebruiker.Wachtwoord = reader["Wachtwoord"].ToString();
-                    gebruiker.Gebruikersnaam = reader["Gebruikersnaam"].ToString();
-                    gebruiker.GebruikersID = Convert.ToInt32(reader["GebruikerID"]);
-                    gebruiker.GebruikerInfo = reader["GebruikerInfo"].ToString();
-                    gebruiker.VOG = reader["vog"].ToString();
-                    if (reader["HeeftAuto"].ToString() == "Y")
-                    {
-                        gebruiker.Auto = true;
+                        gebruiker.Approved = true;
                     }
                     else
                     {
-                        gebruiker.Auto = false;
+                        gebruiker.Approved = false;
                     }
+                }
 
-                    if (reader["Foto"].ToString() != string.Empty)
-                    {
-                        gebruiker.Pasfoto = reader["Foto"].ToString();
-                    }
+                // Properties toekennen aan gebruiken.
+                gebruiker.Achternaam = reader["Achternaam"].ToString();
+                gebruiker.Voornaam = reader["Voornaam"].ToString();
+                gebruiker.Wachtwoord = reader["Wachtwoord"].ToString();
+                gebruiker.Gebruikersnaam = reader["Gebruikersnaam"].ToString();
+                gebruiker.GebruikersID = Convert.ToInt32(reader["GebruikerID"]);
+                gebruiker.GebruikerInfo = reader["GebruikerInfo"].ToString();
+                gebruiker.VOG = reader["vog"].ToString();
+                gebruiker.Rol = reader["Rol"].ToString();
+                if (reader["HeeftAuto"].ToString().Trim() == "Y")
+                {
+                    gebruiker.Auto = true;
+                }
+                else
+                {
+                    gebruiker.Auto = false;
+                }
 
-                    gebruiker.Rol = reader["Rol"].ToString();
+                if (reader["Foto"].ToString() != string.Empty)
+                {
+                    gebruiker.Pasfoto = reader["Foto"].ToString();
                 }
             }
-            catch
-            {
-            }
-            finally
-            {
-                con.Close();
-            }
+            con.Close();
 
             return gebruiker;
         }
@@ -1037,11 +1028,11 @@ namespace CareMatch.Models
                 command.Parameters.Add(new OracleParameter("pasfoto", OracleDbType.Varchar2)).Value = gebruiker.Pasfoto;
                 if (gebruiker.Auto != null)
                 {
-                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y";
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y".Trim();
                 }
                 else
                 {
-                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N";
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N".Trim();
                 }
 
                 command.Parameters.Add(new OracleParameter("voornaam", OracleDbType.Varchar2)).Value = gebruiker.Voornaam;
@@ -1153,15 +1144,23 @@ namespace CareMatch.Models
         #endregion
         public string EncryptString(string toEncrypt)
         {
-            SHA256Managed crypt = new SHA256Managed();
-            System.Text.StringBuilder hash = new StringBuilder();
-            byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(toEncrypt), 0, Encoding.UTF8.GetByteCount(toEncrypt));
-            foreach (byte theByte in crypto)
+            try
             {
-                hash.Append(theByte.ToString("x2"));
-            }
+                SHA256Managed crypt = new SHA256Managed();
+                System.Text.StringBuilder hash = new StringBuilder();
+                byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(toEncrypt), 0, Encoding.UTF8.GetByteCount(toEncrypt));
+                foreach (byte theByte in crypto)
+                {
+                    hash.Append(theByte.ToString("x2"));
+                }
 
-            return hash.ToString();
+                return hash.ToString();
+            }
+            catch
+            {
+
+            }
+            return string.Empty;
         }
     }
 }
