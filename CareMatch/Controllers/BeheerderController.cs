@@ -137,11 +137,11 @@ namespace CareMatch.Controllers
         }
         
         [HttpPost]
-        public ActionResult AccountOverzicht(int gebruikerid, string wachtwoord)
-        {
-            carematch.database.ResetWachtwoord(gebruikerid, wachtwoord);
-            return RedirectToAction("AccountOverzicht", "Beheerder");
-        }
+        //public ActionResult AccountOverzicht(int gebruikerid)
+        //{
+        //    carematch.database.ResetWachtwoord(gebruikerid);
+        //    return RedirectToAction("AccountOverzicht", "Beheerder");
+        //}
 
         public ActionResult HulpvraagVerwijderen(int id)
         {
@@ -181,6 +181,15 @@ namespace CareMatch.Controllers
             carematch.database.HulpvraagDerapporteer(hulpvraag);
 
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
+        }
+
+        public ActionResult ResetWatchtwoord(int gebruikerid)
+        {
+            if ((Session["Gebruiker"] as Gebruiker).Rol == "beheerder")
+            {
+                carematch.database.ResetWachtwoord(gebruikerid);
+            }
+            return View();
         }
     }
 }

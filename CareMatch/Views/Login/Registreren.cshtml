@@ -19,6 +19,14 @@
 		});
 
 </script>
+@{if (ViewBag.foutmelding != null)
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Oeps!</strong> @ViewBag.foutmelding
+        </div>
+
+    }}
 <div class="registerform">
     <h2>Registreren</h2>
     <form action="~/Login">
@@ -54,6 +62,11 @@
                     <input type="password" required class="form-control" id="Wachtwoord" placeholder="Wachtwoord" name="Wachtwoord">
                 </div>
 
+                <label for="Bevestig" class="col-lg-2 control-label">Wachtwoord bevestigen</label>
+                <div class="col-lg-10">
+                    <input type="password" required class="form-control" id="Wachtwoord bevestiging" placeholder="Wachtwoord bevestiging" name="Wachtwoord bevestiging">
+                </div>
+
                 <label for="Voornaam" class="col-lg-2 control-label">Voornaam</label>
                 <div class="col-lg-10">
                     <input type="text" required class="form-control" id="Voornaam" placeholder="Voornaam" name="Voornaam">
@@ -85,7 +98,7 @@
 
                 <label class="col-lg-2 control-label">Geboortedatum</label>
                 <div class="col-lg-10">
-                    <input type="date" class="form-control" id="Geboortedatum" placeholder="Geboortedatum" name="Geboortedatum">
+                    <input type="date" required class="form-control" id="Geboortedatum" placeholder="Geboortedatum" name="Geboortedatum">
                 </div>
 
                 <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
