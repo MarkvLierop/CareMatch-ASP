@@ -84,11 +84,19 @@ namespace CareMatch.Models
             reader = command.ExecuteReader();
             con.Close();
         }
+        public void HulpvraagDerapporteer(Hulpvraag hulpvraag)
+        {
+            con.Open();
+            command = new OracleCommand(@"UPDATE Hulpvraag SET Flagged ='N' WHERE HulpvraagID = :hulpvraagid", con);
+            command.Parameters.Add(new OracleParameter(":hulpvraagid", OracleDbType.Int32)).Value = hulpvraag.HulpvraagID;
+            reader = command.ExecuteReader();
+            con.Close();
+        }
 
         public void BeoordelingVerwijderen(Hulpvraag hulpvraag)
         {
             con.Open();
-            command = new OracleCommand(@"UPDATE Hulpvraag SET Cijfer IS null, Beoordeling IS NULL WHERE HulpvraagID = :hulpvraagid", con);
+            command = new OracleCommand(@"UPDATE Hulpvraag SET Cijfer = '', Beoordeling ='' WHERE HulpvraagID = :hulpvraagid", con);
             command.Parameters.Add(new OracleParameter(":hulpvraagid", OracleDbType.Int32)).Value = hulpvraag.HulpvraagID;
             reader = command.ExecuteReader();
             con.Close();

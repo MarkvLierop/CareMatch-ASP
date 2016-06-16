@@ -168,6 +168,15 @@ namespace CareMatch.Controllers
             hulpvraag.HulpvraagID = id;
 
             carematch.database.BeoordelingVerwijderen(hulpvraag);
+            return RedirectToAction("HulpvraagDeRapporteren", "Beheerder", new { id = id });
+        }
+
+        public ActionResult HulpvraagDerapporteren(int id)
+        {
+            Hulpvraag hulpvraag = new Models.Hulpvraag();
+            hulpvraag.HulpvraagID = id;
+
+            carematch.database.HulpvraagDerapporteer(hulpvraag);
 
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
