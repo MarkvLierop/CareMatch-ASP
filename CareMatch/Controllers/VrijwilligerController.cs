@@ -127,6 +127,7 @@ namespace CareMatch.Controllers
             carematch.database.HulpvraagRapporteer(hulpvraag);
             return RedirectToAction("HulpvragenOverzicht");
         }
+
         [HttpPost]
         public ActionResult ChatBarcode(string partner)
         {
