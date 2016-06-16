@@ -12,6 +12,7 @@ namespace CareMatch.Controllers
         // GET: Login
         CareMatch1 carematch = new CareMatch1();
 
+        // zorgt voor de index pagina
         public ActionResult Index(string gebruikersnaam, string wachtwoord)
         {
             Gebruiker gebruiker = new Gebruiker();
@@ -51,12 +52,13 @@ namespace CareMatch.Controllers
             return View();
         }
 
-        // commit
+        // geeft de registratieform
         public ActionResult Registreren()
         {
             return View();
         }
 
+        // registreerd een nieuwe gebruiker
         [HttpPost]
         public ActionResult Registreren(string optionsRadios, string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string Geslacht, string Geboortedatum, string pasfoto, string VOG)
         {
@@ -80,6 +82,7 @@ namespace CareMatch.Controllers
             }
         }
 
+        // logd de gebruiker uit en zet de session op NULL
         public ActionResult Uitloggen()
         {
             Session["Gebruiker"] = null;

@@ -19,6 +19,7 @@ namespace CareMatch.Models
 
         private string tempString;
 
+        //contructor
         public Database()
         {
             string constr = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=fhictora01.fhict.local)(PORT=1521)))"
