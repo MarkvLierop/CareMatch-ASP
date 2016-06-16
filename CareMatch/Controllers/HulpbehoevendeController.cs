@@ -40,6 +40,7 @@ namespace CareMatch.Controllers
             }
 
             ViewData["Hulpvraag"] = selectedhulpvraag;
+            ViewData["Vrijwilliger"] = carematch.database.GebruikerInfoOpvragen(selectedhulpvraag.Vrijwilliger);
             return View();
         }
 
@@ -114,7 +115,7 @@ namespace CareMatch.Controllers
                     hulpvraag.Urgent = false;
                 }
 
-                if (Auto.ToLower() == "on")
+                if (!string.IsNullOrEmpty(Auto))
                 {
                     hulpvraag.Auto = true;
                 }

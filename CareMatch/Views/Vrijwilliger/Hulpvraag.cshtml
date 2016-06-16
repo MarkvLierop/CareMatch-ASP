@@ -53,6 +53,8 @@
                     <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
                 </div>
                     <h4>Deze hulpvraag is aangenomen door: <strong>@h.Vrijwilliger</strong>.</h4>
+                    <hr id="hr" />
+                    <p>Er is nog geen beoordeling gegeven voor het gedane werk.</p>
             }
             else if (h.Beoordeling != "")
             {
@@ -67,6 +69,24 @@
                     <strong>Cijfer</strong>: @h.Cijfer <br />
                     <strong>Beoordeling</strong>: @h.Beoordeling
                 </p>
+                <hr id="hr" />
+                if (h.ReactieBeoordeling == "")
+                {
+                    <h5>Reageer op deze beoordeling:</h5>
+                    <form method="post" name="beoordeling" action="@Url.Action("Beoordelingreactie", "Vrijwilliger")">
+                        <fieldset>
+                            <input type="hidden" value="@h.HulpvraagID" name="id" />
+                            <label>Reactie:</label><br />
+                            <textarea class="form-control" id="Omschrijving" name="Beoordeling"></textarea>
+                            <input type="submit" value="Indienen" class="btn btn-sq-lg btn-warning" onclick="Succes()" />
+                        </fieldset>
+                    </form>
+                }
+                else
+                {
+                    <h5>Uw reactie op deze beoordeling:</h5>
+                    <p>@h.ReactieBeoordeling</p>
+                }
             }
         }
         
