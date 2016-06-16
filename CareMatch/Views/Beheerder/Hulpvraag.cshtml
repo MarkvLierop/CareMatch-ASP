@@ -4,8 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <a href="@Url.Action("HulpvragenOverzicht", "Beheerder")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a><br />
-<form method="get" action="@Url.Action("HulpvraagVerwijderen", "Beheerder", new { id = ViewBag.Hulpvraag.HulpvraagID })" class="rechterKnop">
-    <input type="submit" value="Verwijderen" name="hulpvraag" class="btn btn-primary btn-lg">
+<form method="get" action="@Url.Action("HulpvraagVerwijderen", "Beheerder", new { id = ViewBag.Hulpvraag.HulpvraagID })" class="rechterKnop">       
+
+    <input type="submit" value="Hulpvraag verwijderen" name="hulpvraag" class="btn btn-primary btn-lg">
+</form>
+
+@{ if (@ViewBag.hulpvraag.Beoordeling != "")
+    {
+        <form method="get" action="@Url.Action("BeoordelingVerwijderen", "Beheerder", new { id = ViewBag.Hulpvraag.HulpvraagID })" class="rechterKnop">
+            <input type="submit" value="Beoordeling verwijderen" name="hulpvraag" class="btn btn-primary btn-lg">
+        </form>
+
+    }
+ }
+<form method="get" action="@Url.Action("HulpvraagDerapporteren", "Beheerder", new { id = ViewBag.Hulpvraag.HulpvraagID })" class="rechterKnop">
+    <input type="submit" value="Hulpvraag goedkeuren" name="hulpvraag" class="btn btn-primary btn-lg">
 </form>
 
 <br/>
@@ -34,10 +47,6 @@
                     <td>@ViewBag.Hulpvraag.Plaatsnaam</td>
                 </tr>
                 <tr>
-                    <th>Beoordeling</th>
-                    <td>@ViewBag.Hulpvraag.Beoordeling</td>
-                </tr>
-                <tr>
                     <th>Titel</th>
                     <td>@ViewBag.Hulpvraag.Titel</td>
                 </tr>
@@ -45,6 +54,8 @@
                     <th>Hulpbehoevende</th>
                     <td>@ViewBag.Hulpvraag.Hulpbehoevende</td>
                 </tr>
+@{ if (@ViewBag.hulpvraag.Beoordeling != "")
+    {
                 <tr>
                     <th>Cijfer</th>
                     <td>@ViewBag.hulpvraag.Cijfer/5</td>
@@ -53,11 +64,9 @@
                     <th>Beoordeling</th>
                     <td>@ViewBag.hulpvraag.Beoordeling</td>
                 </tr>
-                <tr>
-                    <form method="get" action="@Url.Action("BeoordelingVerwijderen", "Beheerder", new { id = ViewBag.Hulpvraag.HulpvraagID })" class="rechterKnop">
-                        <input type="submit" value="Beoordeling verwijderen" name="hulpvraag" class="btn btn-primary btn-lg">
-                    </form>
-                </tr>
+        }
+    }
+
             </tbody>
         </table>
     </div>
