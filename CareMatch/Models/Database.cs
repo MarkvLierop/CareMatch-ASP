@@ -19,7 +19,6 @@ namespace CareMatch.Models
 
         private string tempString;
 
-        //contructor
         public Database()
         {
             string constr = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=fhictora01.fhict.local)(PORT=1521)))"
@@ -31,8 +30,6 @@ namespace CareMatch.Models
 
 
         #region Hulpvragen Queries
-
-        // voegt een hulpvraag toe
         public void HulpvraagToevoegen(Hulpvraag hulpvraag, Gebruiker gebruiker)
         {
             string AutoBenodigd;
@@ -72,7 +69,6 @@ namespace CareMatch.Models
             con.Close();
         }
 
-        //
         public void HulpvraagAannemen(int id, int vrijwilliger)
         {
             con.Open();
@@ -163,7 +159,12 @@ namespace CareMatch.Models
             if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Alle hulpvragen" || filter == string.Empty) && gebruiker.Rol.ToLower() == "vrijwilliger")
             {
                 // Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
-                command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Flagged != 'Y'", con);
+                command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Flagged != 'Y' AND Auto = (SELECT HeeftAuto FROM Gebruiker WHERE GebruikerID = 146) OR Auto = 'N'", con);
+            }
+            else if (!string.IsNullOrEmpty(filter) & gebruiker.Rol.ToLower() == "vrijwilliger" && filter == "Auto")
+            {
+                // Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
+                command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Flagged != 'Y' AND Auto = 'Y'", con);
             }
             else if (filter == "Eigen hulpvragen" && gebruiker.Rol.ToLower() == "vrijwilliger")
             {
@@ -205,12 +206,8 @@ namespace CareMatch.Models
             }
             else if (gebruiker.Rol.ToLower() == "beheerder")
             {
-                // throw new NotImplementedException();
+                // Flagged Hulpvragen
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Hulpvraag.Flagged = 'Y'", con);
-
-                // parameters erbij?
-
-                // misschien niet nodig omdat je deze nergens kunt invullen?
             }
             else
             {
@@ -854,7 +851,6 @@ namespace CareMatch.Models
             cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();
         }
-
         public void ResetWachtwoord(int gebruikerID)
         {
             con.Open();
@@ -1031,7 +1027,7 @@ namespace CareMatch.Models
                 command = new OracleCommand("UPDATE Gebruiker SET GebruikerInfo=:info, Foto=:pasfoto, HeeftAuto=:temp, Voornaam=:voornaam, Achternaam=:achternaam  WHERE GebruikerID =:gebruikerid", con);
                 command.Parameters.Add(new OracleParameter("info", OracleDbType.Varchar2)).Value = gebruiker.GebruikerInfo;
                 command.Parameters.Add(new OracleParameter("pasfoto", OracleDbType.Varchar2)).Value = gebruiker.Pasfoto;
-                if (gebruiker.Auto != null)
+                if (gebruiker.Auto == true)
                 {
                     command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y".Trim();
                 }
@@ -1049,13 +1045,13 @@ namespace CareMatch.Models
                 command = new OracleCommand("UPDATE Gebruiker SET Wachtwoord =:password, GebruikerInfo=:info, HeeftAuto=:temp, Voornaam=:voornaam, Achternaam=:achternaam WHERE GebruikerID =:gebruikerid", con);
                 command.Parameters.Add(new OracleParameter("password", OracleDbType.Varchar2)).Value = EncryptString(gebruiker.Wachtwoord);
                 command.Parameters.Add(new OracleParameter("info", OracleDbType.Varchar2)).Value = gebruiker.GebruikerInfo;
-                if (gebruiker.Auto != null)
+                if (gebruiker.Auto == true)
                 {
-                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y";
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y".Trim();
                 }
                 else
                 {
-                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N";
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N".Trim();
                 }
 
                 command.Parameters.Add(new OracleParameter("voornaam", OracleDbType.Varchar2)).Value = gebruiker.Voornaam;
@@ -1066,13 +1062,13 @@ namespace CareMatch.Models
             {
                 command = new OracleCommand("UPDATE Gebruiker SET GebruikerInfo=:info, HeeftAuto=:temp, Voornaam=:voornaam, Achternaam=:achternaam WHERE GebruikerID =:gebruikerid", con);
                 command.Parameters.Add(new OracleParameter("info", OracleDbType.Varchar2)).Value = gebruiker.GebruikerInfo;
-                if (gebruiker.Auto != null)
+                if (gebruiker.Auto == true)
                 {
-                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y";
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "Y".Trim();
                 }
                 else
                 {
-                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N";
+                    command.Parameters.Add(new OracleParameter("temp", OracleDbType.Char)).Value = "N".Trim();
                 }
 
                 command.Parameters.Add(new OracleParameter("voornaam", OracleDbType.Varchar2)).Value = gebruiker.Voornaam;
@@ -1147,8 +1143,6 @@ namespace CareMatch.Models
             return vrijwilligersList;
         }
         #endregion
-      
-
         public string EncryptString(string toEncrypt)
         {
             try
