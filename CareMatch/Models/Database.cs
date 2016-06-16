@@ -31,6 +31,8 @@ namespace CareMatch.Models
 
 
         #region Hulpvragen Queries
+
+        // voegt een hulpvraag toe
         public void HulpvraagToevoegen(Hulpvraag hulpvraag, Gebruiker gebruiker)
         {
             string AutoBenodigd;
@@ -69,6 +71,7 @@ namespace CareMatch.Models
             con.Close();
         }
 
+        //
         public void HulpvraagAannemen(int id, int vrijwilliger)
         {
             con.Open();
