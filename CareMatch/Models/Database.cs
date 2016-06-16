@@ -19,6 +19,7 @@ namespace CareMatch.Models
 
         private string tempString;
 
+        //contructor
         public Database()
         {
             string constr = "Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=fhictora01.fhict.local)(PORT=1521)))"
@@ -30,6 +31,8 @@ namespace CareMatch.Models
 
 
         #region Hulpvragen Queries
+
+        // voegt een hulpvraag toe
         public void HulpvraagToevoegen(Hulpvraag hulpvraag, Gebruiker gebruiker)
         {
             string AutoBenodigd;
@@ -69,6 +72,7 @@ namespace CareMatch.Models
             con.Close();
         }
 
+        //
         public void HulpvraagAannemen(int id, int vrijwilliger)
         {
             con.Open();
@@ -850,14 +854,15 @@ namespace CareMatch.Models
             cmd.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
             cmd.ExecuteNonQuery();
         }
-        public void ResetWachtwoord(int gebruikerID, string wachtwoord)
+
+        public void ResetWachtwoord(int gebruikerID)
         {
             con.Open();
             OracleCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
             cmd.CommandText = "UPDATE GEBRUIKER SET Wachtwoord = :wachtwoord WHERE GebruikerID = :gebruikerID ";
             command.Parameters.Add(new OracleParameter(":gebruikerID", OracleDbType.Int32)).Value = gebruikerID;
-            command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString(wachtwoord);
+            command.Parameters.Add(new OracleParameter(":wachtwoord", OracleDbType.Varchar2)).Value = EncryptString("wachtwoord");
             cmd.ExecuteNonQuery();
         }
 
@@ -1142,6 +1147,8 @@ namespace CareMatch.Models
             return vrijwilligersList;
         }
         #endregion
+      
+
         public string EncryptString(string toEncrypt)
         {
             try

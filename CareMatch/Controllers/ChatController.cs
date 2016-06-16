@@ -12,6 +12,8 @@ namespace CareMatch.Controllers
         CareMatch.Models.Database database = new CareMatch.Models.Database();
         
         // GET: Chat
+
+        // laat de het lege chatvenser zien, vanaf hier kun je chats starten ect.
         public ActionResult Index(string id, string ingelogd)
         {
                 database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
@@ -41,16 +43,19 @@ namespace CareMatch.Controllers
             return View();
         }
 
+        // nutteloos?
         public ActionResult videotest()
         {
             return View();
         }
 
+        // laat de chat zien
         public ActionResult ChatBekijken(string partner)
         {
             return RedirectToAction("Index", new { id = partner.ToString() });
         }
 
+        // als een chatpartner is gekozen of een barcode is gescanned, laat de chat zien
         [HttpPost]
         public ActionResult Index(string id, string bericht, string ingelogd)
         {

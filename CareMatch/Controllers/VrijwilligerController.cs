@@ -152,10 +152,10 @@ namespace CareMatch.Controllers
         }
 
         /// <summary>
-        /// 
+        /// voegt een beoordeling toe aan een hulpvraag
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="Beoordeling"></param>
+        /// <param name="id">id van de hulpvraag</param>
+        /// <param name="Beoordeling">de beoordeling die toegevoegd moet worden</param>
         /// <returns></returns>
         public ActionResult Beoordelingreactie(int id, string Beoordeling)
         {
@@ -174,6 +174,11 @@ namespace CareMatch.Controllers
             }
         }
 
+        /// <summary>
+        /// rapporteert een hulpvraag
+        /// </summary>
+        /// <param name="id">de id van de hulpvraag die geraporteerd moet worden</param>
+        /// <returns></returns>
         public ActionResult Rapporteer(int id)
         {
             Hulpvraag hulpvraag = new Hulpvraag();
@@ -182,6 +187,11 @@ namespace CareMatch.Controllers
             return RedirectToAction("HulpvragenOverzicht");
         }
 
+        /// <summary>
+        /// begint een chat met een gebruiker op basis van de gescande barcode
+        /// </summary>
+        /// <param name="partner">de string die uit de barcode word gehaald</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ChatBarcode(string partner)
         {
