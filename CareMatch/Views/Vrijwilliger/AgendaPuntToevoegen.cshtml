@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Beschikbaarheid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Agenda Punt Toevoegen</h3>
+    </div>
+    <div class="panel-body">
+        <form method="post" name="Registreren" class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label for="titel" class="col-lg-2 control-label">Titel</label>
+                    <div class="col-lg-10">
+                        <input type="text" required class="form-control" id="titel" placeholder="Titel" name="titel">
+                    </div>
+
+                    <label class="col-lg-2 control-label">Datum:</label>
+                    <div class="col-lg-10">
+                        <input type="date" class="form-control" id="datum" placeholder="Datum" name="datum">
+                    </div>
+                    <label class="col-lg-2 control-label">Van:</label>
+                    <div class="col-lg-10">
+                        <input type="date" class="form-control" id="van" placeholder="Van" name="Van">
+                    </div>
+                    <label class="col-lg-2 control-label">Tot:</label>
+                    <div class="col-lg-10">
+                        <input type="date" class="form-control" id="Tot" placeholder="Tot" name="tot">
+                    </div>
+                    <div class="col-lg-10">
+                        <label>Inhoud:</label><br />
+                        <textarea class="form-control" id="inhoud" name="inhoud"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

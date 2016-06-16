@@ -299,8 +299,8 @@ namespace CareMatch.Models
                 agendaPunt.AfspraakMet = reader["AfspraakMet"].ToString();
                 agendaPunt.Beschrijving = reader["Omschrijving"].ToString();
                 agendaPunt.AgendaEigenaar = Convert.ToInt32(reader["EigenaarID"]);
-                agendaPunt.DatumTijdStart = Convert.ToInt32(reader["StartTijd"]);
-                agendaPunt.DatumTijdEind = Convert.ToInt32(reader["EindTijd"]);
+                agendaPunt.DatumTijdStart = Convert.ToDateTime(reader["StartTijd"]);
+                agendaPunt.DatumTijdEind = Convert.ToDateTime(reader["EindTijd"]);
                 agendaPunt.AfspraakDatum = Convert.ToDateTime(reader["AfspraakDatum"]);
 
                 gebruiker.AgendaPuntToevoegen(agendaPunt);

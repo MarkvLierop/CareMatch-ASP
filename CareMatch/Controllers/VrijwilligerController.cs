@@ -21,6 +21,24 @@ namespace CareMatch.Controllers
         {
             return View();
         }
+
+        public ActionResult AgendaPuntToevoegen(DateTime datum, DateTime van, DateTime tot, string titel, string inhoud)
+        {
+            if (Request.Form.Count > 0)
+            {
+                Agenda.AgendaPunt agenda = new Agenda.AgendaPunt();
+                agenda.AfspraakDatum = datum;
+                agenda.DatumTijdEind = tot;
+                agenda.DatumTijdStart = van;
+                //carematch.database.AgendaPuntToevoegen();
+            }
+            return View();
+        }
+
+        public ActionResult AgendaOverzicht()
+        {
+            return View();
+        }
         public ActionResult Profiel(string wachtwoord, string pasfoto, string info, bool? auto)
         {
             if (Request.Form.Count >0)
