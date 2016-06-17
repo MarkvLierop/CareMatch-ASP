@@ -65,14 +65,26 @@ namespace CareMatch.Controllers
         /// <param name="info"></param>
         /// <param name="auto"></param>
         /// <returns></returns>
-        public ActionResult Profiel(string wachtwoord, string pasfoto, string info, bool? auto)
+        public ActionResult Profiel(string wachtwoord, string hwachtwoord, string pasfoto, string info, string auto)
         {
             if (Request.Form.Count > 0)
             {
+                if(wachtwoord != hwachtwoord)
+                {
+                    ViewBag.foutmelding = "Wachtwoorden zijn niet gelijk aan elkaar.";
+                    return View();
+                }
+                if (!string.IsNullOrEmpty(auto))
+                {
+                    ((Gebruiker)Session["Gebruiker"]).Auto = true;
+                }
+                else
+                {
+                    ((Gebruiker)Session["Gebruiker"]).Auto = false;
+                }
                 if (!string.IsNullOrEmpty(wachtwoord))
                 {
                     ((Gebruiker)Session["Gebruiker"]).Wachtwoord = wachtwoord;
-                    ((Gebruiker)Session["Gebruiker"]).Auto = auto;
                     ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
                     carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, true, false);
                 }
@@ -80,16 +92,15 @@ namespace CareMatch.Controllers
                 if (!string.IsNullOrEmpty(pasfoto))
                 {
                     ((Gebruiker)Session["Gebruiker"]).Pasfoto = pasfoto;
-                    ((Gebruiker)Session["Gebruiker"]).Auto = auto;
                     ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
                     carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, true);
                 }
-                else if (!string.IsNullOrEmpty(info))
+                if (!string.IsNullOrEmpty(info) || !string.IsNullOrEmpty(auto.ToString()))
                 {
-                    ((Gebruiker)Session["Gebruiker"]).Auto = auto;
                     ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
                     carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, false);
                 }
+                return RedirectToAction("Index", "Vrijwilliger");
             }
 
             return View();
@@ -136,8 +147,8 @@ namespace CareMatch.Controllers
         public ActionResult HulpvraagAannemen(int id)
         {
             Gebruiker gebruiker = Session["Gebruiker"] as Gebruiker;
-                carematch.database.HulpvraagAannemen(id, gebruiker.GebruikersID);
-                return RedirectToAction("HulpvragenOverzicht", "Vrijwilliger");
+            carematch.database.HulpvraagAannemen(id, gebruiker.GebruikersID);
+            return RedirectToAction("HulpvragenOverzicht", "Vrijwilliger");
         }
 
         /// <summary>

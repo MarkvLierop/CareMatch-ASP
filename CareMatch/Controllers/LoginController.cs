@@ -60,11 +60,11 @@ namespace CareMatch.Controllers
 
         // registreerd een nieuwe gebruiker
         [HttpPost]
-        public ActionResult Registreren(string optionsRadios, string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string Geslacht, string Geboortedatum, string pasfoto, string VOG)
+        public ActionResult Registreren(string optionsRadios, string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string Geslacht, string Geboortedatum, string pasfoto, string VOG, string Bevestig)
         {
             DateTime geboortedatum1 = Convert.ToDateTime(Geboortedatum);
             
-            if (Request.Form.Count > 0)
+            if (Request.Form.Count > 0 && Wachtwoord == Bevestig)
             {
                 bool success = carematch.database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, optionsRadios, pasfoto, VOG, Voornaam, Tussenvoegsel, Achternaam, Geslacht, geboortedatum1);
                 if (success)
@@ -73,11 +73,13 @@ namespace CareMatch.Controllers
                 }
                 else
                 {
+                    
                     return View();
                 }
             }
             else
             {
+                ViewBag.foutmelding = "Wachtwoorden komen niet overeen.";
                 return View();
             }
         }
