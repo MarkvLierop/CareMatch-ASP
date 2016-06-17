@@ -7,22 +7,17 @@
 
 <h2>Profiel</h2>
 <a href="@Url.Action("Index", "Vrijwilliger" )" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
-<br /><br/>
-@{if (ViewBag.foutmelding != null)
-{
-    <div class="alert alert-dismissible alert-danger">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Oeps!</strong> @ViewBag.foutmelding
-    </div>
-
-}}
+<br />
 <br/>
 <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Uw Profiel</h3>
     </div>
     <div class="panel-body">
-        <form action="" method="post">
+        <div>
+            <img class="img-responsive foto" src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + @gebruiker.Pasfoto)" name="img" alt="pasfoto" />
+        </div>
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="checkbox">
                 @if (gebruiker.Auto == true)
                 {
@@ -51,7 +46,7 @@
             </fieldset>
             <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
             <div class="col-lg-10">
-                <input type="file" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="pasfoto">
+                <input type="file" accept="Image/*" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="pasfoto">
             </div>
             <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>
