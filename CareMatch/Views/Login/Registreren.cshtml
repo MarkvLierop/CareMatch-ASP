@@ -10,7 +10,7 @@
 				$('input[name="optionsRadios"]').on('change', function(){
 				    if ($(this).val() == 'Vrijwilliger') {
 				        //change to "show update"
-				        $("#cont").append('<label for="VOG" class="col-lg-2 control-label">VOG</label><div class="col-lg-10"><input type="file" class="form-control" id="VOG" placeholder="VOG" name="VOG"></div>');
+				        $("#cont").append('<label for="VOG" class="col-lg-2 control-label">VOG</label><div class="col-lg-10"><input type="file" class="form-control" id="VOG" placeholder="VOG" name="vog"></div>');
 				    }
 				    else {
 				        $("#cont").text(" ");
@@ -36,7 +36,7 @@
             <input type="submit" class="btn btn-default" value="Login" />
         </div>
     </form>
-    <form method="post" name="Registreren" class="form-horizontal">
+    <form method="post" name="Registreren" class="form-horizontal" enctype="multipart/form-data">
         <fieldset>
             <div class="form-group">
                 <label class="col-lg-2 control-label">Rol</label>
@@ -64,7 +64,7 @@
 
                 <label for="Bevestig" class="col-lg-2 control-label">Wachtwoord bevestigen</label>
                 <div class="col-lg-10">
-                    <input type="password" required class="form-control" id="Wachtwoord bevestiging" placeholder="Wachtwoord bevestiging" name="Wachtwoord bevestiging">
+                    <input type="password" required class="form-control" id="Wachtwoord bevestiging" placeholder="Wachtwoord bevestiging" name="bevestig">
                 </div>
 
                 <label for="Voornaam" class="col-lg-2 control-label">Voornaam</label>
@@ -103,7 +103,7 @@
 
                 <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
                 <div class="col-lg-10">
-                    <input type="file" class="form-control" id="Pasfoto" placeholder="Pasfoto" name="Pasfoto">
+                    <input type="file" class="form-control" id="Pasfoto" placeholder="Pasfoto" accept="Image/*" name="Pasfoto">
                 </div>
                 <div class="vog-wrapper" id="cont">
                     <!-----   Hier komt de VOG input box na het klikken op vrijwilliger.-------->

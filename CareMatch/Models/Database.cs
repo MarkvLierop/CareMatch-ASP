@@ -161,6 +161,11 @@ namespace CareMatch.Models
                 // Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
                 command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Flagged != 'Y' AND Auto = (SELECT HeeftAuto FROM Gebruiker WHERE GebruikerID = 146) OR Auto = 'N'", con);
             }
+            else if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Openstaande hulpvragen" || filter == string.Empty) && gebruiker.Rol.ToLower() == "vrijwilliger")
+            {
+                // Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
+                command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Flagged != 'Y' AND VrijwilligerID IS NULL", con);
+            }
             else if (!string.IsNullOrEmpty(filter) & gebruiker.Rol.ToLower() == "vrijwilliger" && filter == "Auto")
             {
                 // Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
