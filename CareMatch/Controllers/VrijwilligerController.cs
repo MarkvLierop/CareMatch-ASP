@@ -140,7 +140,10 @@ namespace CareMatch.Controllers
                 }
             }
 
-            ViewData["Vrijwilliger"] = carematch.database.GebruikerInfoOpvragen(selectedhulpvraag.Vrijwilliger);
+            if(selectedhulpvraag.Vrijwilliger != "")
+            {
+                ViewData["Vrijwilliger"] = carematch.database.GebruikerInfoOpvragen(selectedhulpvraag.Vrijwilliger);
+            }
             ViewData["Hulpbehoevende"] = carematch.database.GebruikerInfoOpvragen(selectedhulpvraag.Hulpbehoevende);
             ViewData["Hulpvraag"] = selectedhulpvraag;
             ViewData["Gebruiker"] = Session["Gebruiker"] as Gebruiker;
