@@ -6,98 +6,110 @@
     CareMatch.Models.Gebruiker v = ViewData["Vrijwilliger"] as CareMatch.Models.Gebruiker;
 }
 <a href="@Url.Action("HulpvragenOverzicht", "Hulpbehoevende")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a>
-<h2>Hulpvragen Wijzigen</h2>
+@{ if (h.Vrijwilliger == "")
+    {
+        <h2>Hulpvragen Wijzigen</h2>
+    }
+    else
+    {
+        <h2>Hulpvraag Bekijken</h2>
+        }
+    }
 <div class="panel panel-danger">
     <div class="panel-heading">
         <h3 class="panel-title">Hulpvraag: @h.Titel</h3>
     </div>
     <div class="panel-body">
         <form method="post" action="@Url.Action("HulpvraagWijzigen", "Hulpbehoevende")">
-            <input type="hidden" value="@h.HulpvraagID" name="id"/>
-            <div class="checkbox">
-                @if (h.Urgent)
-                {
-                    <label>
-                        <input type="checkbox" name="Urgent" checked> Urgent
-                    </label>
-                }
-                else
-                {
-                    <label>
-                        <input type="checkbox" name="Urgent"> Urgent
-                    </label>
-
-                }
-                @if (h.Auto)
-                {
-                    <label>
-                        <input type="checkbox" name="Auto" checked> Auto Benodigd
-                    </label>
-                }
-                else
-                {
-                    <label>
-                        <input type="checkbox" name="Auto"> Auto Benodigd
-                    </label>
-                }
-            </div>
+            <input type="hidden" value="@h.HulpvraagID" name="id" />
             <div>
-            <div class="FormLinks">
-                <label>Plaatsnaam:</label><br />
-                <input type="text" class="form-control" id="Plaatsnaam" placeholder="Eindhoven" name="Plaatsnaam" value="@h.Plaatsnaam"/>
-                <label>Straatnaam & Huisnummer:</label><br />
-                <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Willemstraat 34" name="StraatEnHuisnummer" value="@h.Locatie"/>                 
+                <div class="col-md-6">
+                    <div class="checkbox">
+                        @if (h.Urgent)
+                        {
+                            <label>
+                                <input type="checkbox" name="Urgent" checked> Urgent
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                <input type="checkbox" name="Urgent"> Urgent
+                            </label>
+
+                        }
+                        @if (h.Auto)
+                        {
+                            <label>
+                                <input type="checkbox" name="Auto" checked> Auto Benodigd
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                <input type="checkbox" name="Auto"> Auto Benodigd
+                            </label>
+                        }
+                    </div>
+                    <label>Plaatsnaam:</label><br />
+                    <input type="text" class="form-control" id="Plaatsnaam" placeholder="Eindhoven" name="Plaatsnaam" value="@h.Plaatsnaam" />
+                    <label>Straatnaam & Huisnummer:</label><br />
+                    <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Willemstraat 34" name="StraatEnHuisnummer" value="@h.Locatie" />
+                </div>
+                <div class="col-md-6">
+                    <label>Start Datum :</label><br />
+                    <input type="date" value="@Convert.ToDateTime(h.StartDatum).ToString("yyyy-MM-dd")" name="Datum" /><br />
+                    <label>Start Tijd :</label><br />
+                    <input type="time" value="@Convert.ToDateTime(h.StartDatum).TimeOfDay" name="Tijd" /><br />
+                    <label>Duur :</label><br />
+                    <input type="time" name="Duur" value="@Convert.ToDateTime(h.EindDatum).TimeOfDay" />
+                </div>
+
             </div>
-            <div class="FormRechts">
-                <label>Start Datum :</label><br />
-                <input type="date" value="@Convert.ToDateTime(h.StartDatum).ToString("yyyy-MM-dd")" name="Datum" /><br/>
-                <label>Start Tijd :</label><br />
-                <input type="time" value="@Convert.ToDateTime(h.StartDatum).TimeOfDay" name="Tijd" /><br/>
-                <label>Duur :</label><br />
-                <input type="time" name="Duur" value="@Convert.ToDateTime(h.EindDatum).TimeOfDay" />
-            </div>
-                
-            </div>
-            <br />
-            <hr id="hr" />
-            <div class="HulpvraagContent">
+            <div class="col-lg-12">
+                <br />
+                <hr id="hr" />
                 <label>Titel van de Hulpvraag:</label>
                 <input type="text" value="@h.Titel" class="form-control" id="KOmschrijving" placeholder="Titel" name="KOmschrijving">
                 <label>Omschrijving:</label><br />
                 <textarea class="form-control" id="Omschrijving" name="Omschrijving">@h.HulpvraagInhoud</textarea>
             </div>
-            <br />
-            <hr id="hr" />
-            <h4>Status:</h4>
-            @{ if (h.Vrijwilliger == "")
-                {
-                    <div class="progress progress-striped active">
-                        <div class="progress-bar" style="width: 30%">Ingediend</div>
-                    </div>
-                    <div class="HulpvraagMenu">
-                        <input type="submit" value="Opslaan" class="btn btn-sq-lg btn-warning" onclick="Succes()" />
-                    </div>
-                }
-                else if (h.Beoordeling == "")
-                {
-                    <div class="progress progress-striped active">
-                        <div class="progress-bar" style="width: 33%">Ingediend</div>
-                        <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
-                    </div>
-                    <h4>Deze hulpvraag is aangenomen door: <strong>@h.Vrijwilliger</strong>. Hieronder kunt u <strong>@h.Vrijwilliger</strong> beoordelen.</h4>
-                }
-                else if (h.Beoordeling != "")
-                {
-                    <div class="progress progress-striped active">
-                        <div class="progress-bar" style="width: 33%">Ingediend</div>
-                        <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
-                        <div class="progress-bar progress-bar-success" style="width: 34%">Beoordeeld</div>
-                    </div>
-                    <h4>Deze hulpvraag is uitgevoerd door: <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#Vrijwilliger">@h.Vrijwilliger</button>. Hieronder kunt u uw beoordeling vinden.</h4>
+            <div class="col-lg-12">
+                <br />
+                <hr id="hr" />
+                <h4>Status:</h4>
+                @{ if (h.Vrijwilliger == "")
+                    {
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" style="width: 30%">Ingediend</div>
+                        </div>
+                        <div class="HulpvraagMenu">
+                            <input type="submit" value="Opslaan" class="btn btn-sq-lg btn-warning" onclick="Succes()" />
+                        </div>
+                    }
+                    else if (h.Beoordeling == "")
+                    {
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" style="width: 33%">Ingediend</div>
+                            <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
+                        </div>
+                        <h4>Deze hulpvraag is aangenomen door: <a data-toggle="modal" data-target="#Vrijwilliger">@h.Vrijwilliger</a>. Hieronder kunt u <strong>@h.Vrijwilliger</strong> beoordelen.</h4>
+                    }
+                    else if (h.Beoordeling != "")
+                    {
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" style="width: 33%">Ingediend</div>
+                            <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
+                            <div class="progress-bar progress-bar-success" style="width: 34%">Beoordeeld</div>
+                        </div>
+                        <h4>Deze hulpvraag is uitgevoerd door: <a data-toggle="modal" data-target="#Vrijwilliger">@h.Vrijwilliger</a>. Hieronder kunt u uw beoordeling vinden.</h4>
                     }
                 }
-            
-        </form>      
+
+        </form>
+    </div>
+    <div class="col-lg-12">
+        <hr id="hr" />     
         @{
             if (h.Beoordeling == "" && h.Vrijwilliger != "")
             {
@@ -151,7 +163,28 @@
                             <h4 class="modal-title">Profiel van: @h.Vrijwilliger</h4>
                         </div>
                         <div class="modal-body">
-                            <p>@v.Voornaam @v.Achternaam</p>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Voornaam</th>
+                                    <td>@v.Voornaam</td>
+                                </tr>
+                                <tr>
+                                    <th>Tussenvoegsel</th>
+                                    <td>@v.Tussenvoegsel</td>
+                                </tr>
+                                <tr>
+                                    <th>Achternaam</th>
+                                    <td>@v.Achternaam</td>
+                                </tr>
+                                <tr>
+                                    <th>Geboortedatum</th>
+                                    <td>@v.GeboorteDatum.ToShortDateString()</td>
+                                </tr>
+                                <tr>
+                                    <th>Gebruikersinfo</th>
+                                    <td>@v.GebruikerInfo</td>
+                                </tr>
+                            </table>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>

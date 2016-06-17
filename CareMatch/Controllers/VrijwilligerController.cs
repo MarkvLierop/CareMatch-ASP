@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CareMatch.Models;
+using System.IO;
 
 namespace CareMatch.Controllers
 {
@@ -65,11 +66,22 @@ namespace CareMatch.Controllers
         /// <param name="info"></param>
         /// <param name="auto"></param>
         /// <returns></returns>
-        public ActionResult Profiel(string wachtwoord, string hwachtwoord, string pasfoto, string info, string auto)
+        public ActionResult Profiel(string wachtwoord, string hwachtwoord, string info, string auto, HttpPostedFileBase pasfoto)
         {
             if (Request.Form.Count > 0)
             {
-                if(wachtwoord != hwachtwoord)
+                // Pasfoto uploaden
+                if (pasfoto.ContentLength > 0)
+                {
+                    // Bestandsinfo opvragen
+                    System.IO.FileInfo Dfile = new System.IO.FileInfo(pasfoto.FileName);
+
+                    // Linkt naar CareMatch-ASP\CareMatch\Bestanden\pasfoto
+                    var path = Path.Combine(Server.MapPath("~/Fotos"), (Session["Gebruiker"] as Gebruiker).Gebruikersnaam + Dfile.Extension);
+                    pasfoto.SaveAs(path);
+                    ((Gebruiker)Session["Gebruiker"]).Pasfoto = (Session["Gebruiker"] as Gebruiker).Gebruikersnaam + Dfile.Extension;
+                }
+                if (wachtwoord != hwachtwoord)
                 {
                     ViewBag.foutmelding = "Wachtwoorden zijn niet gelijk aan elkaar.";
                     return View();
@@ -86,19 +98,12 @@ namespace CareMatch.Controllers
                 {
                     ((Gebruiker)Session["Gebruiker"]).Wachtwoord = wachtwoord;
                     ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
-                    carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, true, false);
-                }
-            
-                if (!string.IsNullOrEmpty(pasfoto))
-                {
-                    ((Gebruiker)Session["Gebruiker"]).Pasfoto = pasfoto;
-                    ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
-                    carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, true);
+                    carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, true, true);
                 }
                 if (!string.IsNullOrEmpty(info) || !string.IsNullOrEmpty(auto.ToString()))
                 {
                     ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
-                    carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, false);
+                    carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, true);
                 }
                 return RedirectToAction("Index", "Vrijwilliger");
             }
@@ -135,7 +140,10 @@ namespace CareMatch.Controllers
                 }
             }
 
+            ViewData["Vrijwilliger"] = carematch.database.GebruikerInfoOpvragen(selectedhulpvraag.Vrijwilliger);
+            ViewData["Hulpbehoevende"] = carematch.database.GebruikerInfoOpvragen(selectedhulpvraag.Hulpbehoevende);
             ViewData["Hulpvraag"] = selectedhulpvraag;
+            ViewData["Gebruiker"] = Session["Gebruiker"] as Gebruiker;
             return View();
         }
 

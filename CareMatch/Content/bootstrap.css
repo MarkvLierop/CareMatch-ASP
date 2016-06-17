@@ -10,7 +10,11 @@
   bottom: -793px;
   width: 200px;
 }
-
+.foto{
+    float:right;
+    height:600px;
+    width:200px;
+}
 video:nth-of-type(1) {
   position: relative; right: -1150px; bottom: 605px;
   min-width: 10%; min-height: 10%;
@@ -174,11 +178,11 @@ transition: all .7s;
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/*! normalize.v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 .loginform{
-    margin-left:30%;
-    margin-right:70%;
+    margin-left:40%;
+    margin-right:60%;
     width:50%;
 }
 .rechterKnop{
@@ -1425,6 +1429,8 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 .img-rounded {
   border-radius: 6px;

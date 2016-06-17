@@ -26,6 +26,7 @@ namespace CareMatch.Models
         public string Voornaam { get; set; }
 
         public string Achternaam { get; set; }
+        public string Tussenvoegsel { get; set; }
 
         public string GebruikerInfo { get; set; }
 

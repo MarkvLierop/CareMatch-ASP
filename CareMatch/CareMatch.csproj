@@ -198,6 +198,7 @@
     <Content Include="Views\Vrijwilliger\Profiel.cshtml" />
     <Content Include="Views\Vrijwilliger\AgendaPuntToevoegen.cshtml" />
     <Content Include="Views\Vrijwilliger\AgendaOverzicht.cshtml" />
+    <Content Include="Views\Hulpbehoevende\Profiel.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -207,6 +208,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Fotos\" />
+    <Folder Include="VOG\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

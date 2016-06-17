@@ -234,7 +234,7 @@ namespace CareMatch.Controllers
             return RedirectToAction("HulpvragenOverzicht", "Beheerder");
         }
 
-        public ActionResult ResetWatchtwoord(int gebruikerid)
+        public ActionResult ResetWachtwoord(int gebruikerid)
         {
             if ((Session["Gebruiker"] as Gebruiker).Rol == "beheerder")
             {
