@@ -409,6 +409,25 @@ namespace CareMatch.Models
             return count;
         }
 
+        public string FotoPartner(string partner)
+        {
+            string foto = string.Empty;
+            try { con.Open(); }
+            catch { }
+            command = new OracleCommand("SELECT FOTO FROM GEBRUIKER WHERE GEBRUIKERSNAAM =: partner", con);
+            command.Parameters.Add(new OracleParameter("partner", OracleDbType.Varchar2)).Value = partner;
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                foto = reader["FOTO"].ToString();
+            }
+
+            con.Close();
+            return foto;
+
+        }
+
         public bool ChatNieuwBericht(Gebruiker gebruiker)
         {
             bool nieuwBericht = false;

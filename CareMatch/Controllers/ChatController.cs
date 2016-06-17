@@ -32,6 +32,7 @@ namespace CareMatch.Controllers
                 {
                     ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);                
                     ViewBag.Partner = id;
+                    ViewBag.Partnerfoto = database.FotoPartner(id); 
                 }
                 else
                 {
