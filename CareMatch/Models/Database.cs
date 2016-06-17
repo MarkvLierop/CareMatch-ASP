@@ -1124,7 +1124,11 @@ namespace CareMatch.Models
             while (reader.Read())
             {
                 gebruikerinfo.Achternaam = reader["Achternaam"].ToString();
+                gebruikerinfo.Tussenvoegsel = reader["Tussenvoegsel"].ToString();
+                gebruikerinfo.GebruikerInfo = reader["GEBRUIKERINFO"].ToString();
                 gebruikerinfo.Voornaam = reader["Voornaam"].ToString();
+                gebruikerinfo.Pasfoto = reader["FOTO"].ToString();
+                gebruikerinfo.GeboorteDatum = Convert.ToDateTime(reader["Geboortedatum"]);
             }
 
             con.Close();
