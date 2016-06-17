@@ -4,6 +4,7 @@
     var functie = "";
     ViewBag.Title = "CareMatch - Chat";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
     if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol == "hulpbehoevende")
     {
         room = @ViewBag.Partner + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam;
@@ -54,7 +55,7 @@
                     <ul class="list-unstyled media-block">
 
                         @foreach (var bericht in ViewBag.Chat as List<CareMatch.Models.Chatbericht>)
-                        {
+                        {                            
                             if (bericht.VerzenderNaam == ViewBag.Gebruiker.Gebruikersnaam)
                             {
                                 <li class="mar-btm">
@@ -81,7 +82,7 @@
                             }
 
                             else
-                            {
+                            {    
                                 <li class="mar-btm">
                                     <div class="media-right">
                                         @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol != "hulpbehoevende")

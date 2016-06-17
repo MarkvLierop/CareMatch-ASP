@@ -428,13 +428,14 @@ namespace CareMatch.Models
         // Bericht is gelezen
         public void ChatBerichtGelezen(int berichtid)
         {
-            try { con.Open(); }
-            catch { }
+
+            con.Open();
             command = new OracleCommand("UPDATE CHAT SET GELEZEN =:STATUS WHERE CHATID =:berichtid", con);
-            command.Parameters.Add(new OracleParameter("STATUS", OracleDbType.Char)).Value = "Y";
-            command.Parameters.Add(new OracleParameter("berichtid", OracleDbType.Int32)).Value = berichtid;
+            command.Parameters.Add(new OracleParameter(":STATUS", OracleDbType.Char)).Value = "Y";
+            command.Parameters.Add(new OracleParameter(":berichtid", OracleDbType.Int32)).Value = berichtid;
             command.ExecuteNonQuery();
             con.Close();
+
         }
 
         // Geeft de onlinestatus van je chatpartner
