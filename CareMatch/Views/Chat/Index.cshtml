@@ -62,11 +62,11 @@
                                     <div class="media-left">
                                         @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol == "hulpbehoevende")
                                         {
-                                            <img src="https://img.buzzfeed.com/buzzfeed-static/static/2014-05/30/17/enhanced/webdr06/edit-32524-1401486723-3.jpg" class="img-circle img-sm" alt="Profile Picture">
+                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
                                         }
                                         else
                                         {
-                                            <img src="https://scontent.xx.fbcdn.net/v/t1.0-9/11866463_807261709394312_4803817356460617296_n.jpg?oh=5f849f7f6317e2748c896c71fa7367a3&oe=57E16787" class="img-circle img-sm" alt="Profile Picture">
+                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" +ViewBag.partner.Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
                                         }
                                     </div>
                                     <div class="media-body pad-hor">
@@ -87,11 +87,11 @@
                                     <div class="media-right">
                                         @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol != "hulpbehoevende")
                                         {
-                                            <img src="https://img.buzzfeed.com/buzzfeed-static/static/2014-05/30/17/enhanced/webdr06/edit-32524-1401486723-3.jpg" class="img-circle img-sm" alt="Profile Picture">
+                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
                                         }
                                         else
                                         {
-                                            <img src="https://scontent.xx.fbcdn.net/v/t1.0-9/11866463_807261709394312_4803817356460617296_n.jpg?oh=5f849f7f6317e2748c896c71fa7367a3&oe=57E16787" class="img-circle img-sm" alt="Profile Picture">
+                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" +ViewBag.partner.Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
                                         }
                                     </div>
                                     <div class="media-body pad-hor speech-right">
