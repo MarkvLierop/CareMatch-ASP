@@ -106,46 +106,56 @@
     <b>Rapporteer hulpvraag / Beoordeling</b><br>
 </a>
 
-<div id="Vrijwilliger" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+@{ if (h.Vrijwilliger != "")
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Profiel van: @h.Vrijwilliger</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table table-striped">
-                    <tr>
-                        <th>Voornaam</th>
-                        <td>@v.Voornaam</td>
-                    </tr>
-                    <tr>
-                        <th>Tussenvoegsel</th>
-                        <td>@v.Tussenvoegsel</td>
-                    </tr>
-                    <tr>
-                        <th>Achternaam</th>
-                        <td>@v.Achternaam</td>
-                    </tr>
-                    <tr>
-                        <th>Geboortedatum</th>
-                        <td>@v.GeboorteDatum.ToShortDateString()</td>
-                    </tr>
-                    <tr>
-                        <th>Gebruikersinfo</th>
-                        <td>@v.GebruikerInfo</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+    {
+        <div id="Vrijwilliger" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Profiel van: @h.Vrijwilliger</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Voornaam</th>
+                                <td>@v.Voornaam</td>
+                            </tr>
+                            <tr>
+                                <th>Tussenvoegsel</th>
+                                <td>@v.Tussenvoegsel</td>
+                            </tr>
+                            <tr>
+                                <th>Achternaam</th>
+                                <td>@v.Achternaam</td>
+                            </tr>
+                            <tr>
+                                <th>Geboortedatum</th>
+                                <td>@v.GeboorteDatum.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Gebruikersinfo</th>
+                                <td>@v.GebruikerInfo</td>
+                            </tr>
+                            <tr>
+                                <th>Pasfoto</th>
+                                <td><img class="img-responsive pasfoto" src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + v.Pasfoto)" name="img" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-    </div>
-</div>
+    }
+}
 
 <div id="Hulpbehoevende" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -177,6 +187,10 @@
                     <tr>
                         <th>Gebruikersinfo</th>
                         <td>@hu.GebruikerInfo</td>
+                    </tr>
+                    <tr>
+                        <th>Pasfoto</th>
+                        <td><img class="img-responsive pasfoto" src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + hu.Pasfoto)" name="img" /></td>
                     </tr>
                 </table>
             </div>

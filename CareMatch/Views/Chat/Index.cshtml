@@ -25,7 +25,7 @@
         <div class="panel panel-primary">
             <!--Heading-->
             <div class="panel-heading">
-                <div class="panel-control">
+                <h3 class="panel-title">Chatpartner: @ViewBag.Partner</h3>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default" data-toggle="dropdown">Chatpartner kiezen</button>
                         <ul class="dropdown-menu dropdown-menu-right">
@@ -45,11 +45,8 @@
                         </ul>
                     </div>
                 </div>
-                <h3 class="panel-title">Chatpartner: @ViewBag.Partner</h3>
-            </div>
-        </div>
         <!--Widget body-->
-        <div id="demo-chat-body" class="collapse in">
+            <div class="panel-body">
             <div class="nano has-scrollbar" style="height:400px">
                 <div class="nano-content pad-all" id="messagewindow" tabindex="0" style="right: -17px;">
                     <ul class="list-unstyled media-block">
@@ -132,11 +129,13 @@
                 {
                     <h4>Selecteer een partner.</h4>
                 }
+
             }
             <!--Widget footer-->
         </div>
     </div>
-    <div class="col-md-12 col-lg-6">
+    </div>
+    <div class="col-md-6 col-lg-6">
         <div class="panel panel-primary">
             <!--Heading-->
             <div class="panel-heading">
