@@ -10,10 +10,11 @@
 
 </head>
 <body>
-    @if(Session["Gebruiker"] == null)
+    @if (Session["Gebruiker"] == null)
     {
-        Html.ActionLink("Redirecting", "Index", "Login");
+        Response.Redirect("~/Login/Index");
     }
+
     <div class="container body-content">
         @RenderBody()
         <hr />

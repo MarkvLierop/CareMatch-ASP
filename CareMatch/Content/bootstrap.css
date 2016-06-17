@@ -177,8 +177,8 @@ transition: all .7s;
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 
 .loginform{
-    margin-left:30%;
-    margin-right:70%;
+    margin-left:40%;
+    margin-right:60%;
     width:50%;
 }
 .rechterKnop{
@@ -1425,6 +1425,8 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 .img-rounded {
   border-radius: 6px;

@@ -271,3 +271,4 @@ C:\Users\yannic\Source\Repos\ASPproftaak\CareMatch\bin\System.Web.Http.WebHost.x
 C:\Users\yannic\Source\Repos\ASPproftaak\CareMatch\obj\Debug\CareMatch.dll
 C:\Users\yannic\Source\Repos\ASPproftaak\CareMatch\obj\Debug\CareMatch.pdb
 C:\Users\yannic\Source\Repos\ASPproftaak\CareMatch\obj\Debug\CareMatch.csprojResolveAssemblyReference.cache
+C:\Users\Luuk\Source\Repos\CareMatch-ASP\CareMatch\obj\Debug\CareMatch.csprojResolveAssemblyReference.cache

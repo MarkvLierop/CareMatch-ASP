@@ -12,6 +12,7 @@ namespace CareMatch.Controllers
         // GET: Login
         CareMatch1 carematch = new CareMatch1();
 
+        // zorgt voor de index pagina
         public ActionResult Index(string gebruikersnaam, string wachtwoord)
         {
             Gebruiker gebruiker = new Gebruiker();
@@ -51,18 +52,19 @@ namespace CareMatch.Controllers
             return View();
         }
 
-        // commit
+        // geeft de registratieform
         public ActionResult Registreren()
         {
             return View();
         }
 
+        // registreerd een nieuwe gebruiker
         [HttpPost]
-        public ActionResult Registreren(string optionsRadios, string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string Geslacht, string Geboortedatum, string pasfoto, string VOG)
+        public ActionResult Registreren(string optionsRadios, string Gebruikersnaam, string Wachtwoord, string Voornaam, string Tussenvoegsel, string Achternaam, string Geslacht, string Geboortedatum, string pasfoto, string VOG, string Bevestig)
         {
             DateTime geboortedatum1 = Convert.ToDateTime(Geboortedatum);
             
-            if (Request.Form.Count > 0)
+            if (Request.Form.Count > 0 && Wachtwoord == Bevestig)
             {
                 bool success = carematch.database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, optionsRadios, pasfoto, VOG, Voornaam, Tussenvoegsel, Achternaam, Geslacht, geboortedatum1);
                 if (success)
@@ -71,15 +73,18 @@ namespace CareMatch.Controllers
                 }
                 else
                 {
+                    
                     return View();
                 }
             }
             else
             {
+                ViewBag.foutmelding = "Wachtwoorden komen niet overeen.";
                 return View();
             }
         }
 
+        // logd de gebruiker uit en zet de session op NULL
         public ActionResult Uitloggen()
         {
             Session["Gebruiker"] = null;

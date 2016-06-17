@@ -11,43 +11,44 @@
     </div>
     <div class="panel-body">
         <form method="post" action="">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="Urgent"> Urgent
-                </label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <label>
-                    <input type="checkbox" name="Auto"> Auto Benodigd
-                </label>
-            </div>
             <div>
-            <div class="FormLinks">
+            <div class="col-md-6">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="Urgent"> Urgent
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label>
+                        <input type="checkbox" name="Auto"> Auto Benodigd
+                    </label>
+                </div>
                 <label>Plaatsnaam:</label><br />
-                <input type="text" class="form-control" id="Plaatsnaam" placeholder="Eindhoven" name="Plaatsnaam">
+                <input type="text" required class="form-control" id="Plaatsnaam" placeholder="Eindhoven" name="Plaatsnaam">
                 <label>Straatnaam & Huisnummer:</label><br />
-                <input type="text" class="form-control" id="StraatEnHuisnummer" placeholder="Willemstraat 34" name="StraatEnHuisnummer">                 
+                <input type="text" required  class="form-control" id="StraatEnHuisnummer" placeholder="Willemstraat 34" name="StraatEnHuisnummer">                 
             </div>
-            <div class="FormRechts">
+            <div class="col-md-6">
                 <label>Start Datum :</label><br />
-                <input type="date" name="Datum" /><br/>
+                <input type="date" required  name="Datum" /><br/>
                 <label>Start Tijd :</label><br />
-                <input type="time" name="Tijd" /><br/>
+                <input type="time" required  name="Tijd" /><br/>
                 <label>Duur :</label><br />
-                <input type="time" name="Duur" />
+                <input type="time" required  name="Duur" />
             </div>
 
             </div>
             <br />
-            <hr id="hr" />
-            <div class="HulpvraagContent">
+            <div class="col-lg-12">
+                <br />
+                <hr id="hr" />
                 <label>Titel van de Hulpvraag:</label>
-                <input type="text" class="form-control" id="KOmschrijving" placeholder="Titel" name="KOmschrijving">
+                <input type="text" required  class="form-control" id="KOmschrijving" placeholder="Titel" name="KOmschrijving">
                 <label>Omschrijving:</label><br />
-                <textarea class="form-control" id="Omschrijving" name="Omschrijving"></textarea>
-            </div>
-            <br />
-            <div class="HulpvraagMenu">
-                <input type="submit" value="Indienen" class="btn btn-sq-lg btn-warning" onclick="Succes()"/>
+                <textarea class="form-control" required  id="Omschrijving" name="Omschrijving"></textarea>
+                <br />
+                <div class="HulpvraagMenu">
+                    <input type="submit" value="Indienen" class="btn btn-sq-lg btn-warning" onclick="Succes()" />
+                </div>
             </div>
         </form>        
     </div>

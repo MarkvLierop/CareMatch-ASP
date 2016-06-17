@@ -3,17 +3,17 @@
     ViewBag.Title = "Hulpvraag Bekijken";
     Layout = "~/Views/Shared/_Layout.cshtml";
     CareMatch.Models.Hulpvraag h = ViewData["Hulpvraag"] as CareMatch.Models.Hulpvraag;
+    CareMatch.Models.Gebruiker hu = ViewData["Hulpbehoevende"] as CareMatch.Models.Gebruiker;
+    CareMatch.Models.Gebruiker v = ViewData["Vrijwilliger"] as CareMatch.Models.Gebruiker;
 }
 <a href="@Url.Action("HulpvragenOverzicht", "Vrijwilliger")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a>
-<h2>Hulpvraag</h2>
+<h2>Hulpvraag Bekijken</h2>
 <div class="panel panel-info">
     <div class="panel-heading">
         <h3 class="panel-title">Hulpvraag: @h.Titel</h3>
     </div>
     <div class="panel-body">
         <table class="table table-striped">
-            <thead>
-            </thead>
             <tbody>
                 <tr>
                     <th>Omschrijving</th>
@@ -28,6 +28,10 @@
                     <td>@h.Locatie</td>
                 </tr>
                 <tr>
+                    <th>Plaatsnaam</th>
+                    <td>@h.Plaatsnaam</td>
+                </tr>
+                <tr>
                     <th>Startdatum</th>
                     <td>@h.StartDatum</td>
                 </tr>
@@ -37,7 +41,7 @@
                 </tr>
                 <tr>
                     <th>Hulpbehoevende</th>
-                    <td>@h.Hulpbehoevende</td>
+                    <td><a data-toggle="modal" data-target="#Hulpbehoevende">@h.Hulpbehoevende</a></td>
                 </tr>
             </tbody>
         </table>
@@ -48,7 +52,7 @@
                 <div class="progress progress-striped active">
                     <div class="progress-bar" style="width: 30%">Ingediend</div>
                 </div>
-                <a type="button" class="btn btn-info" href='@Url.Action("ChatStarten", new { id = @h.Hulpbehoevende})'>Chat Starten</a>                                  <a type="button" class="btn btn-info" href='@Url.Action("HulpvraagAannemen", new { id = @h.HulpvraagID})'>Aannemen</a>
+                <a type="button" class="btn btn-info" href='@Url.Action("ChatBekijken", "Chat", new { partner = @h.Hulpbehoevende})'>Chat Starten</a>                                  <a type="button" class="btn btn-info" href='@Url.Action("HulpvraagAannemen", new { id = @h.HulpvraagID})'>Aannemen</a>
             }
             else if(h.Vrijwilliger !="" && h.Beoordeling == "")
             {
@@ -56,7 +60,7 @@
                     <div class="progress-bar" style="width: 33%">Ingediend</div>
                     <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
                 </div>
-                    <h4>Deze hulpvraag is aangenomen door: <strong>@h.Vrijwilliger</strong>.</h4>
+                    <h4>Deze hulpvraag is aangenomen door: <a data-toggle="modal" data-target="#Vrijwilliger">@h.Vrijwilliger</a>.</h4>
                     <hr id="hr" />
                     <p>Er is nog geen beoordeling gegeven voor het gedane werk.</p>
             }
@@ -67,14 +71,14 @@
                     <div class="progress-bar progress-bar-warning" style="width: 33%">Aangenomen</div>
                     <div class="progress-bar progress-bar-success" style="width: 34%">Beoordeeld</div>
                 </div>
-                <h4>De vrijwilliger: <strong>@h.Vrijwilliger</strong> heeft deze hulpvraag uitgevoerd. Hieronder vindt u de beoordeling.</h4>
+                <h4>De vrijwilliger: <a data-toggle="modal" data-target="#Vrijwilliger">@h.Vrijwilliger</a> heeft deze hulpvraag uitgevoerd. Hieronder vindt u de beoordeling.</h4>
                 <hr id="hr" />
                 <p>
                     <strong>Cijfer</strong>: @h.Cijfer/5 <br />
                     <strong>Beoordeling</strong>: @h.Beoordeling
                 </p>
                 <hr id="hr" />
-                if (h.ReactieBeoordeling == "")
+                if (h.ReactieBeoordeling == "" && h.Vrijwilliger == (ViewData["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam)
                 {
                     <h5>Reageer op deze beoordeling:</h5>
                     <form method="post" name="beoordeling" action="@Url.Action("Beoordelingreactie", "Vrijwilliger")">
@@ -86,7 +90,7 @@
                         </fieldset>
                     </form>
                 }
-                else
+                else if (h.Vrijwilliger == (ViewData["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam)
                 {
                     <h5>Uw reactie op deze beoordeling:</h5>
                     <p>@h.ReactieBeoordeling</p>
@@ -96,7 +100,90 @@
         
     </div>
 </div>
+<br />
 <a href='@Url.Action("Rapporteer", "Vrijwilliger", new { id = @h.HulpvraagID})' class="btn btn-sq-lg btn-warning" id="rapporteer">
     <i class="fa fa-user fa-5x"></i>
     <b>Rapporteer hulpvraag / Beoordeling</b><br>
 </a>
+
+<div id="Vrijwilliger" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Profiel van: @h.Vrijwilliger</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Voornaam</th>
+                        <td>@v.Voornaam</td>
+                    </tr>
+                    <tr>
+                        <th>Tussenvoegsel</th>
+                        <td>@v.Tussenvoegsel</td>
+                    </tr>
+                    <tr>
+                        <th>Achternaam</th>
+                        <td>@v.Achternaam</td>
+                    </tr>
+                    <tr>
+                        <th>Geboortedatum</th>
+                        <td>@v.GeboorteDatum.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <th>Gebruikersinfo</th>
+                        <td>@v.GebruikerInfo</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="Hulpbehoevende" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Profiel van: @h.Hulpbehoevende</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Voornaam</th>
+                        <td>@hu.Voornaam</td>
+                    </tr>
+                    <tr>
+                        <th>Tussenvoegsel</th>
+                        <td>@hu.Tussenvoegsel</td>
+                    </tr>
+                    <tr>
+                        <th>Achternaam</th>
+                        <td>@hu.Achternaam</td>
+                    </tr>
+                    <tr>
+                        <th>Geboortedatum</th>
+                        <td>@hu.GeboorteDatum.ToShortDateString()</td>
+                    </tr>
+                    <tr>
+                        <th>Gebruikersinfo</th>
+                        <td>@hu.GebruikerInfo</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+            </div>
+        </div>
+
+    </div>
+</div>
