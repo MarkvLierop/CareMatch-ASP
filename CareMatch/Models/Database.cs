@@ -409,6 +409,25 @@ namespace CareMatch.Models
             return count;
         }
 
+        public string FotoPartner(string partner)
+        {
+            string foto = string.Empty;
+            try { con.Open(); }
+            catch { }
+            command = new OracleCommand("SELECT FOTO FROM GEBRUIKER WHERE GEBRUIKERSNAAM =: partner", con);
+            command.Parameters.Add(new OracleParameter("partner", OracleDbType.Varchar2)).Value = partner;
+            reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                foto = reader["FOTO"].ToString();
+            }
+
+            con.Close();
+            return foto;
+
+        }
+
         public bool ChatNieuwBericht(Gebruiker gebruiker)
         {
             bool nieuwBericht = false;
@@ -433,13 +452,14 @@ namespace CareMatch.Models
         // Bericht is gelezen
         public void ChatBerichtGelezen(int berichtid)
         {
-            try { con.Open(); }
-            catch { }
+
+            con.Open();
             command = new OracleCommand("UPDATE CHAT SET GELEZEN =:STATUS WHERE CHATID =:berichtid", con);
-            command.Parameters.Add(new OracleParameter("STATUS", OracleDbType.Char)).Value = "Y";
-            command.Parameters.Add(new OracleParameter("berichtid", OracleDbType.Int32)).Value = berichtid;
+            command.Parameters.Add(new OracleParameter(":STATUS", OracleDbType.Char)).Value = "Y";
+            command.Parameters.Add(new OracleParameter(":berichtid", OracleDbType.Int32)).Value = berichtid;
             command.ExecuteNonQuery();
             con.Close();
+
         }
 
         // Geeft de onlinestatus van je chatpartner

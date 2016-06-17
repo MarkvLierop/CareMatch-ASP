@@ -16,7 +16,6 @@ namespace CareMatch.Controllers
         // laat de het lege chatvenser zien, vanaf hier kun je chats starten ect.
         public ActionResult Index(string id, string ingelogd)
         {
-                database.ChatZetOnline((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
                 ViewBag.gebruiker = Session["Gebruiker"] as CareMatch.Models.Gebruiker;
                 if ((Session["Gebruiker"] as Models.Gebruiker).Rol.ToLower() == "vrijwilliger")
                 {
@@ -27,12 +26,13 @@ namespace CareMatch.Controllers
                 {
                     ViewBag.Gebruikers = database.VrijwilligersLijst();
                 ViewBag.Bestaand = database.BestaandeChatlijstVrijwilligers((Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
-            }
+                }
 
                 if (!string.IsNullOrEmpty(id))
                 {
-                    ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);
+                    ViewBag.Chat = database.ChatLaden(id, (Session["Gebruiker"] as Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(id), (Session["Gebruiker"] as Models.Gebruiker).GebruikersID);                
                     ViewBag.Partner = id;
+                    ViewBag.Partnerfoto = database.FotoPartner(id); 
                 }
                 else
                 {
@@ -79,7 +79,7 @@ namespace CareMatch.Controllers
                 ViewBag.Chat = new List<Models.Chatbericht>();
                 ViewBag.Partner = string.Empty;
             }
-
+            ViewBag.Database = database;
             return RedirectToAction("ChatBekijken", new { partner = id });
         }
     }   
