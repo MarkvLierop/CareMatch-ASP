@@ -25,114 +25,114 @@
             <!--Heading-->
             <div class="panel-heading">
                 <h3 class="panel-title">Chatpartner: @ViewBag.Partner</h3>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" data-toggle="dropdown">Chatparner kiezen</button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        @foreach (string gebruiker in ViewBag.Gebruikers as List<string>)
-                        {
-                            <li><a href="@Url.Action("ChatBekijken", "Chat", new{ partner = gebruiker.ToString()})">@gebruiker</a></li>
-                        }
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" data-toggle="dropdown">Openstaande Chats</button>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        @foreach (string gebruiker in ViewBag.Bestaand as List<string>)
-                        {
-                            <li><a href="@Url.Action("ChatBekijken", "Chat", new{ partner = gebruiker.ToString()})">@gebruiker</a></li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            <!--Widget body-->
-            <div class="panel-body">
-                <div class="nano has-scrollbar" style="height:400px">
-                    <div class="nano-content pad-all" id="messagewindow" tabindex="0" style="right: -17px;">
-                        <ul class="list-unstyled media-block">
-
-                            @foreach (var bericht in ViewBag.Chat as List<CareMatch.Models.Chatbericht>)
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown">Chatparner kiezen</button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            @foreach (string gebruiker in ViewBag.Gebruikers as List<string>)
                             {
-                                if (bericht.VerzenderNaam == ViewBag.Gebruiker.Gebruikersnaam)
-                                {
-                                    <li class="mar-btm">
-                                        <div class="media-left">
-                                            @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol == "hulpbehoevende")
-                                            {
-                                                <img src="https://img.buzzfeed.com/buzzfeed-static/static/2014-05/30/17/enhanced/webdr06/edit-32524-1401486723-3.jpg" class="img-circle img-sm" alt="Profile Picture">
-                                            }
-                                            else
-                                            {
-                                                <img src="https://scontent.xx.fbcdn.net/v/t1.0-9/11866463_807261709394312_4803817356460617296_n.jpg?oh=5f849f7f6317e2748c896c71fa7367a3&oe=57E16787" class="img-circle img-sm" alt="Profile Picture">
-                                            }
-                                        </div>
-                                        <div class="media-body pad-hor">
-                                            <div class="speech">
-                                                <a href="#" class="media-heading">@bericht.VerzenderNaam</a>
-                                                <p>@bericht.Inhoud</p>
-                                                <p class="speech-time">
-                                                    <i class="fa fa-clock-o fa-fw"></i>@bericht.datumtijd.ToString("dd / MMM HH: mm")
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                }
-
-                                else
-                                {
-                                    <li class="mar-btm">
-                                        <div class="media-right">
-                                            @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol != "hulpbehoevende")
-                                            {
-                                                <img src="https://img.buzzfeed.com/buzzfeed-static/static/2014-05/30/17/enhanced/webdr06/edit-32524-1401486723-3.jpg" class="img-circle img-sm" alt="Profile Picture">
-                                            }
-                                            else
-                                            {
-                                                <img src="https://scontent.xx.fbcdn.net/v/t1.0-9/11866463_807261709394312_4803817356460617296_n.jpg?oh=5f849f7f6317e2748c896c71fa7367a3&oe=57E16787" class="img-circle img-sm" alt="Profile Picture">
-                                            }
-                                        </div>
-                                        <div class="media-body pad-hor speech-right">
-                                            <div class="speech" id="speech">
-                                                <a href="#" class="media-heading">@bericht.VerzenderNaam</a>
-                                                <p>@bericht.Inhoud</p>
-                                                <p class="speech-time">
-                                                    <i class="fa fa-clock-o fa-fw"></i>@bericht.datumtijd.ToString("dd / MMM HH: mm")
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                }
+                                <li><a href="@Url.Action("ChatBekijken", "Chat", new{ partner = gebruiker.ToString()})">@gebruiker</a></li>
                             }
                         </ul>
                     </div>
-                    <div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown">Openstaande Chats</button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            @foreach (string gebruiker in ViewBag.Bestaand as List<string>)
+                            {
+                                <li><a href="@Url.Action("ChatBekijken", "Chat", new{ partner = gebruiker.ToString()})">@gebruiker</a></li>
+                            }
+                        </ul>
+                    </div>
                 </div>
-                @{
-                    if (!string.IsNullOrEmpty(ViewBag.Partner))
-                    {
-                        <div class="panel-footer">
-                            <div class="row">
-                                <form method="post" name="Index">
-                                    <div class="col-xs-9">
-                                        <input type="text" placeholder="Enter your text" name="bericht" class="form-control chat-input">
-                                        <input type="hidden" name="partner" value="@ViewBag.Partner" class="form-control chat-input">
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <input type="submit" class="btn btn-primary btn-block" value="Verzend" />
-                                    </div>
+        <!--Widget body-->
+            <div class="panel-body">
+            <div class="nano has-scrollbar" style="height:400px">
+                <div class="nano-content pad-all" id="messagewindow" tabindex="0" style="right: -17px;">
+                    <ul class="list-unstyled media-block">
 
-                                </form>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <h4>Selecteer een partner.</h4>
-                    }
+                        @foreach (var bericht in ViewBag.Chat as List<CareMatch.Models.Chatbericht>)
+                        {
+                            if (bericht.VerzenderNaam == ViewBag.Gebruiker.Gebruikersnaam)
+                            {
+                                <li class="mar-btm">
+                                    <div class="media-left">
+                                        @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol == "hulpbehoevende")
+                                        {
+                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
+                                        }
+                                        else
+                                        {
+                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" +ViewBag.partner.Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
+                                        }
+                                    </div>
+                                    <div class="media-body pad-hor">
+                                        <div class="speech">
+                                            <a href="#" class="media-heading">@bericht.VerzenderNaam</a>
+                                            <p>@bericht.Inhoud</p>
+                                            <p class="speech-time">
+                                                <i class="fa fa-clock-o fa-fw"></i>@bericht.datumtijd.ToString("dd / MMM HH: mm")
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
 
-                }
-                <!--Widget footer-->
+                            else
+                            {
+                                <li class="mar-btm">
+                                    <div class="media-right">
+                                        @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol != "hulpbehoevende")
+                                        {
+                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
+                                        }
+                                        else
+                                        {
+                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" +ViewBag.partner.Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
+                                        }
+                                    </div>
+                                    <div class="media-body pad-hor speech-right">
+                                        <div class="speech" id="speech">
+                                            <a href="#" class="media-heading">@bericht.VerzenderNaam</a>
+                                            <p>@bericht.Inhoud</p>
+                                            <p class="speech-time">
+                                                <i class="fa fa-clock-o fa-fw"></i>@bericht.datumtijd.ToString("dd / MMM HH: mm")
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="nano-pane"><div class="nano-slider" style="height: 141px; transform: translate(0px, 0px);"></div></div>
             </div>
+            @{
+                if (!string.IsNullOrEmpty(ViewBag.Partner))
+                {
+                    <div class="panel-footer">
+                        <div class="row">
+                            <form method="post" name="Index">
+                                <div class="col-xs-9">
+                                    <input type="text" placeholder="Enter your text" name="bericht" class="form-control chat-input">
+                                    <input type="hidden" name="partner" value="@ViewBag.Partner" class="form-control chat-input">
+                                </div>
+                                <div class="col-xs-3">
+                                    <input type="submit" class="btn btn-primary btn-block" value="Verzend" />
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <h4>Selecteer een partner.</h4>
+                }
+
+            }
+            <!--Widget footer-->
         </div>
+    </div>
     </div>
     <div class="col-md-6 col-lg-6">
         <div class="panel panel-primary">
