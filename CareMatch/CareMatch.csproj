@@ -134,6 +134,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\CAREMATCHLOGO.png" />
     <Content Include="Content\icecomm.js" />
+    <Content Include="Content\menu\hulpvraagindienen.png" />
+    <Content Include="Content\menu\hulpvraagindienen2.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\star-off.svg" />
     <Content Include="Content\star-on.svg" />

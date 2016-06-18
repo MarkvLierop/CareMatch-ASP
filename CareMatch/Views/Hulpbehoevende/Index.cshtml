@@ -1,27 +1,29 @@
 ﻿@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
 }
 <a href="@Url.Action("Uitloggen", "Login")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Uitloggen</a>
 <h2>Home - Hulpbehoevende</h2>
+<br /><br />
+<a href='@Url.Action("HulpvragenOverzicht", "Hulpbehoevende")' class="btn btn-mn btn-warning">
+    <i class="fa fa-list fa-5x"></i><br />
+    <b>Hulpvragen Overzicht</b>
+</a>
+<a href='@Url.Action("HulpvraagIndienen", "Hulpbehoevende")' class="btn btn-mn btn-warning">
+    <i class="fa fa-plus fa-5x"></i><br />
+    <b>Hulpvraag Indienen</b>
+</a>
+<a href="@Url.Action("ChatBarcode", "Hulpbehoevende")" class="btn btn-mn btn-warning">
+    <i class="fa fa-barcode fa-5x"></i><br />
+    <b>Barcode Chat</b>
+</a>
+<a href="@Url.Action("Index", "Chat")" class="btn btn-mn btn-warning">
+    <i class="fa fa-comments fa-5x"></i><br />
+    <b>Chatten</b>
+</a>
+<a href="@Url.Action("Profiel", "Hulpbehoevende")" class="btn btn-mn btn-warning">
+    <i class="fa fa-user fa-5x"></i><br />
+    <b>Profiel</b>
+</a>
 
-<a href='@Url.Action("HulpvragenOverzicht", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning">
-    <i class="fa fa-user fa-5x"></i><br />
-    <b>Hulpvragen Overzicht</b><br><br/><br/>
-</a>
-<a href='@Url.Action("HulpvraagIndienen", "Hulpbehoevende")' class="btn btn-sq-lg btn-warning">
-    <i class="fa fa-user fa-5x"></i><br />
-    <b>Hulpvraag Indienen</b><br><br /><br />
-</a>
-<a href="@Url.Action("ChatBarcode", "Hulpbehoevende")" class="btn btn-sq-lg btn-warning">
-    <i class="fa fa-user fa-5x"></i><br />
-    <b>Barcode Chat</b><br><br /><br />
-</a>
-<a href="@Url.Action("Index", "Chat")" class="btn btn-sq-lg btn-warning">
-    <i class="fa fa-user fa-5x"></i><br />
-    <b>Chatten</b><br><br /><br />
-</a>
-<a href="@Url.Action("Profiel", "Hulpbehoevende")" class="btn btn-sq-lg btn-warning">
-    <i class="fa fa-user fa-5x"></i><br />
-    <b>Profiel</b><br><br /><br />
-</a>
