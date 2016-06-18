@@ -230,6 +230,10 @@ namespace CareMatch.Models
                 hulpvraag.Titel = reader["Titel"].ToString();
                 hulpvraag.Hulpbehoevende = reader["hulpbeh"].ToString();
                 hulpvraag.Vrijwilliger = reader["vrijwilliger"].ToString();
+                if(hulpvraag.Vrijwilliger == null)
+                {
+                    hulpvraag.Vrijwilliger = "";
+                }
                 hulpvraag.HulpvraagInhoud = reader["Omschrijving"].ToString();
                 hulpvraag.StartDatum = Convert.ToDateTime(reader["startdatum"]);
                 hulpvraag.EindDatum = Convert.ToDateTime(reader["einddatum"]);

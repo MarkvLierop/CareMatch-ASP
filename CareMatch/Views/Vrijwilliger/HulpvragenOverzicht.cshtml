@@ -20,7 +20,12 @@
                 <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Alle hulpvragen"})'>Alle Hulpvragen</a></li>
                 <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Openstaande hulpvragen"})'>Openstaande hulpvragen</a></li>
                 <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Urgent"})'>Urgente Hulpvragen</a></li>
-                <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Auto"})'>Auto nodig</a></li>
+                @{
+                    if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Auto != false)
+                    {
+                        <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Auto"})'>Auto nodig</a></li>
+                    }
+                }      
                 <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Eigen hulpvragen"})'>Eigen Hulpvragen</a></li>
             </ul>
         </form>
@@ -33,7 +38,7 @@
     <div class="panel-body">
         @{ if (hulpvragen.Count == 0)
             {
-                <h3>Er bestaan nog geen hulpvragen.</h3>
+                <h3>Er bestaan nog geen (openstaande) hulpvragen.</h3>
             }
             else {
                 <table class="table table-striped table-hover">
