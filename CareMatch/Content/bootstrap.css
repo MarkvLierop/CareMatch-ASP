@@ -9,14 +9,20 @@
     height:600px;
     width:200px;
 }
-video:nth-of-type(2) {
-    height: 200px;
-    width: 200px;
+#localVideo {
+  position: absolute;
+  right:38%; left: 62%;
+  top: 305px;
+  bottom: 20px;
+  width: 200px;
+  z-index: 200;
 }
-video {
-    height: 200px;
-    width: 200px;
+
+video:nth-of-type(1) {
+  position: absolute; right: 48.5%; left: 51.5%; top:220px;
+  width: 530px; z-index: 100;
 }
+
 .nano {
 position: relative;
 width: 100%;

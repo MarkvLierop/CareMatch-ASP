@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="media-body pad-hor">
                                         <div class="speech">
-                                            <a href="#" class="media-heading">@bericht.VerzenderNaam</a>
+                                            <p class="media-heading">@bericht.VerzenderNaam</p>
                                             <p>@bericht.Inhoud</p>
                                             <p class="speech-time">
                                                 <i class="fa fa-clock-o fa-fw"></i>@bericht.datumtijd.ToString("dd / MMM HH: mm")
@@ -141,11 +141,11 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Video Chat</h3>
             </div>
-            <div class="panel-body" style="height:500px">
+            <div class="panel-body" style="height:410px">
                 @{
                     if (!string.IsNullOrEmpty(ViewBag.Partner))
                     {
-                       <video:nth-of-type(2) id="localVideo" autoplay></video:nth-of-type(2)>
+                       <video id="localVideo" autoplay></video>
                        <h4>Uw chatpartner is offline, er kan dus geen videochat tot stand worden gebracht.</h4>
                         
                     }
