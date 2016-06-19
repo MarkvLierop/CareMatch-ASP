@@ -24,39 +24,34 @@ namespace CareMatch.Controllers
                 ((Gebruiker)Session["Gebruiker"]).GebruikerInfo = info;
 
                 // Pasfoto uploaden
-                if (pasfoto.ContentLength > 0)
+                if (pasfoto != null)
                 {
-                    // Bestandsinfo opvragen
-                    System.IO.FileInfo Dfile = new System.IO.FileInfo(pasfoto.FileName);
+                    if(pasfoto.ContentLength > 0)
+                    {
+                        // Bestandsinfo opvragen
+                        System.IO.FileInfo Dfile = new System.IO.FileInfo(pasfoto.FileName);
 
-                    // Linkt naar CareMatch-ASP\CareMatch\Bestanden\pasfoto
-                    var path = Path.Combine(Server.MapPath("~/Fotos"), (Session["Gebruiker"] as Gebruiker).Gebruikersnaam + Dfile.Extension);
-                    pasfoto.SaveAs(path);
-                    ((Gebruiker)Session["Gebruiker"]).Pasfoto = (Session["Gebruiker"] as Gebruiker).Gebruikersnaam + Dfile.Extension;
+                        // Linkt naar CareMatch-ASP\CareMatch\Bestanden\pasfoto
+                        var path = Path.Combine(Server.MapPath("~/Fotos"), (Session["Gebruiker"] as Gebruiker).Gebruikersnaam + Dfile.Extension);
+                        pasfoto.SaveAs(path);
+                        ((Gebruiker)Session["Gebruiker"]).Pasfoto = (Session["Gebruiker"] as Gebruiker).Gebruikersnaam + Dfile.Extension;
+                    }
                 }
                 if (wachtwoord != hwachtwoord)
                 {
                     ViewBag.foutmelding = "Wachtwoorden zijn niet gelijk aan elkaar.";
                     return View();
                 }
-                if (!string.IsNullOrEmpty(auto))
-                {
-                    ((Gebruiker)Session["Gebruiker"]).Auto = true;
-                }
-                else
-                {
-                    ((Gebruiker)Session["Gebruiker"]).Auto = false;
-                }
                 if (!string.IsNullOrEmpty(wachtwoord))
                 {
                     ((Gebruiker)Session["Gebruiker"]).Wachtwoord = wachtwoord;
                     carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, true, true);
                 }
-                if (!string.IsNullOrEmpty(info) || !string.IsNullOrEmpty(auto.ToString()))
+                if (!string.IsNullOrEmpty(info))
                 {
                     carematch.database.GebruikerProfielAanpassen(Session["Gebruiker"] as Gebruiker, false, true);
                 }
-                return RedirectToAction("Index", "Vrijwilliger");
+                return RedirectToAction("Index", "Hulpbehoevende");
             }
 
             return View();

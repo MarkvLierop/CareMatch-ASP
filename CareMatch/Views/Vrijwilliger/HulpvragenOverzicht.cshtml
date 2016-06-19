@@ -17,8 +17,8 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Alle hulpvragen"})'>Alle Hulpvragen</a></li>
                 <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Openstaande hulpvragen"})'>Openstaande hulpvragen</a></li>
+                <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Alle hulpvragen"})'>Alle Hulpvragen</a></li>
                 <li><a href='@Url.Action("HulpvragenOverzicht", new { filter = "Urgent"})'>Urgente Hulpvragen</a></li>
                 @{
                     if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Auto != false)

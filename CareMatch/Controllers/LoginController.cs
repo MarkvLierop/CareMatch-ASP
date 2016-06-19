@@ -68,25 +68,31 @@ namespace CareMatch.Controllers
             DateTime geboortedatum1 = Convert.ToDateTime(Geboortedatum);
             if (Request.Form.Count > 0 && Wachtwoord == Bevestig)
             {
-                if (pasfoto.ContentLength > 0)
+                if (pasfoto != null)
                 {
-                    // Bestandsinfo opvragen
-                    System.IO.FileInfo Dfile = new System.IO.FileInfo(pasfoto.FileName);
+                    if(pasfoto.ContentLength > 0)
+                    {
+                        // Bestandsinfo opvragen
+                        System.IO.FileInfo Dfile = new System.IO.FileInfo(pasfoto.FileName);
 
-                    // Linkt naar CareMatch-ASP\CareMatch\Bestanden\pasfoto
-                    var path = Path.Combine(Server.MapPath("~/Fotos"), Gebruikersnaam + Dfile.Extension);
-                    pasfoto.SaveAs(path);
-                    tpasfoto = Dfile.Extension;
+                        // Linkt naar CareMatch-ASP\CareMatch\Bestanden\pasfoto
+                        var path = Path.Combine(Server.MapPath("~/Fotos"), Gebruikersnaam + Dfile.Extension);
+                        pasfoto.SaveAs(path);
+                        tpasfoto = Dfile.Extension;
+                    }
                 }
-                if (vog.ContentLength > 0)
+                if (vog != null)
                 {
-                    // Bestandsinfo opvragen
-                    System.IO.FileInfo Dfile = new System.IO.FileInfo(vog.FileName);
+                    if(vog.ContentLength > 0)
+                    {
+                        // Bestandsinfo opvragen
+                        System.IO.FileInfo Dfile = new System.IO.FileInfo(vog.FileName);
 
-                    // Linkt naar CareMatch-ASP\CareMatch\Bestanden\pasfoto
-                    var path = Path.Combine(Server.MapPath("~/VOG"), Gebruikersnaam + Dfile.Extension);
-                    vog.SaveAs(path);
-                    tvog = Dfile.Extension;
+                        // Linkt naar CareMatch-ASP\CareMatch\Bestanden\pasfoto
+                        var path = Path.Combine(Server.MapPath("~/VOG"), Gebruikersnaam + Dfile.Extension);
+                        vog.SaveAs(path);
+                        tvog = Dfile.Extension;
+                    }
                 }
 
                 bool success = carematch.database.GebruikerAccountToevoegen(Gebruikersnaam, Wachtwoord, optionsRadios, Gebruikersnaam + tpasfoto, Gebruikersnaam + tvog, Voornaam, Tussenvoegsel, Achternaam, Geslacht, geboortedatum1);

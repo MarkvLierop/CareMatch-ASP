@@ -167,7 +167,6 @@ namespace CareMatch.Controllers
         /// <param name="gebruikerid">het id van de gebruiker</param>
         /// <param name="wachtwoord">het nieuwe wachtwoord voor de gebruiker</param>
         /// <returns></returns>
-        [HttpPost]
         //public ActionResult AccountOverzicht(int gebruikerid)
         //{
         //    carematch.database.ResetWachtwoord(gebruikerid);

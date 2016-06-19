@@ -60,14 +60,7 @@
                             {
                                 <li class="mar-btm">
                                     <div class="media-left">
-                                        @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol == "hulpbehoevende")
-                                        {
                                             <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
-                                        }
-                                        else
-                                        {
-                                           <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" +ViewBag.Partnerfoto)" class="img-circle img-sm" alt="Profile Picture">
-                                        }
                                     </div>
                                     <div class="media-body pad-hor">
                                         <div class="speech">
@@ -85,14 +78,7 @@
                             {    
                                 <li class="mar-btm">
                                     <div class="media-right">
-                                        @if ((Session["Gebruiker"] as CareMatch.Models.Gebruiker).Rol != "hulpbehoevende")
-                                        {
-                                            <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Pasfoto)" class="img-circle img-sm" alt="Profile Picture">
-                                        }
-                                        else
-                                        {
                                              <img src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" +ViewBag.Partnerfoto)" class="img-circle img-sm" alt="Profile Picture">
-                                        }
                                     </div>
                                     <div class="media-body pad-hor speech-right">
                                         <div class="speech" id="speech">
