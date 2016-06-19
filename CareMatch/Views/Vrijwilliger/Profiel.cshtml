@@ -17,20 +17,23 @@
             <img class="img-responsive foto" src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + @gebruiker.Pasfoto)" name="img" />
         </div>
         <form action="" method="post" enctype="multipart/form-data">
-            <div class="checkbox">
-                @if (gebruiker.Auto == true)
-                {
-                    <label>
-                        <input type="checkbox" name="auto" checked> In bezit van auto en rijbewijs
-                    </label>
-                }
-                else
-                {
-                    <label>
-                        <input type="checkbox" name="auto"> In bezit van auto en rijbewijs
-                    </label>
-                }
-            </div>
+        <fieldset>
+    <div class="checkbox">
+        @if (gebruiker.Auto == true)
+        {
+            <label>
+                <input type="checkbox" name="auto" checked> In bezit van auto en rijbewijs
+            </label>
+        }
+        else
+        {
+            <label>
+                <input type="checkbox" name="auto"> In bezit van auto en rijbewijs
+            </label>
+        }
+    </div>
+</fieldset>
+
             <fieldset class="form-group">
                 <label for="formGroupExampleInput">Nieuw Wachtwoord:</label>
                 <input type="password" class="form-control" id="formGroupExampleInput" name="wachtwoord" placeholder="Wachtwoord">
@@ -45,7 +48,7 @@
             </fieldset>
             <label for="Pasfoto" class="col-lg-2 control-label">Pasfoto</label>
             <div class="col-lg-10">
-                <input type="file" accept="Image/*" class="form-control" id="Pasfoto" placeholder="Pasfoto" value="@gebruiker.Pasfoto" name="pasfoto">
+                <input type="file" required accept="Image/*" class="form-control" id="Pasfoto" placeholder="Pasfoto" value="@gebruiker.Pasfoto" name="pasfoto">
             </div>
             <button type="submit" class="btn btn-primary">Opslaan</button>
         </form>

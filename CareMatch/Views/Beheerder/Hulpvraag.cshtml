@@ -4,8 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <a href="@Url.Action("HulpvragenOverzicht", "Beheerder")" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Sluiten</a><br />
-<form method="get" action="@Url.Action("HulpvraagVerwijderen", "Beheerder", new { id = ViewBag.Hulpvraag.HulpvraagID })" class="rechterKnop">       
 
+<form method="get" action="@Url.Action("HulpvraagVerwijderen", "Beheerder", new { id = ViewBag.Hulpvraag.HulpvraagID })" class="rechterKnop">       
     <input type="submit" value="Hulpvraag verwijderen" name="hulpvraag" class="btn btn-primary btn-lg">
 </form>
 

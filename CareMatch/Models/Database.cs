@@ -52,11 +52,11 @@ namespace CareMatch.Models
                 AutoBenodigd = "N";
             }
 
-            using (command = new OracleCommand(@"INSERT INTO Hulpvraag(GebruikerID, Plaatsnaam, Omschrijving, Urgent, Titel, Locatie, Auto, Flagged, StartDatum, EindDatum)" + "VALUES(:gebruikerid, :plaatsnaam, :hulpvraaginhoud, :temp, :titel, :locatie, :auto, 'N', :startdatum, :einddatum)", con))
+            using (command = new OracleCommand(@"INSERT INTO Hulpvraag(GebruikerID, Plaatsnaam, Omschrijving, Urgent, Titel, Locatie, Auto, Flagged, StartDatum, EindDatum) VALUES(:gebruikerid, :plaatsnaam, :hulpvraaginhoud, :temp, :titel, :locatie, :auto, 'N', :startdatum, :einddatum)", con))
             {
                 command.Parameters.Add(new OracleParameter(":gebruikerid", OracleDbType.Int32)).Value = gebruiker.GebruikersID;
-                command.Parameters.Add(new OracleParameter(":hulpvraaginhoud", OracleDbType.Varchar2)).Value = hulpvraag.HulpvraagInhoud;
                 command.Parameters.Add(new OracleParameter(":plaatsnaam", OracleDbType.Varchar2)).Value = hulpvraag.Plaatsnaam;
+                command.Parameters.Add(new OracleParameter(":hulpvraaginhoud", OracleDbType.Varchar2)).Value = hulpvraag.HulpvraagInhoud;
                 command.Parameters.Add(new OracleParameter(":temp", OracleDbType.Varchar2)).Value = tempString; // urgent
                 command.Parameters.Add(new OracleParameter(":titel", OracleDbType.Varchar2)).Value = hulpvraag.Titel;
                 command.Parameters.Add(new OracleParameter(":locatie", OracleDbType.Varchar2)).Value = hulpvraag.Locatie;
@@ -159,7 +159,7 @@ namespace CareMatch.Models
             if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Alle hulpvragen" || filter == string.Empty) && gebruiker.Rol.ToLower() == "vrijwilliger")
             {
                 // Standaard alle hulpvragen laten zien voor vrijwilligers. - Gerapporteerde hulpvragen niet laten zien. - Gesloten hulpvragen ook niet(waar beoordeling is ingevuld)
-                command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Flagged != 'Y' AND Auto = (SELECT HeeftAuto FROM Gebruiker WHERE GebruikerID = 146) OR Auto = 'N'", con);
+                command = new OracleCommand("SELECT Hulpvraag.HulpvraagID, Hulpvraag.Locatie, Hulpvraag.Plaatsnaam, Hulpvraag.Auto, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.GebruikerID = Gebruiker.GebruikerID) as hulpbeh, (SELECT Gebruikersnaam FROM Gebruiker WHERE Hulpvraag.VrijwilligerID = Gebruiker.GebruikerID) as vrijwilliger, Hulpvraag.Omschrijving,  Hulpvraag.startdatum, Hulpvraag.einddatum, Hulpvraag.Urgent, Hulpvraag.Titel, Hulpvraag.BEOORDELING, Hulpvraag.CIJFER, Hulpvraag.BEOORDELINGREACTIE FROM Hulpvraag WHERE Flagged != 'Y' AND (Auto = (SELECT HeeftAuto FROM Gebruiker WHERE GebruikerID = 146) OR Auto = 'N')", con);
             }
             else if ((string.IsNullOrEmpty(filter) && gebruiker.Rol.ToLower() == "vrijwilliger") || (filter == "Openstaande hulpvragen" || filter == string.Empty) && gebruiker.Rol.ToLower() == "vrijwilliger")
             {
@@ -230,6 +230,10 @@ namespace CareMatch.Models
                 hulpvraag.Titel = reader["Titel"].ToString();
                 hulpvraag.Hulpbehoevende = reader["hulpbeh"].ToString();
                 hulpvraag.Vrijwilliger = reader["vrijwilliger"].ToString();
+                if(hulpvraag.Vrijwilliger == null)
+                {
+                    hulpvraag.Vrijwilliger = "";
+                }
                 hulpvraag.HulpvraagInhoud = reader["Omschrijving"].ToString();
                 hulpvraag.StartDatum = Convert.ToDateTime(reader["startdatum"]);
                 hulpvraag.EindDatum = Convert.ToDateTime(reader["einddatum"]);

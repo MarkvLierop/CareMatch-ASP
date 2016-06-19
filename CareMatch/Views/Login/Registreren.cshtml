@@ -8,7 +8,7 @@
 <script type="text/javascript">
 		$(document).ready(function () {
 				$('input[name="optionsRadios"]').on('change', function(){
-				    if ($(this).val() == 'Vrijwilliger') {
+				    if ($(this).val() == 'vrijwilliger') {
 				        //change to "show update"
 				        $("#cont").append('<label for="VOG" class="col-lg-2 control-label">VOG</label><div class="col-lg-10"><input type="file" class="form-control" id="VOG" placeholder="VOG" name="vog"></div>');
 				    }
@@ -43,11 +43,11 @@
                 <div class="col-lg-10">
                     <div class="radio">
                         <label>
-                            <input name="optionsRadios" value="Hulpbehoevende" required id="optionsRadios2" type="radio" class="rol" checked>
+                            <input name="optionsRadios" value="hulpbehoevende" required id="optionsRadios2" type="radio" class="rol" checked>
                             Hulpbehoevende
                         </label>
                         <label>
-                            <input name="optionsRadios" value="Vrijwilliger" required id="optionsRadios1" type="radio" class="rol" >
+                            <input name="optionsRadios" value="vrijwilliger" required id="optionsRadios1" type="radio" class="rol" >
                             Vrijwilliger
                         </label>
                     </div>
@@ -62,7 +62,7 @@
                     <input type="password" required class="form-control" id="Wachtwoord" placeholder="Wachtwoord" name="Wachtwoord">
                 </div>
 
-                <label for="Bevestig" class="col-lg-2 control-label">Wachtwoord bevestigen</label>
+                <label for="Bevestig" class="col-lg-2 control-label">Wachtwoord</label>
                 <div class="col-lg-10">
                     <input type="password" required class="form-control" id="Wachtwoord bevestiging" placeholder="Wachtwoord bevestiging" name="bevestig">
                 </div>
