@@ -197,10 +197,9 @@ namespace CareMatch.Controllers
         public void DownloadFile(string gebruiker, string file)
         {
             Response.ContentType = "APPLICATION/OCTET-STREAM";
-            System.IO.FileInfo Dfile = new System.IO.FileInfo(@"C:\" + gebruiker + @"\" + file);
-            string Header = "Attachment; Filename=" + Dfile.FullName;
+            string Header = "Attachment; Filename=" + file;
             Response.AppendHeader("Content-Disposition", Header);
-            Response.WriteFile(Dfile.FullName);
+            Response.WriteFile(@System.Web.VirtualPathUtility.ToAbsolute(@"~/VOG/"+file));
             Response.End();
         }
 
