@@ -18,6 +18,54 @@
     CareMatch.Models.Database database = new CareMatch.Models.Database();
     List<CareMatch.Models.Chatbericht> chatberichten = ViewBag.Chat as List<CareMatch.Models.Chatbericht>;
     chatberichten = database.ChatLaden(ViewBag.Partner, (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(ViewBag.Partner), (Session["Gebruiker"] as CareMatch.Models.Gebruiker).GebruikersID);
+    if (ViewBag.Partner != "")
+    {
+        CareMatch.Models.Gebruiker partner = database.GebruikerInfoOpvragen(ViewBag.Partner);
+        <div id="Partner" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Profiel van: @partner.Gebruikersnaam</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Voornaam</th>
+                                <td>@partner.Voornaam</td>
+                            </tr>
+                            <tr>
+                                <th>Tussenvoegsel</th>
+                                <td>@partner.Tussenvoegsel</td>
+                            </tr>
+                            <tr>
+                                <th>Achternaam</th>
+                                <td>@partner.Achternaam</td>
+                            </tr>
+                            <tr>
+                                <th>Geboortedatum</th>
+                                <td>@partner.GeboorteDatum.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Gebruikersinfo</th>
+                                <td>@partner.GebruikerInfo</td>
+                            </tr>
+                            <tr>
+                                <th>Pasfoto</th>
+                                <td><img class="img-responsive pasfoto" src="@System.Web.VirtualPathUtility.ToAbsolute(@"~/Fotos/" + partner.Pasfoto)" name="img" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
 }
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <a href="@Url.Action("Index", functie)" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
@@ -30,7 +78,7 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Chatpartner: @ViewBag.Partner</h3>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="dropdown">Chatpartner kiezen</button>
+                        <button type="button" class="btn btn-danger" data-toggle="dropdown">Chatpartner kiezen</button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             @foreach (string gebruiker in ViewBag.Gebruikers as List<string>)
                             {
@@ -39,7 +87,7 @@
                         </ul>
                     </div>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default" data-toggle="dropdown">Openstaande Chats</button>
+                        <button type="button" class="btn btn-danger" data-toggle="dropdown">Openstaande Chats</button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             @foreach (string gebruiker in ViewBag.Bestaand as List<string>)
                             {
@@ -82,12 +130,13 @@
                                     </div>
                                     <div class="media-body pad-hor speech-right">
                                         <div class="speech" id="speech">
-                                            <p class="media-heading">@bericht.VerzenderNaam</p>
+                                            <a data-toggle="modal" data-target="#Partner" class="media-heading">
+                                                @bericht.VerzenderNaam</a>
                                             <p>@bericht.Inhoud</p>
                                             <p class="speech-time">
                                                 <i class="fa fa-clock-o fa-fw"></i>@bericht.datumtijd.ToString("dd / MMM HH: mm")
                                             </p>
-                                        </div>
+</div>
                                     </div>
                                 </li>
                             }
@@ -153,7 +202,6 @@
 {
       <script type = "text/javascript" src = "http://cdn.icecomm.io/icecomm.js" ></script>
       <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-
 
 <script>
 var comm = new Icecomm('HhwjERa67BO6jFoZ9Sy4wQ86N2c64JjRc7NURHrnKocjY2em');

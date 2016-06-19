@@ -7,8 +7,11 @@ using CareMatch.Models;
 
 namespace CareMatch.Controllers
 {
+
     public class BeheerderController : Controller
     {
+
+        CareMatch.Models.Database database = new CareMatch.Models.Database();
         CareMatch1 carematch = new CareMatch1();
 
         // GET: Beheerder
@@ -44,6 +47,7 @@ namespace CareMatch.Controllers
             if (gekozenHulpvraag != null)
             {
                 ViewBag.Hulpvraag = gekozenHulpvraag;
+                ViewData["h"] = database.GebruikerInfoOpvragen(gekozenHulpvraag.Hulpbehoevende);
             }
             
             return View();
