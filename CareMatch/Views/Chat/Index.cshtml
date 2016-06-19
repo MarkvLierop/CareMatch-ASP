@@ -15,8 +15,11 @@
         room = (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam + @ViewBag.Partner;
         functie = "Vrijwilliger";
     }
-
+    CareMatch.Models.Database database = new CareMatch.Models.Database();
+    List<CareMatch.Models.Chatbericht> chatberichten = ViewBag.Chat as List<CareMatch.Models.Chatbericht>;
+    chatberichten = database.ChatLaden(ViewBag.Partner, (Session["Gebruiker"] as CareMatch.Models.Gebruiker).Gebruikersnaam, database.ChatpartnerID(ViewBag.Partner), (Session["Gebruiker"] as CareMatch.Models.Gebruiker).GebruikersID);
 }
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <a href="@Url.Action("Index", functie)" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>  Home</a>
 <h2>Chat</h2>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -51,7 +54,7 @@
                 <div class="nano-content pad-all" id="messagewindow" tabindex="0" style="right: -17px;">
                     <ul class="list-unstyled media-block">
 
-                        @foreach (var bericht in ViewBag.Chat as List<CareMatch.Models.Chatbericht>)
+                        @foreach (var bericht in chatberichten)
                         {                            
                             if (bericht.VerzenderNaam == ViewBag.Gebruiker.Gebruikersnaam)
                             {
@@ -93,7 +96,7 @@
                                     </div>
                                     <div class="media-body pad-hor speech-right">
                                         <div class="speech" id="speech">
-                                            <a href="#" class="media-heading">@bericht.VerzenderNaam</a>
+                                            <p class="media-heading">@bericht.VerzenderNaam</p>
                                             <p>@bericht.Inhoud</p>
                                             <p class="speech-time">
                                                 <i class="fa fa-clock-o fa-fw"></i>@bericht.datumtijd.ToString("dd / MMM HH: mm")
@@ -202,7 +205,3 @@ comm.connect('custom room', { audio: false, limit: 2 });
 		                }, "json");
     </script>
 }
-
-
-                        
-                       
